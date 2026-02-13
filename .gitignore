@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Build / EXE
+build/
+dist/
+*.exe
+*.spec
+
+# Logs
+*.log
+
+# Cache / temp
+cache/
+temp/
+tmp/
+
+# Python compiled weird files
+*.cpython-*
+
+# Environment
+.env
+
+# Streamlit
+.streamlit/secrets.toml
