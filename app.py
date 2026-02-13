@@ -107,36 +107,6 @@ st.markdown("""
     }
 
     /* === 修正：結束按鈕縮小、加上左側文字，並固定在右下角 === */
-    div[data-testid="stButton"] {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        background-color: rgba(255, 255, 255, 0.95);
-        padding: 8px 10px 8px 20px;
-        border-radius: 50px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        border: 1px solid #eaeaea;
-        width: auto !important;
-    }
-    
-    div[data-testid="stButton"]::before {
-        content: "工作完成請點擊關閉 👉";
-        font-size: 14px;
-        color: #555;
-        font-weight: 600;
-        margin-right: 12px;
-        white-space: nowrap;
-    }
-    
-    div[data-testid="stButton"] > button {
-        border-radius: 25px !important;
-        width: auto !important;
-        padding: 4px 16px !important;
-        min-height: 35px !important;
-    }
 </style>
 
 <script>
@@ -181,10 +151,6 @@ st.markdown("""
 # ----------------------------------------------------------------
 # 固定在右下角的結束程式按鈕
 # ----------------------------------------------------------------
-if st.button("🔴 結束程式", help="完成工作後請點擊此處完全關閉程式", type="primary"):
-    st.success("正在關閉程式...")
-    time.sleep(1)
-    os._exit(0)
 
 # ----------------------------------------------------------------
 # Helper: DOCX 轉 PDF
