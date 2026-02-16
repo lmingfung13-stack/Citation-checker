@@ -14,6 +14,11 @@ import streamlit as st
 from PIL import Image
 from services.convert_service import DOCX2PDF_AVAILABLE
 from services.preview_service import get_pdf_page_image
+from services.reference_service import (
+    safe_normalize_reference_text,
+    split_reference_items,
+    match_citations,
+)
 from services.analysis_service import run_file_analysis
 from services.export_service import build_excel_report_bytes
 from services.job_service import (
@@ -181,6 +186,67 @@ if "docx_pdf_job_key" not in st.session_state:
     st.session_state.docx_pdf_job_key = None
 if "docx_pdf_file_hash" not in st.session_state:
     st.session_state.docx_pdf_file_hash = None
+if "ref_tool_formatted_text" not in st.session_state:
+    st.session_state.ref_tool_formatted_text = None
+if "ref_tool_report" not in st.session_state:
+    st.session_state.ref_tool_report = None
+if "ref_tool_clean_text" not in st.session_state:
+    st.session_state.ref_tool_clean_text = None
+if "ref_tool_raw_output" not in st.session_state:
+    st.session_state.ref_tool_raw_output = None
+if "ref_tool_sorted_output" not in st.session_state:
+    st.session_state.ref_tool_sorted_output = None
+
+with st.expander("工具1：文獻列表整理（SAFE only）", expanded=False):
+    raw_ref_text = st.text_area(
+        "貼上原始文獻列表（raw）",
+        key="ref_tool_raw_text",
+        height=180,
+    )
+    if st.button("執行 SAFE 整理", key="ref_tool_run"):
+        clean_text = safe_normalize_reference_text(raw_ref_text)
+        st.session_state.ref_tool_raw_output = raw_ref_text
+        st.session_state.ref_tool_clean_text = clean_text
+        st.session_state.ref_tool_formatted_text = clean_text
+
+        raw_items = split_reference_items(raw_ref_text)
+        clean_items = split_reference_items(clean_text)
+        sorted_clean_items = sorted(clean_items, key=lambda item: item.lower())
+        st.session_state.ref_tool_sorted_output = "\n\n".join(sorted_clean_items) if sorted_clean_items else clean_text
+        st.session_state.ref_tool_report = {
+            "raw_items": len(raw_items),
+            "clean_items": len(clean_items),
+        }
+
+    if st.session_state.ref_tool_clean_text is not None:
+        report = st.session_state.ref_tool_report or {}
+        st.caption(
+            f"SAFE normalize 完成：raw_items={report.get('raw_items', 0)}, "
+            f"clean_items={report.get('clean_items', 0)}（只做字元/空白正規化，不做推測合併拆分）"
+        )
+        st.text_area(
+            "raw_text",
+            value=st.session_state.ref_tool_raw_output or "",
+            height=140,
+        )
+        st.text_area(
+            "clean_text（工具2將優先使用）",
+            value=st.session_state.ref_tool_clean_text or "",
+            height=220,
+        )
+        st.text_area(
+            "A-Z 排序顯示/輸出（僅改順序，不改內容）",
+            value=st.session_state.ref_tool_sorted_output or "",
+            height=220,
+        )
+        if st.session_state.ref_tool_sorted_output:
+            st.download_button(
+                "下載 clean list (.txt)",
+                data=st.session_state.ref_tool_sorted_output,
+                file_name="references_safe_clean_sorted.txt",
+                mime="text/plain",
+                key="ref_tool_download_txt",
+            )
 
 uploaded = st.file_uploader("請拖曳檔案至此 (支援 PDF / Word)", type=["docx", "pdf"])
 
@@ -359,11 +425,43 @@ if uploaded:
 
     summary_df, matched_df, missing_df, uncited_df = st.session_state.check_results
 
+    safe_linked_match_result = None
+    safe_clean_text = st.session_state.get("ref_tool_clean_text") or ""
+    if safe_clean_text.strip():
+        citation_raw_parts = []
+        for frame in (matched_df, missing_df):
+            if isinstance(frame, pd.DataFrame) and "citation_raw" in frame.columns:
+                for value in frame["citation_raw"].tolist():
+                    value_text = str(value).strip()
+                    if value_text:
+                        citation_raw_parts.append(value_text)
+
+        if citation_raw_parts:
+            try:
+                clean_reference_items = split_reference_items(safe_clean_text)
+                safe_linked_match_result = match_citations(
+                    text="\n".join(citation_raw_parts),
+                    reference_items=clean_reference_items,
+                )
+            except Exception:
+                safe_linked_match_result = None
+
     with metrics_container:
         col_m1, col_m2, col_m3 = st.columns(3)
         col_m1.metric("成功配對", len(matched_df))
         col_m2.metric("遺漏引用 (需補)", len(missing_df), delta_color="inverse")
         col_m3.metric("未被引用 (需刪)", len(uncited_df), delta_color="inverse")
+        if safe_linked_match_result is not None:
+            st.caption("已使用工具1的 clean_text（SAFE normalize）做 citation key 比對。")
+            st.caption(
+                f"key matched={len(safe_linked_match_result.get('matched', []))}, "
+                f"missing_in_reference={len(safe_linked_match_result.get('missing_in_reference', []))}, "
+                f"extra_in_reference={len(safe_linked_match_result.get('extra_in_reference', []))}"
+            )
+            with st.expander("SAFE key 比對明細", expanded=False):
+                st.write("matched:", safe_linked_match_result.get("matched", []))
+                st.write("missing_in_reference:", safe_linked_match_result.get("missing_in_reference", []))
+                st.write("extra_in_reference:", safe_linked_match_result.get("extra_in_reference", []))
 
     preview_img = None
     preview_caption = "👈 點擊左側表格行可預覽內容"
