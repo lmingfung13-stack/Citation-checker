@@ -1,0 +1,15 @@
+# Safe Normalize Test Report
+
+- Generated at (ISO): 2026-02-16T21:54:28+08:00
+
+## Summary
+
+- Total cases: 4
+- Passed: 4
+- Failed: 0
+- Pass rate: 100.00%
+
+## Failures
+
+None
+

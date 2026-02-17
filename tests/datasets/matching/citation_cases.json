@@ -1,0 +1,50 @@
+[
+  {
+    "id": "c001",
+    "name": "et_al_parenthetical",
+    "text": "Prior research (Baier et al., 2020) shows stable disclosure outcomes.",
+    "expected_keys": ["baier_2020"]
+  },
+  {
+    "id": "c002",
+    "name": "two_authors_parenthetical_ampersand",
+    "text": "Classic institutional evidence appears in (DiMaggio & Powell, 1983).",
+    "expected_keys": ["dimaggio_1983"]
+  },
+  {
+    "id": "c003",
+    "name": "two_authors_narrative_and",
+    "text": "DiMaggio and Powell (1983) provide the foundational argument.",
+    "expected_keys": ["dimaggio_1983"]
+  },
+  {
+    "id": "c004",
+    "name": "suffix_parenthetical",
+    "text": "Follow-up analyses are reported in (Garcia, 2020a).",
+    "expected_keys": ["garcia_2020a"]
+  },
+  {
+    "id": "c005",
+    "name": "multi_in_single_parenthesis_semicolon",
+    "text": "Studies converge (Baier et al., 2020; Chava, 2014).",
+    "expected_keys": ["baier_2020", "chava_2014"]
+  },
+  {
+    "id": "c006",
+    "name": "locator_inside_parenthesis",
+    "text": "Interpretation follows prior argument (Chava, 2014, p. 12).",
+    "expected_keys": ["chava_2014"]
+  },
+  {
+    "id": "c007",
+    "name": "chinese_parenthetical",
+    "text": "中文文獻常見寫法為（李明，2020）。",
+    "expected_keys": ["李明_2020"]
+  },
+  {
+    "id": "c008",
+    "name": "nd_and_inpress_parenthetical",
+    "text": "Pipeline evidence appears in (Smith, n.d.) and (Wang, in press).",
+    "expected_keys": ["smith_nd", "wang_inpress"]
+  }
+]

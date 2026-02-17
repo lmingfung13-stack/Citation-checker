@@ -1,0 +1,113 @@
+[
+  {
+    "id": "v2_case001_multi_parenthetical_semicolon",
+    "text": "Prior research (Baier et al., 2020; Chava, 2014; DiMaggio & Powell, 1983) shows institutional persistence.",
+    "references": [
+      "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental reporting in annual reports. Journal A.",
+      "Chava, S. (2014). Environmental externalities and cost of capital. Journal B.",
+      "DiMaggio, P. J., & Powell, W. W. (1983). The iron cage revisited. American Sociological Review."
+    ],
+    "expected": {
+      "matched": [
+        "baier_2020",
+        "chava_2014",
+        "dimaggio_1983"
+      ],
+      "missing": [],
+      "extra": [],
+      "ambiguous": []
+    }
+  },
+  {
+    "id": "v2_case002_parenthetical_with_locator",
+    "text": "The interpretation follows prior evidence (Chava, 2014, p. 3; Baier et al., 2020).",
+    "references": [
+      "Chava, S. (2014). Environmental externalities and cost of capital. Journal C.",
+      "Baier, P., & Kiesel, F. (2020). ESG disclosure quality. Journal D."
+    ],
+    "expected": {
+      "matched": [
+        "baier_2020",
+        "chava_2014"
+      ],
+      "missing": [],
+      "extra": [],
+      "ambiguous": []
+    }
+  },
+  {
+    "id": "v2_case003_fullwidth_punctuation_semicolon",
+    "text": "先前研究指出（李明，2020；Baier et al.，2020）結果一致。",
+    "references": [
+      "李明（2020）。企業社會責任與公司治理。會計評論。",
+      "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental reporting. Journal E."
+    ],
+    "expected": {
+      "matched": [
+        "baier_2020",
+        "李明_2020"
+      ],
+      "missing": [],
+      "extra": [],
+      "ambiguous": []
+    }
+  },
+  {
+    "id": "v2_case004_narrative_two_authors",
+    "text": "Baier and Kiesel (2020) provide a benchmark model for ESG reporting quality.",
+    "references": [
+      "Baier, P., & Kiesel, F. (2020). Benchmark model for ESG reporting quality. Journal F."
+    ],
+    "expected": {
+      "matched": [
+        "baier_2020"
+      ],
+      "missing": [],
+      "extra": [],
+      "ambiguous": []
+    }
+  },
+  {
+    "id": "v2_case005_ambiguous_same_key",
+    "text": "Recent studies (Li, 2020) suggest heterogeneous outcomes.",
+    "references": [
+      "Li, M. (2020). First article on reporting quality. Journal G.",
+      "Li, X. (2020). Second article on reporting quality. Journal H."
+    ],
+    "expected": {
+      "matched": [],
+      "missing": [],
+      "extra": [],
+      "ambiguous": [
+        {
+          "key": "li_2020",
+          "reason": "multiple_references_same_key",
+          "candidate_count_min": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "v2_case006_ambiguous_no_false_extra",
+    "text": "Recent studies (Li, 2020) suggest heterogeneous outcomes.",
+    "references": [
+      "Li, M. (2020). First article on reporting quality. Journal I.",
+      "Li, X. (2020). Second article on reporting quality. Journal J.",
+      "Smith, J. (2019). Foundational method note. Journal K."
+    ],
+    "expected": {
+      "matched": [],
+      "missing": [],
+      "extra": [
+        "smith_2019"
+      ],
+      "ambiguous": [
+        {
+          "key": "li_2020",
+          "reason": "multiple_references_same_key",
+          "candidate_count_min": 2
+        }
+      ]
+    }
+  }
+]

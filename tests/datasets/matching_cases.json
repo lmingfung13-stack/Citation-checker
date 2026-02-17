@@ -1,0 +1,107 @@
+[
+  {
+    "id": "case001",
+    "text": "Prior research (Baier et al., 2020) shows stronger disclosure outcomes.",
+    "references": [
+      "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental reporting. Journal A."
+    ],
+    "expected": {
+      "matched": [
+        "baier_2020"
+      ],
+      "missing": [],
+      "extra": []
+    }
+  },
+  {
+    "id": "case002",
+    "text": "Baier and Kiesel (2020) report consistent evidence across firms.",
+    "references": [
+      "Baier, P., & Kiesel, F. (2020). Consistent evidence. Journal B."
+    ],
+    "expected": {
+      "matched": [
+        "baier_2020"
+      ],
+      "missing": [],
+      "extra": []
+    }
+  },
+  {
+    "id": "case003",
+    "text": "Results align with earlier work (Garcia & Novak, 2020a).",
+    "references": [
+      "Garcia, L., & Novak, P. (2020a). Sustainability assurance timing. Journal C."
+    ],
+    "expected": {
+      "matched": [
+        "garcia_2020a"
+      ],
+      "missing": [],
+      "extra": []
+    }
+  },
+  {
+    "id": "case004",
+    "text": "Evidence remains mixed (Li, 2021).",
+    "references": [
+      "Li, M. (2020). Panel evidence. Journal D."
+    ],
+    "expected": {
+      "matched": [],
+      "missing": [
+        "li_2021"
+      ],
+      "extra": [
+        "li_2020"
+      ]
+    }
+  },
+  {
+    "id": "case005",
+    "text": "We follow the method in Smith (2020).",
+    "references": [
+      "Smith, J. (2020). Method foundation. Journal E.",
+      "Brown, K. (2019). Supplemental discussion. Journal F."
+    ],
+    "expected": {
+      "matched": [
+        "smith_2020"
+      ],
+      "missing": [],
+      "extra": [
+        "brown_2019"
+      ]
+    }
+  },
+  {
+    "id": "case006",
+    "text": "Early drafts (Chen, n.d.) and later updates (Wang, in press) are discussed.",
+    "references": [
+      "Chen, Y. (n.d.). Draft framework for reporting controls. Working Paper Series.",
+      "Wang, H. (in press). Disclosure comparability across sectors. Accounting Studies."
+    ],
+    "expected": {
+      "matched": [
+        "chen_nd",
+        "wang_inpress"
+      ],
+      "missing": [],
+      "extra": []
+    }
+  },
+  {
+    "id": "case007",
+    "text": "先前研究指出（李明，2020）結果一致。",
+    "references": [
+      "李明（2020）。企業社會責任與公司治理。會計評論。"
+    ],
+    "expected": {
+      "matched": [
+        "李明_2020"
+      ],
+      "missing": [],
+      "extra": []
+    }
+  }
+]

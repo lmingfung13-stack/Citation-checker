@@ -1,0 +1,738 @@
+[
+  {
+    "id": "case001",
+    "name": "01_blankline_normal_base",
+    "input": "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure. Journal of Accounting and Public Policy, 35, 455-476.\n\nCarey, M., & Liu, R. (2020). Practical reporting quality in manufacturing firms. Accounting Horizons, 28, 101-125.\n\nBaier, A. (2019). Governance controls and transparency outcomes. Journal of Business Research, 77, 44-59.",
+    "expected_count": 3,
+    "expected_items": [
+      "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure. Journal of Accounting and Public Policy, 35, 455-476.",
+      "Carey, M., & Liu, R. (2020). Practical reporting quality in manufacturing firms. Accounting Horizons, 28, 101-125.",
+      "Baier, A. (2019). Governance controls and transparency outcomes. Journal of Business Research, 77, 44-59."
+    ],
+    "notes": "source=01_blankline_normal.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case002",
+    "name": "01_blankline_normal_linebreak",
+    "input": "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance\nand sustainability disclosure. Journal of Accounting and Public Policy, 35, 455-476.\n\nCarey, M., & Liu, R. (2020). Practical reporting quality\nin manufacturing firms. Accounting Horizons, 28, 101-125.\n\nBaier, A. (2019). Governance controls and transparency\noutcomes. Journal of Business Research, 77, 44-59.",
+    "expected_count": 3,
+    "expected_items": [
+      "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure. Journal of Accounting and Public Policy, 35, 455-476.",
+      "Carey, M., & Liu, R. (2020). Practical reporting quality in manufacturing firms. Accounting Horizons, 28, 101-125.",
+      "Baier, A. (2019). Governance controls and transparency outcomes. Journal of Business Research, 77, 44-59."
+    ],
+    "notes": "source=01_blankline_normal.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case003",
+    "name": "01_blankline_normal_spaces",
+    "input": "Hummel,\t   K.,    &  Schlick,    C.  (2016).  The  relationship  between  sustainability  performance  and  sustainability  disclosure.  Journal  of  Accounting  and  Public  Policy,    35,    455-476.\n\nCarey,\t   M.,    &  Liu,    R.  (2020).  Practical  reporting  quality  in  manufacturing  firms.  Accounting  Horizons,    28,    101-125.\n\nBaier,\t   A.  (2019).  Governance  controls  and  transparency  outcomes.  Journal  of  Business  Research,    77,    44-59.",
+    "expected_count": 3,
+    "expected_items": [
+      "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure. Journal of Accounting and Public Policy, 35, 455-476.",
+      "Carey, M., & Liu, R. (2020). Practical reporting quality in manufacturing firms. Accounting Horizons, 28, 101-125.",
+      "Baier, A. (2019). Governance controls and transparency outcomes. Journal of Business Research, 77, 44-59."
+    ],
+    "notes": "source=01_blankline_normal.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case004",
+    "name": "01_blankline_normal_punct",
+    "input": "Hummel， K.， & Schlick, C。 （2016)。 The relationship between sustainability performance and sustainability disclosure. Journal of Accounting and Public Policy， 35， 455-476.\n\nCarey, M。, & Liu， R. (2020）. Practical reporting quality in manufacturing firms. Accounting Horizons， 28， 101-125.\n\nBaier, A。 （2019)。 Governance controls and transparency outcomes. Journal of Business Research, 77, 44-59。",
+    "expected_count": 3,
+    "expected_items": [
+      "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure. Journal of Accounting and Public Policy, 35, 455-476.",
+      "Carey, M., & Liu, R. (2020). Practical reporting quality in manufacturing firms. Accounting Horizons, 28, 101-125.",
+      "Baier, A. (2019). Governance controls and transparency outcomes. Journal of Business Research, 77, 44-59."
+    ],
+    "notes": "source=01_blankline_normal.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case005",
+    "name": "02_consecutive_blanklines_base",
+    "input": "Avery, T. (2018). Data quality checks in archival studies. Research Methods Review, 12, 1-15.\n\n\nBenson, R. (2021). Robustness and reproducibility in reporting. Methodology Quarterly, 8, 77-90.\n\n\n\nCarter, P. (2017). A practical guide to citation consistency. Editing Practice, 5, 33-41.",
+    "expected_count": 3,
+    "expected_items": [
+      "Avery, T. (2018). Data quality checks in archival studies. Research Methods Review, 12, 1-15.",
+      "Benson, R. (2021). Robustness and reproducibility in reporting. Methodology Quarterly, 8, 77-90.",
+      "Carter, P. (2017). A practical guide to citation consistency. Editing Practice, 5, 33-41."
+    ],
+    "notes": "source=02_consecutive_blanklines.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case006",
+    "name": "02_consecutive_blanklines_linebreak",
+    "input": "Avery, T. (2018). Data quality checks in archival\nstudies. Research Methods Review, 12, 1-15.\n\n\nBenson, R. (2021). Robustness and reproducibility\nin reporting. Methodology Quarterly, 8, 77-90.\n\n\n\nCarter, P. (2017). A practical guide to citation\nconsistency. Editing Practice, 5, 33-41.",
+    "expected_count": 3,
+    "expected_items": [
+      "Avery, T. (2018). Data quality checks in archival studies. Research Methods Review, 12, 1-15.",
+      "Benson, R. (2021). Robustness and reproducibility in reporting. Methodology Quarterly, 8, 77-90.",
+      "Carter, P. (2017). A practical guide to citation consistency. Editing Practice, 5, 33-41."
+    ],
+    "notes": "source=02_consecutive_blanklines.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case007",
+    "name": "02_consecutive_blanklines_spaces",
+    "input": "Avery,\t   T.  (2018).  Data  quality  checks  in  archival  studies.  Research  Methods  Review,    12,    1-15.\n\n\nBenson,\t   R.  (2021).  Robustness  and  reproducibility  in  reporting.  Methodology  Quarterly,    8,    77-90.\n\n\n\nCarter,\t   P.  (2017).  A  practical  guide  to  citation  consistency.  Editing  Practice,    5,    33-41.",
+    "expected_count": 3,
+    "expected_items": [
+      "Avery, T. (2018). Data quality checks in archival studies. Research Methods Review, 12, 1-15.",
+      "Benson, R. (2021). Robustness and reproducibility in reporting. Methodology Quarterly, 8, 77-90.",
+      "Carter, P. (2017). A practical guide to citation consistency. Editing Practice, 5, 33-41."
+    ],
+    "notes": "source=02_consecutive_blanklines.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case008",
+    "name": "02_consecutive_blanklines_punct",
+    "input": "Avery, T。 （2018)。 Data quality checks in archival studies. Research Methods Review， 12， 1-15。\n\n\nBenson， R. (2021）. Robustness and reproducibility in reporting。 Methodology Quarterly, 8， 77－90.\n\n\n\nCarter， P. (2017）. A practical guide to citation consistency。 Editing Practice， 5, 33-41。",
+    "expected_count": 3,
+    "expected_items": [
+      "Avery, T. (2018). Data quality checks in archival studies. Research Methods Review, 12, 1-15.",
+      "Benson, R. (2021). Robustness and reproducibility in reporting. Methodology Quarterly, 8, 77-90.",
+      "Carter, P. (2017). A practical guide to citation consistency. Editing Practice, 5, 33-41."
+    ],
+    "notes": "source=02_consecutive_blanklines.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case009",
+    "name": "03_no_blank_year_split_base",
+    "input": "Aaa, A. (2019). First record text continues with context. Journal One, 1, 1-10.\nBbb, B. (2020). Second record text continues with context. Journal Two, 2, 11-20.\nCcc, C. (2018). Third record text continues with context. Journal Three, 3, 21-30.",
+    "expected_count": 3,
+    "expected_items": [
+      "Aaa, A. (2019). First record text continues with context. Journal One, 1, 1-10.",
+      "Bbb, B. (2020). Second record text continues with context. Journal Two, 2, 11-20.",
+      "Ccc, C. (2018). Third record text continues with context. Journal Three, 3, 21-30."
+    ],
+    "notes": "source=03_no_blank_year_split.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case010",
+    "name": "03_no_blank_year_split_linebreak",
+    "input": "Aaa, A. (2019). First record text continues\nwith context. Journal One, 1, 1-10.\nBbb, B. (2020). Second record text continues\nwith context. Journal Two, 2, 11-20.\nCcc, C. (2018). Third record text continues\nwith context. Journal Three, 3, 21-30.",
+    "expected_count": 3,
+    "expected_items": [
+      "Aaa, A. (2019). First record text continues with context. Journal One, 1, 1-10.",
+      "Bbb, B. (2020). Second record text continues with context. Journal Two, 2, 11-20.",
+      "Ccc, C. (2018). Third record text continues with context. Journal Three, 3, 21-30."
+    ],
+    "notes": "source=03_no_blank_year_split.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case011",
+    "name": "03_no_blank_year_split_spaces",
+    "input": "Aaa,\t   A.  (2019).  First  record  text  continues  with  context.  Journal  One,    1,    1-10.\nBbb,\t   B.  (2020).  Second  record  text  continues  with  context.  Journal  Two,    2,    11-20.\nCcc,\t   C.  (2018).  Third  record  text  continues  with  context.  Journal  Three,    3,    21-30.",
+    "expected_count": 3,
+    "expected_items": [
+      "Aaa, A. (2019). First record text continues with context. Journal One, 1, 1-10.",
+      "Bbb, B. (2020). Second record text continues with context. Journal Two, 2, 11-20.",
+      "Ccc, C. (2018). Third record text continues with context. Journal Three, 3, 21-30."
+    ],
+    "notes": "source=03_no_blank_year_split.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case012",
+    "name": "03_no_blank_year_split_punct",
+    "input": "Aaa, A。 （2019)。 First record text continues with context。 Journal One, 1， 1-10。\nBbb, B。 （2020)。 Second record text continues with context. Journal Two， 2, 11-20。\nCcc, C。 （2018)。 Third record text continues with context。 Journal Three, 3， 21－30.",
+    "expected_count": 3,
+    "expected_items": [
+      "Aaa, A. (2019). First record text continues with context. Journal One, 1, 1-10.",
+      "Bbb, B. (2020). Second record text continues with context. Journal Two, 2, 11-20.",
+      "Ccc, C. (2018). Third record text continues with context. Journal Three, 3, 21-30."
+    ],
+    "notes": "source=03_no_blank_year_split.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case013",
+    "name": "04_single_item_multiline_base",
+    "input": "Hummel, K., & Schlick, C. (2016).\nThe relationship between sustainability performance and sustainability disclosure,\nincluding reporting quality and market response. Journal of Accounting and Public Policy, 35, 455-476.",
+    "expected_count": 1,
+    "expected_items": [
+      "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure, including reporting quality and market response. Journal of Accounting and Public Policy, 35, 455-476."
+    ],
+    "notes": "source=04_single_item_multiline.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case014",
+    "name": "04_single_item_multiline_linebreak",
+    "input": "Hummel, K., &\nSchlick, C. (2016).\nThe relationship between sustainability\nperformance and sustainability disclosure,\nincluding reporting quality and market response.\nJournal of Accounting and Public Policy, 35, 455-476.",
+    "expected_count": 1,
+    "expected_items": [
+      "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure, including reporting quality and market response. Journal of Accounting and Public Policy, 35, 455-476."
+    ],
+    "notes": "source=04_single_item_multiline.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case015",
+    "name": "04_single_item_multiline_spaces",
+    "input": "Hummel,\t   K.,    &  Schlick,    C.  (2016).\nThe\t relationship  between  sustainability  performance  and  sustainability  disclosure,    \nincluding\t reporting  quality  and  market  response.  Journal  of  Accounting  and  Public  Policy,    35,    455-476.",
+    "expected_count": 1,
+    "expected_items": [
+      "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure, including reporting quality and market response. Journal of Accounting and Public Policy, 35, 455-476."
+    ],
+    "notes": "source=04_single_item_multiline.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case016",
+    "name": "04_single_item_multiline_punct",
+    "input": "Hummel， K.， & Schlick, C。 （2016)。\nThe relationship between sustainability performance and sustainability disclosure,\nincluding reporting quality and market response。 Journal of Accounting and Public Policy, 35, 455－476。",
+    "expected_count": 1,
+    "expected_items": [
+      "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure, including reporting quality and market response. Journal of Accounting and Public Policy, 35, 455-476."
+    ],
+    "notes": "source=04_single_item_multiline.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case017",
+    "name": "05_multi_refs_same_line_base",
+    "input": "Aaa, A. (2019). T1 and discussion text. Journal A, 1, 1-5. Bbb, B. (2020). T2 and discussion text. Journal B, 2, 6-10. Ccc, C. (2021). T3 and discussion text. Journal C, 3, 11-15.",
+    "expected_count": 3,
+    "expected_items": [
+      "Aaa, A. (2019). T1 and discussion text. Journal A, 1, 1-5.",
+      "Bbb, B. (2020). T2 and discussion text. Journal B, 2, 6-10.",
+      "Ccc, C. (2021). T3 and discussion text. Journal C, 3, 11-15."
+    ],
+    "notes": "source=05_multi_refs_same_line.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case018",
+    "name": "05_multi_refs_same_line_linebreak",
+    "input": "Aaa, A. (2019). T1 and discussion text. Journal A, 1, 1-5. Bbb, B. (2020). T2 and discussion\ntext. Journal B, 2, 6-10. Ccc, C. (2021). T3 and discussion text. Journal C, 3, 11-15.",
+    "expected_count": 3,
+    "expected_items": [
+      "Aaa, A. (2019). T1 and discussion text. Journal A, 1, 1-5.",
+      "Bbb, B. (2020). T2 and discussion text. Journal B, 2, 6-10.",
+      "Ccc, C. (2021). T3 and discussion text. Journal C, 3, 11-15."
+    ],
+    "notes": "source=05_multi_refs_same_line.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case019",
+    "name": "05_multi_refs_same_line_spaces",
+    "input": "Aaa,\t   A.  (2019).  T1  and  discussion  text.  Journal  A,    1,    1-5.  Bbb,    B.  (2020).  T2  and  discussion  text.  Journal  B,    2,    6-10.  Ccc,    C.  (2021).  T3  and  discussion  text.  Journal  C,    3,    11-15.",
+    "expected_count": 3,
+    "expected_items": [
+      "Aaa, A. (2019). T1 and discussion text. Journal A, 1, 1-5.",
+      "Bbb, B. (2020). T2 and discussion text. Journal B, 2, 6-10.",
+      "Ccc, C. (2021). T3 and discussion text. Journal C, 3, 11-15."
+    ],
+    "notes": "source=05_multi_refs_same_line.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case020",
+    "name": "05_multi_refs_same_line_punct",
+    "input": "Aaa, A。 （2019)。 T1 and discussion text。 Journal A, 1， 1-5. Bbb， B. (2020）. T2 and discussion text. Journal B， 2, 6－10. Ccc， C. (2021）. T3 and discussion text. Journal C， 3, 11-15。",
+    "expected_count": 3,
+    "expected_items": [
+      "Aaa, A. (2019). T1 and discussion text. Journal A, 1, 1-5.",
+      "Bbb, B. (2020). T2 and discussion text. Journal B, 2, 6-10.",
+      "Ccc, C. (2021). T3 and discussion text. Journal C, 3, 11-15."
+    ],
+    "notes": "source=05_multi_refs_same_line.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case021",
+    "name": "06_full_half_mixed_punct_base",
+    "input": "Hummel? K. & Schlick? C. ?2016?. Mixed punctuation sample? Journal of Accounting and Public Policy? 35? 455-476?\n\nBaier, A. (2019). Another item with normal punctuation. Journal of Business Research, 77, 44-59.",
+    "expected_count": 2,
+    "expected_items": [
+      "Hummel? K. & Schlick? C. ?2016?. Mixed punctuation sample? Journal of Accounting and Public Policy? 35? 455-476?",
+      "Baier, A. (2019). Another item with normal punctuation. Journal of Business Research, 77, 44-59."
+    ],
+    "notes": "source=06_full_half_mixed_punct.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case022",
+    "name": "06_full_half_mixed_punct_linebreak",
+    "input": "Hummel? K. & Schlick? C. ?2016?. Mixed punctuation sample?\nJournal of Accounting and Public Policy? 35? 455-476?\n\nBaier, A. (2019). Another item with normal\npunctuation. Journal of Business Research, 77, 44-59.",
+    "expected_count": 2,
+    "expected_items": [
+      "Hummel? K. & Schlick? C. ?2016?. Mixed punctuation sample? Journal of Accounting and Public Policy? 35? 455-476?",
+      "Baier, A. (2019). Another item with normal punctuation. Journal of Business Research, 77, 44-59."
+    ],
+    "notes": "source=06_full_half_mixed_punct.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case023",
+    "name": "06_full_half_mixed_punct_spaces",
+    "input": "Hummel?\t K.  &  Schlick?  C.  ?2016?.  Mixed  punctuation  sample?  Journal  of  Accounting  and  Public  Policy?  35?  455-476?\n\nBaier,\t   A.  (2019).  Another  item  with  normal  punctuation.  Journal  of  Business  Research,    77,    44-59.",
+    "expected_count": 2,
+    "expected_items": [
+      "Hummel? K. & Schlick? C. ?2016?. Mixed punctuation sample? Journal of Accounting and Public Policy? 35? 455-476?",
+      "Baier, A. (2019). Another item with normal punctuation. Journal of Business Research, 77, 44-59."
+    ],
+    "notes": "source=06_full_half_mixed_punct.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case024",
+    "name": "06_full_half_mixed_punct_punct",
+    "input": "Hummel? K. & Schlick? C. ?2016?. Mixed punctuation sample? Journal of Accounting and Public Policy? 35? 455-476?\n\nBaier, A。 （2019)。 Another item with normal punctuation。 Journal of Business Research， 77， 44－59.",
+    "expected_count": 2,
+    "expected_items": [
+      "Hummel? K. & Schlick? C. ?2016?. Mixed punctuation sample? Journal of Accounting and Public Policy? 35? 455-476?",
+      "Baier, A. (2019). Another item with normal punctuation. Journal of Business Research, 77, 44-59."
+    ],
+    "notes": "source=06_full_half_mixed_punct.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case025",
+    "name": "07_dash_mixed_base",
+    "input": "Norris, J. (2015). Baseline results and replication checks. Quantitative Review, 14, 100?120.\n\nOrtiz, L. (2016). Follow-up evidence and robustness. Quantitative Review, 15, 121-140.\n\nPark, S. (2017). Meta evidence across cohorts. Quantitative Review, 16, 141?160.",
+    "expected_count": 3,
+    "expected_items": [
+      "Norris, J. (2015). Baseline results and replication checks. Quantitative Review, 14, 100?120.",
+      "Ortiz, L. (2016). Follow-up evidence and robustness. Quantitative Review, 15, 121-140.",
+      "Park, S. (2017). Meta evidence across cohorts. Quantitative Review, 16, 141?160."
+    ],
+    "notes": "source=07_dash_mixed.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case026",
+    "name": "07_dash_mixed_linebreak",
+    "input": "Norris, J. (2015). Baseline results and replication\nchecks. Quantitative Review, 14, 100?120.\n\nOrtiz, L. (2016). Follow-up evidence and\nrobustness. Quantitative Review, 15, 121-140.\n\nPark, S. (2017). Meta evidence across\ncohorts. Quantitative Review, 16, 141?160.",
+    "expected_count": 3,
+    "expected_items": [
+      "Norris, J. (2015). Baseline results and replication checks. Quantitative Review, 14, 100?120.",
+      "Ortiz, L. (2016). Follow-up evidence and robustness. Quantitative Review, 15, 121-140.",
+      "Park, S. (2017). Meta evidence across cohorts. Quantitative Review, 16, 141?160."
+    ],
+    "notes": "source=07_dash_mixed.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case027",
+    "name": "07_dash_mixed_spaces",
+    "input": "Norris,\t   J.  (2015).  Baseline  results  and  replication  checks.  Quantitative  Review,    14,    100?120.\n\nOrtiz,\t   L.  (2016).  Follow-up  evidence  and  robustness.  Quantitative  Review,    15,    121-140.\n\nPark,\t   S.  (2017).  Meta  evidence  across  cohorts.  Quantitative  Review,    16,    141?160.",
+    "expected_count": 3,
+    "expected_items": [
+      "Norris, J. (2015). Baseline results and replication checks. Quantitative Review, 14, 100?120.",
+      "Ortiz, L. (2016). Follow-up evidence and robustness. Quantitative Review, 15, 121-140.",
+      "Park, S. (2017). Meta evidence across cohorts. Quantitative Review, 16, 141?160."
+    ],
+    "notes": "source=07_dash_mixed.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case028",
+    "name": "07_dash_mixed_punct",
+    "input": "Norris， J. (2015）. Baseline results and replication checks。 Quantitative Review, 14, 100?120。\n\nOrtiz， L. (2016）. Follow-up evidence and robustness。 Quantitative Review, 15, 121－140。\n\nPark, S。 （2017)。 Meta evidence across cohorts。 Quantitative Review, 16, 141?160。",
+    "expected_count": 3,
+    "expected_items": [
+      "Norris, J. (2015). Baseline results and replication checks. Quantitative Review, 14, 100?120.",
+      "Ortiz, L. (2016). Follow-up evidence and robustness. Quantitative Review, 15, 121-140.",
+      "Park, S. (2017). Meta evidence across cohorts. Quantitative Review, 16, 141?160."
+    ],
+    "notes": "source=07_dash_mixed.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case029",
+    "name": "08_year_suffix_special_years_base",
+    "input": "Lee, M. (2020a). Policy diffusion and timing. Public Policy Journal, 9, 1-20.\n\nLee, M. (2020b). Policy diffusion and timing: extension. Public Policy Journal, 10, 21-40.\n\nChen, Y. (n.d.). Working manuscript draft. Unpublished manuscript.\n\nWang, H. (in press). Pending acceptance version. Accounting Studies.\n\nLiu, Q. (??). Conference paper draft. Internal circulation.\n\nZhao, P. (???). Pre-publication text. Publisher notes.",
+    "expected_count": 6,
+    "expected_items": [
+      "Lee, M. (2020a). Policy diffusion and timing. Public Policy Journal, 9, 1-20.",
+      "Lee, M. (2020b). Policy diffusion and timing: extension. Public Policy Journal, 10, 21-40.",
+      "Chen, Y. (n.d.). Working manuscript draft. Unpublished manuscript.",
+      "Wang, H. (in press). Pending acceptance version. Accounting Studies.",
+      "Liu, Q. (??). Conference paper draft. Internal circulation.",
+      "Zhao, P. (???). Pre-publication text. Publisher notes."
+    ],
+    "notes": "source=08_year_suffix_special_years.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case030",
+    "name": "08_year_suffix_special_years_linebreak",
+    "input": "Lee, M. (2020a). Policy diffusion and\ntiming. Public Policy Journal, 9, 1-20.\n\nLee, M. (2020b). Policy diffusion and timing:\nextension. Public Policy Journal, 10, 21-40.\n\nChen, Y. (n.d.). Working manuscript\ndraft. Unpublished manuscript.\n\nWang, H. (in press). Pending acceptance\nversion. Accounting Studies.\n\nLiu, Q. (??). Conference paper\ndraft. Internal circulation.\n\nZhao, P. (???). Pre-publication\ntext. Publisher notes.",
+    "expected_count": 6,
+    "expected_items": [
+      "Lee, M. (2020a). Policy diffusion and timing. Public Policy Journal, 9, 1-20.",
+      "Lee, M. (2020b). Policy diffusion and timing: extension. Public Policy Journal, 10, 21-40.",
+      "Chen, Y. (n.d.). Working manuscript draft. Unpublished manuscript.",
+      "Wang, H. (in press). Pending acceptance version. Accounting Studies.",
+      "Liu, Q. (??). Conference paper draft. Internal circulation.",
+      "Zhao, P. (???). Pre-publication text. Publisher notes."
+    ],
+    "notes": "source=08_year_suffix_special_years.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case031",
+    "name": "08_year_suffix_special_years_spaces",
+    "input": "Lee,\t   M.  (2020a).  Policy  diffusion  and  timing.  Public  Policy  Journal,    9,    1-20.\n\nLee,\t   M.  (2020b).  Policy  diffusion  and  timing:  extension.  Public  Policy  Journal,    10,    21-40.\n\nChen,\t   Y.  (n.d.).  Working  manuscript  draft.  Unpublished  manuscript.\n\nWang,\t   H.  (in  press).  Pending  acceptance  version.  Accounting  Studies.\n\nLiu,\t   Q.  (??).  Conference  paper  draft.  Internal  circulation.\n\nZhao,\t   P.  (???).  Pre-publication  text.  Publisher  notes.",
+    "expected_count": 6,
+    "expected_items": [
+      "Lee, M. (2020a). Policy diffusion and timing. Public Policy Journal, 9, 1-20.",
+      "Lee, M. (2020b). Policy diffusion and timing: extension. Public Policy Journal, 10, 21-40.",
+      "Chen, Y. (n.d.). Working manuscript draft. Unpublished manuscript.",
+      "Wang, H. (in press). Pending acceptance version. Accounting Studies.",
+      "Liu, Q. (??). Conference paper draft. Internal circulation.",
+      "Zhao, P. (???). Pre-publication text. Publisher notes."
+    ],
+    "notes": "source=08_year_suffix_special_years.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case032",
+    "name": "08_year_suffix_special_years_punct",
+    "input": "Lee, M。 （2020a）. Policy diffusion and timing。 Public Policy Journal, 9， 1-20。\n\nLee， M. (2020b)。 Policy diffusion and timing: extension。 Public Policy Journal, 10, 21-40。\n\nChen, Y。 （n。d。)。 Working manuscript draft。 Unpublished manuscript。\n\nWang, H。 （in press)。 Pending acceptance version。 Accounting Studies。\n\nLiu， Q. (??）. Conference paper draft. Internal circulation.\n\nZhao， P. (???)。 Pre-publication text。 Publisher notes.",
+    "expected_count": 6,
+    "expected_items": [
+      "Lee, M. (2020a). Policy diffusion and timing. Public Policy Journal, 9, 1-20.",
+      "Lee, M. (2020b). Policy diffusion and timing: extension. Public Policy Journal, 10, 21-40.",
+      "Chen, Y. (n.d.). Working manuscript draft. Unpublished manuscript.",
+      "Wang, H. (in press). Pending acceptance version. Accounting Studies.",
+      "Liu, Q. (??). Conference paper draft. Internal circulation.",
+      "Zhao, P. (???). Pre-publication text. Publisher notes."
+    ],
+    "notes": "source=08_year_suffix_special_years.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case033",
+    "name": "09_no_blank_multi_english_base",
+    "input": "Smith, J. (2020). Financial transparency in public firms. Journal of Market Studies, 12, 10-24. Brown, K. (2021). Governance disclosure quality and investor response. Accounting Review Letters, 8, 33-49. Taylor, R. (2019). Board oversight and reporting consistency. Corporate Reporting Journal, 5, 77-91.",
+    "expected_count": 3,
+    "expected_items": [
+      "Smith, J. (2020). Financial transparency in public firms. Journal of Market Studies, 12, 10-24.",
+      "Brown, K. (2021). Governance disclosure quality and investor response. Accounting Review Letters, 8, 33-49.",
+      "Taylor, R. (2019). Board oversight and reporting consistency. Corporate Reporting Journal, 5, 77-91."
+    ],
+    "notes": "source=09_no_blank_multi_english.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case034",
+    "name": "09_no_blank_multi_english_linebreak",
+    "input": "Smith, J. (2020). Financial transparency in public firms. Journal of Market Studies, 12, 10-24. Brown, K. (2021). Governance disclosure quality and investor\nresponse. Accounting Review Letters, 8, 33-49. Taylor, R. (2019). Board oversight and reporting consistency. Corporate Reporting Journal, 5, 77-91.",
+    "expected_count": 3,
+    "expected_items": [
+      "Smith, J. (2020). Financial transparency in public firms. Journal of Market Studies, 12, 10-24.",
+      "Brown, K. (2021). Governance disclosure quality and investor response. Accounting Review Letters, 8, 33-49.",
+      "Taylor, R. (2019). Board oversight and reporting consistency. Corporate Reporting Journal, 5, 77-91."
+    ],
+    "notes": "source=09_no_blank_multi_english.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case035",
+    "name": "09_no_blank_multi_english_spaces",
+    "input": "Smith,\t   J.  (2020).  Financial  transparency  in  public  firms.  Journal  of  Market  Studies,    12,    10-24.  Brown,    K.  (2021).  Governance  disclosure  quality  and  investor  response.  Accounting  Review  Letters,    8,    33-49.  Taylor,    R.  (2019).  Board  oversight  and  reporting  consistency.  Corporate  Reporting  Journal,    5,    77-91.",
+    "expected_count": 3,
+    "expected_items": [
+      "Smith, J. (2020). Financial transparency in public firms. Journal of Market Studies, 12, 10-24.",
+      "Brown, K. (2021). Governance disclosure quality and investor response. Accounting Review Letters, 8, 33-49.",
+      "Taylor, R. (2019). Board oversight and reporting consistency. Corporate Reporting Journal, 5, 77-91."
+    ],
+    "notes": "source=09_no_blank_multi_english.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case036",
+    "name": "09_no_blank_multi_english_punct",
+    "input": "Smith, J。 （2020)。 Financial transparency in public firms。 Journal of Market Studies, 12, 10-24。 Brown, K。 （2021)。 Governance disclosure quality and investor response. Accounting Review Letters， 8, 33-49。 Taylor， R. (2019）. Board oversight and reporting consistency。 Corporate Reporting Journal, 5， 77－91.",
+    "expected_count": 3,
+    "expected_items": [
+      "Smith, J. (2020). Financial transparency in public firms. Journal of Market Studies, 12, 10-24.",
+      "Brown, K. (2021). Governance disclosure quality and investor response. Accounting Review Letters, 8, 33-49.",
+      "Taylor, R. (2019). Board oversight and reporting consistency. Corporate Reporting Journal, 5, 77-91."
+    ],
+    "notes": "source=09_no_blank_multi_english.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case037",
+    "name": "10_no_blank_multi_chinese_base",
+    "input": "王小明 (2020). 永續揭露品質與公司治理. 會計研究, 15, 1-20. 李美玲 (2021). 企業透明度與投資人反應. 財務期刊, 22, 55-72. 陳大文 (2019). 董事會監督與資訊品質. 管理評論, 11, 101-118.",
+    "expected_count": 3,
+    "expected_items": [
+      "王小明 (2020). 永續揭露品質與公司治理. 會計研究, 15, 1-20.",
+      "李美玲 (2021). 企業透明度與投資人反應. 財務期刊, 22, 55-72.",
+      "陳大文 (2019). 董事會監督與資訊品質. 管理評論, 11, 101-118."
+    ],
+    "notes": "source=10_no_blank_multi_chinese.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case038",
+    "name": "10_no_blank_multi_chinese_linebreak",
+    "input": "王小明 (2020). 永續揭露品質與公司治理. 會計研究, 15, 1-20. 李美玲 (2021). 企業透明度與投資人反應.\n財務期刊, 22, 55-72. 陳大文 (2019). 董事會監督與資訊品質. 管理評論, 11, 101-118.",
+    "expected_count": 3,
+    "expected_items": [
+      "王小明 (2020). 永續揭露品質與公司治理. 會計研究, 15, 1-20.",
+      "李美玲 (2021). 企業透明度與投資人反應. 財務期刊, 22, 55-72.",
+      "陳大文 (2019). 董事會監督與資訊品質. 管理評論, 11, 101-118."
+    ],
+    "notes": "source=10_no_blank_multi_chinese.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case039",
+    "name": "10_no_blank_multi_chinese_spaces",
+    "input": "王小明\t (2020).  永續揭露品質與公司治理.  會計研究,    15,    1-20.  李美玲  (2021).  企業透明度與投資人反應.  財務期刊,    22,    55-72.  陳大文  (2019).  董事會監督與資訊品質.  管理評論,    11,    101-118.",
+    "expected_count": 3,
+    "expected_items": [
+      "王小明 (2020). 永續揭露品質與公司治理. 會計研究, 15, 1-20.",
+      "李美玲 (2021). 企業透明度與投資人反應. 財務期刊, 22, 55-72.",
+      "陳大文 (2019). 董事會監督與資訊品質. 管理評論, 11, 101-118."
+    ],
+    "notes": "source=10_no_blank_multi_chinese.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case040",
+    "name": "10_no_blank_multi_chinese_punct",
+    "input": "王小明 （2020)。 永續揭露品質與公司治理. 會計研究, 15, 1－20. 李美玲 (2021）. 企業透明度與投資人反應。 財務期刊， 22， 55－72. 陳大文 (2019）. 董事會監督與資訊品質. 管理評論, 11, 101－118。",
+    "expected_count": 3,
+    "expected_items": [
+      "王小明 (2020). 永續揭露品質與公司治理. 會計研究, 15, 1-20.",
+      "李美玲 (2021). 企業透明度與投資人反應. 財務期刊, 22, 55-72.",
+      "陳大文 (2019). 董事會監督與資訊品質. 管理評論, 11, 101-118."
+    ],
+    "notes": "source=10_no_blank_multi_chinese.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case041",
+    "name": "11_no_blank_multi_suffix_base",
+    "input": "Garcia, L. (2020a). Sustainability assurance timing. Journal A, 4, 1-15. Garcia, L. (2020b). Sustainability assurance timing: extension. Journal A, 5, 16-30. Novak, P. (2018). Assurance scope and outcomes. Journal B, 6, 44-60.",
+    "expected_count": 3,
+    "expected_items": [
+      "Garcia, L. (2020a). Sustainability assurance timing. Journal A, 4, 1-15.",
+      "Garcia, L. (2020b). Sustainability assurance timing: extension. Journal A, 5, 16-30.",
+      "Novak, P. (2018). Assurance scope and outcomes. Journal B, 6, 44-60."
+    ],
+    "notes": "source=11_no_blank_multi_suffix.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case042",
+    "name": "11_no_blank_multi_suffix_linebreak",
+    "input": "Garcia, L. (2020a). Sustainability assurance timing. Journal A, 4, 1-15. Garcia, L. (2020b). Sustainability assurance\ntiming: extension. Journal A, 5, 16-30. Novak, P. (2018). Assurance scope and outcomes. Journal B, 6, 44-60.",
+    "expected_count": 3,
+    "expected_items": [
+      "Garcia, L. (2020a). Sustainability assurance timing. Journal A, 4, 1-15.",
+      "Garcia, L. (2020b). Sustainability assurance timing: extension. Journal A, 5, 16-30.",
+      "Novak, P. (2018). Assurance scope and outcomes. Journal B, 6, 44-60."
+    ],
+    "notes": "source=11_no_blank_multi_suffix.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case043",
+    "name": "11_no_blank_multi_suffix_spaces",
+    "input": "Garcia,\t   L.  (2020a).  Sustainability  assurance  timing.  Journal  A,    4,    1-15.  Garcia,    L.  (2020b).  Sustainability  assurance  timing:  extension.  Journal  A,    5,    16-30.  Novak,    P.  (2018).  Assurance  scope  and  outcomes.  Journal  B,    6,    44-60.",
+    "expected_count": 3,
+    "expected_items": [
+      "Garcia, L. (2020a). Sustainability assurance timing. Journal A, 4, 1-15.",
+      "Garcia, L. (2020b). Sustainability assurance timing: extension. Journal A, 5, 16-30.",
+      "Novak, P. (2018). Assurance scope and outcomes. Journal B, 6, 44-60."
+    ],
+    "notes": "source=11_no_blank_multi_suffix.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case044",
+    "name": "11_no_blank_multi_suffix_punct",
+    "input": "Garcia， L. (2020a)。 Sustainability assurance timing. Journal A， 4, 1－15. Garcia, L。 （2020b）. Sustainability assurance timing: extension. Journal A， 5, 16-30。 Novak, P。 （2018)。 Assurance scope and outcomes。 Journal B, 6， 44－60.",
+    "expected_count": 3,
+    "expected_items": [
+      "Garcia, L. (2020a). Sustainability assurance timing. Journal A, 4, 1-15.",
+      "Garcia, L. (2020b). Sustainability assurance timing: extension. Journal A, 5, 16-30.",
+      "Novak, P. (2018). Assurance scope and outcomes. Journal B, 6, 44-60."
+    ],
+    "notes": "source=11_no_blank_multi_suffix.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case045",
+    "name": "12_no_blank_multi_special_years_base",
+    "input": "Chen, Y. (n.d.). Draft framework for reporting controls. Working Paper Series, 3, 1-12. Wang, H. (in press). Disclosure comparability across sectors. Accounting Studies, 14, 77-95. Liu, Q. (未刊). ESG assurance field notes. Internal Manuscript, 1, 1-8. Zhao, P. (印刷中). Cross-market reporting consistency. Publisher Proofs, 2, 9-20.",
+    "expected_count": 4,
+    "expected_items": [
+      "Chen, Y. (n.d.). Draft framework for reporting controls. Working Paper Series, 3, 1-12.",
+      "Wang, H. (in press). Disclosure comparability across sectors. Accounting Studies, 14, 77-95.",
+      "Liu, Q. (未刊). ESG assurance field notes. Internal Manuscript, 1, 1-8.",
+      "Zhao, P. (印刷中). Cross-market reporting consistency. Publisher Proofs, 2, 9-20."
+    ],
+    "notes": "source=12_no_blank_multi_special_years.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case046",
+    "name": "12_no_blank_multi_special_years_linebreak",
+    "input": "Chen, Y. (n.d.). Draft framework for reporting controls. Working Paper Series, 3, 1-12. Wang, H. (in press). Disclosure comparability across sectors. Accounting\nStudies, 14, 77-95. Liu, Q. (未刊). ESG assurance field notes. Internal Manuscript, 1, 1-8. Zhao, P. (印刷中). Cross-market reporting consistency. Publisher Proofs, 2, 9-20.",
+    "expected_count": 4,
+    "expected_items": [
+      "Chen, Y. (n.d.). Draft framework for reporting controls. Working Paper Series, 3, 1-12.",
+      "Wang, H. (in press). Disclosure comparability across sectors. Accounting Studies, 14, 77-95.",
+      "Liu, Q. (未刊). ESG assurance field notes. Internal Manuscript, 1, 1-8.",
+      "Zhao, P. (印刷中). Cross-market reporting consistency. Publisher Proofs, 2, 9-20."
+    ],
+    "notes": "source=12_no_blank_multi_special_years.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case047",
+    "name": "12_no_blank_multi_special_years_spaces",
+    "input": "Chen,\t   Y.  (n.d.).  Draft  framework  for  reporting  controls.  Working  Paper  Series,    3,    1-12.  Wang,    H.  (in  press).  Disclosure  comparability  across  sectors.  Accounting  Studies,    14,    77-95.  Liu,    Q.  (未刊).  ESG  assurance  field  notes.  Internal  Manuscript,    1,    1-8.  Zhao,    P.  (印刷中).  Cross-market  reporting  consistency.  Publisher  Proofs,    2,    9-20.",
+    "expected_count": 4,
+    "expected_items": [
+      "Chen, Y. (n.d.). Draft framework for reporting controls. Working Paper Series, 3, 1-12.",
+      "Wang, H. (in press). Disclosure comparability across sectors. Accounting Studies, 14, 77-95.",
+      "Liu, Q. (未刊). ESG assurance field notes. Internal Manuscript, 1, 1-8.",
+      "Zhao, P. (印刷中). Cross-market reporting consistency. Publisher Proofs, 2, 9-20."
+    ],
+    "notes": "source=12_no_blank_multi_special_years.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case048",
+    "name": "12_no_blank_multi_special_years_punct",
+    "input": "Chen， Y. (n.d.）. Draft framework for reporting controls. Working Paper Series, 3， 1-12。 Wang， H. (in press）. Disclosure comparability across sectors。 Accounting Studies， 14， 77－95. Liu， Q. (未刊）. ESG assurance field notes。 Internal Manuscript, 1， 1-8. Zhao, P。 （印刷中）. Cross－market reporting consistency. Publisher Proofs, 2， 9-20。",
+    "expected_count": 4,
+    "expected_items": [
+      "Chen, Y. (n.d.). Draft framework for reporting controls. Working Paper Series, 3, 1-12.",
+      "Wang, H. (in press). Disclosure comparability across sectors. Accounting Studies, 14, 77-95.",
+      "Liu, Q. (未刊). ESG assurance field notes. Internal Manuscript, 1, 1-8.",
+      "Zhao, P. (印刷中). Cross-market reporting consistency. Publisher Proofs, 2, 9-20."
+    ],
+    "notes": "source=12_no_blank_multi_special_years.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case049",
+    "name": "13_no_blank_counterexample_single_base",
+    "input": "Smith, J. (2020). Revised 2021 edition with updated appendix and methods note. Journal of Editorial Practice, 7, 50-62.",
+    "expected_count": 1,
+    "expected_items": [
+      "Smith, J. (2020). Revised 2021 edition with updated appendix and methods note. Journal of Editorial Practice, 7, 50-62."
+    ],
+    "notes": "source=13_no_blank_counterexample_single.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case050",
+    "name": "13_no_blank_counterexample_single_linebreak",
+    "input": "Smith, J. (2020). Revised 2021 edition with updated appendix\nand methods note. Journal of Editorial Practice, 7, 50-62.",
+    "expected_count": 1,
+    "expected_items": [
+      "Smith, J. (2020). Revised 2021 edition with updated appendix and methods note. Journal of Editorial Practice, 7, 50-62."
+    ],
+    "notes": "source=13_no_blank_counterexample_single.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case051",
+    "name": "13_no_blank_counterexample_single_spaces",
+    "input": "Smith,\t   J.  (2020).  Revised  2021  edition  with  updated  appendix  and  methods  note.  Journal  of  Editorial  Practice,    7,    50-62.",
+    "expected_count": 1,
+    "expected_items": [
+      "Smith, J. (2020). Revised 2021 edition with updated appendix and methods note. Journal of Editorial Practice, 7, 50-62."
+    ],
+    "notes": "source=13_no_blank_counterexample_single.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case052",
+    "name": "13_no_blank_counterexample_single_punct",
+    "input": "Smith, J。 （2020)。 Revised 2021 edition with updated appendix and methods note. Journal of Editorial Practice， 7, 50-62。",
+    "expected_count": 1,
+    "expected_items": [
+      "Smith, J. (2020). Revised 2021 edition with updated appendix and methods note. Journal of Editorial Practice, 7, 50-62."
+    ],
+    "notes": "source=13_no_blank_counterexample_single.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case053",
+    "name": "14_mixed_realistic_case_base",
+    "input": "Baier, P., Berninger, M., & Kiesel, F. (2020).\nEnvironmental, social and governance reporting in annual reports – A textual analysis.\nFinancial Markets, Institutions & Instruments, 29(3), 93–118. Barber, R., Dee, C. C., & Gunny, K. (2023). Client consequences of auditor independence violations: Evidence from SEC sanctions against PwC (SSRN Scholarly Paper No. 3711803). https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3711803 Channuntapipat, C., Samsonova-Taddei, A., & Turley, S.（2020）. Variation in sustainability assurance practice：An analysis of accounting versus non-accounting providers. The British Accounting Review, 52(2), 100843. Chava, S. (2014).\nEnvironmental externalities and cost of capital. Revised 2016 edition. Management Science, 60(9), 2223–2247. DiMaggio, P. J., & Powell, W. W. (1983).\nThe iron cage revisited: Institutional isomorphism and collective rationality in organizational fields.\nAmerican Sociological Review, 48(2), 147–160.",
+    "expected_count": 5,
+    "expected_items": [
+      "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental, social and governance reporting in annual reports – A textual analysis. Financial Markets, Institutions & Instruments, 29(3), 93–118. Barber, R., Dee, C.",
+      "C., & Gunny, K. (2023). Client consequences of auditor independence violations: Evidence from SEC sanctions against PwC (SSRN Scholarly Paper No. 3711803). https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3711803",
+      "Channuntapipat, C., Samsonova-Taddei, A., & Turley, S.（2020）. Variation in sustainability assurance practice：An analysis of accounting versus non-accounting providers. The British Accounting Review, 52(2), 100843.",
+      "Chava, S. (2014).Environmental externalities and cost of capital. Revised 2016 edition. Management Science, 60(9), 2223–2247. DiMaggio, P. J., & Powell, W.",
+      "W. (1983). The iron cage revisited: Institutional isomorphism and collective rationality in organizational fields. American Sociological Review, 48(2), 147–160."
+    ],
+    "notes": "source=14_mixed_realistic_case.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case054",
+    "name": "14_mixed_realistic_case_linebreak",
+    "input": "Baier, P., Berninger,\nM., & Kiesel, F. (2020).\nEnvironmental, social and governance reporting\nin annual reports – A textual analysis.\nFinancial Markets, Institutions & Instruments, 29(3), 93–118. Barber, R., Dee, C. C., & Gunny, K. (2023). Client consequences of auditor independence violations: Evidence from SEC sanctions against PwC (SSRN Scholarly Paper No. 3711803).\nhttps://papers.ssrn.com/sol3/papers.cfm?abstract_id=3711803 Channuntapipat, C., Samsonova-Taddei, A., & Turley, S.（2020）. Variation in sustainability assurance practice：An analysis of accounting versus non-accounting providers. The British Accounting Review, 52(2), 100843. Chava, S. (2014).\nEnvironmental externalities and cost of capital. Revised 2016 edition.\nManagement Science, 60(9), 2223–2247. DiMaggio, P. J., & Powell, W. W. (1983).\nThe iron cage revisited: Institutional isomorphism\nand collective rationality in organizational fields.\nAmerican Sociological\nReview, 48(2), 147–160.",
+    "expected_count": 5,
+    "expected_items": [
+      "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental, social and governance reporting in annual reports – A textual analysis. Financial Markets, Institutions & Instruments, 29(3), 93–118. Barber, R., Dee, C.",
+      "C., & Gunny, K. (2023). Client consequences of auditor independence violations: Evidence from SEC sanctions against PwC (SSRN Scholarly Paper No. 3711803). https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3711803",
+      "Channuntapipat, C., Samsonova-Taddei, A., & Turley, S.（2020）. Variation in sustainability assurance practice：An analysis of accounting versus non-accounting providers. The British Accounting Review, 52(2), 100843.",
+      "Chava, S. (2014).Environmental externalities and cost of capital. Revised 2016 edition. Management Science, 60(9), 2223–2247. DiMaggio, P. J., & Powell, W.",
+      "W. (1983). The iron cage revisited: Institutional isomorphism and collective rationality in organizational fields. American Sociological Review, 48(2), 147–160."
+    ],
+    "notes": "source=14_mixed_realistic_case.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case055",
+    "name": "14_mixed_realistic_case_spaces",
+    "input": "Baier,\t   P.,    Berninger,    M.,    &  Kiesel,    F.  (2020).\nEnvironmental,\t   social  and  governance  reporting  in  annual  reports  –  A  textual  analysis.\nFinancial\t Markets,    Institutions  &  Instruments,    29(3),    93–118.  Barber,    R.,    Dee,    C.  C.,    &  Gunny,    K.  (2023).  Client  consequences  of  auditor  independence  violations:  Evidence  from  SEC  sanctions  against  PwC  (SSRN  Scholarly  Paper  No.  3711803).  https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3711803  Channuntapipat,    C.,    Samsonova-Taddei,    A.,    &  Turley,    S.（2020）.  Variation  in  sustainability  assurance  practice：An  analysis  of  accounting  versus  non-accounting  providers.  The  British  Accounting  Review,    52(2),    100843.  Chava,    S.  (2014).\nEnvironmental\t externalities  and  cost  of  capital.  Revised  2016  edition.  Management  Science,    60(9),    2223–2247.  DiMaggio,    P.  J.,    &  Powell,    W.  W.  (1983).\nThe\t iron  cage  revisited:  Institutional  isomorphism  and  collective  rationality  in  organizational  fields.\nAmerican\t Sociological  Review,    48(2),    147–160.",
+    "expected_count": 5,
+    "expected_items": [
+      "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental, social and governance reporting in annual reports – A textual analysis. Financial Markets, Institutions & Instruments, 29(3), 93–118. Barber, R., Dee, C.",
+      "C., & Gunny, K. (2023). Client consequences of auditor independence violations: Evidence from SEC sanctions against PwC (SSRN Scholarly Paper No. 3711803). https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3711803",
+      "Channuntapipat, C., Samsonova-Taddei, A., & Turley, S.（2020）. Variation in sustainability assurance practice：An analysis of accounting versus non-accounting providers. The British Accounting Review, 52(2), 100843.",
+      "Chava, S. (2014).Environmental externalities and cost of capital. Revised 2016 edition. Management Science, 60(9), 2223–2247. DiMaggio, P. J., & Powell, W.",
+      "W. (1983). The iron cage revisited: Institutional isomorphism and collective rationality in organizational fields. American Sociological Review, 48(2), 147–160."
+    ],
+    "notes": "source=14_mixed_realistic_case.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case056",
+    "name": "14_mixed_realistic_case_punct",
+    "input": "Baier, P。, Berninger， M.， & Kiesel， F. (2020）.\nEnvironmental， social and governance reporting in annual reports － A textual analysis。\nFinancial Markets, Institutions & Instruments, 29(3)， 93－118。 Barber， R.， Dee, C。 C.， & Gunny, K。 （2023)。 Client consequences of auditor independence violations: Evidence from SEC sanctions against PwC （SSRN Scholarly Paper No。 3711803)。 https://papers。ssrn.com/sol3/papers.cfm?abstract_id=3711803 Channuntapipat， C.， Samsonova-Taddei， A.， & Turley， S.（2020)。 Variation in sustainability assurance practice：An analysis of accounting versus non-accounting providers。 The British Accounting Review, 52(2)， 100843。 Chava, S。 （2014)。\nEnvironmental externalities and cost of capital. Revised 2016 edition. Management Science, 60(9)， 2223－2247. DiMaggio, P。 J.， & Powell， W. W。 （1983)。\nThe iron cage revisited: Institutional isomorphism and collective rationality in organizational fields。\nAmerican Sociological Review， 48（2）, 147－160。",
+    "expected_count": 5,
+    "expected_items": [
+      "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental, social and governance reporting in annual reports – A textual analysis. Financial Markets, Institutions & Instruments, 29(3), 93–118. Barber, R., Dee, C.",
+      "C., & Gunny, K. (2023). Client consequences of auditor independence violations: Evidence from SEC sanctions against PwC (SSRN Scholarly Paper No. 3711803). https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3711803",
+      "Channuntapipat, C., Samsonova-Taddei, A., & Turley, S.（2020）. Variation in sustainability assurance practice：An analysis of accounting versus non-accounting providers. The British Accounting Review, 52(2), 100843.",
+      "Chava, S. (2014).Environmental externalities and cost of capital. Revised 2016 edition. Management Science, 60(9), 2223–2247. DiMaggio, P. J., & Powell, W.",
+      "W. (1983). The iron cage revisited: Institutional isomorphism and collective rationality in organizational fields. American Sociological Review, 48(2), 147–160."
+    ],
+    "notes": "source=14_mixed_realistic_case.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case057",
+    "name": "15_extreme_noise_case_base",
+    "input": "Baier，P.，Berninger，M.，& Kiesel，F.（2020）．Environmental，social and governance reporting in annual reports．Financial Markets，Institutions & Instruments，29(3)，93–118． Brown，R.，Dee，C. C.，& Gunny，K.（2023）．Client consequences of auditor independence violations – Evidence from SEC sanctions against PwC． Chava，S.（2014）．Environmental externalities and cost of capital． Updated 2016 version． Management Science，60(9)，2223–2247． 李明（2020）．企業社會責任與公司治理．會計評論． Smith, J. (n.d.). Sustainability disclosure and reporting. In press. Journal of ESG. DiMaggio, P. J., & Powell, W. W. (1983). The iron cage revisited – institutional isomorphism.",
+    "expected_count": 6,
+    "expected_items": [
+      "Baier，P.，Berninger，M.，& Kiesel，F.（2020）．Environmental，social and governance reporting in annual reports．Financial Markets，Institutions & Instruments，29(3)，93–118．",
+      "Brown，R.，Dee，C. C.，& Gunny，K.（2023）．Client consequences of auditor independence violations – Evidence from SEC sanctions against PwC．",
+      "Chava，S.（2014）．Environmental externalities and cost of capital． Updated 2016 version． Management Science，60(9)，2223–2247．",
+      "李明（2020）．企業社會責任與公司治理．會計評論．",
+      "Smith, J. (n.d.). Sustainability disclosure and reporting.In press. Journal of ESG.",
+      "DiMaggio, P. J., & Powell, W.W. (1983). The iron cage revisited – institutional isomorphism."
+    ],
+    "notes": "source=15_extreme_noise_case.txt; base case from raw paste; expected_count fixed to base"
+  },
+  {
+    "id": "case058",
+    "name": "15_extreme_noise_case_linebreak",
+    "input": "Baier，P.，Berninger，M.，& Kiesel，F.（2020）．Environmental，social and governance reporting in annual reports．Financial Markets，Institutions & Instruments，29(3)，93–118． Brown，R.，Dee，C. C.，& Gunny，K.（2023）．Client consequences of auditor independence violations – Evidence from SEC sanctions against PwC． Chava，S.（2014）．Environmental\nexternalities and cost of capital． Updated 2016 version． Management Science，60(9)，2223–2247． 李明（2020）．企業社會責任與公司治理．會計評論． Smith, J. (n.d.). Sustainability disclosure and reporting. In press. Journal of ESG. DiMaggio, P. J., & Powell, W. W. (1983). The iron cage revisited – institutional isomorphism.",
+    "expected_count": 6,
+    "expected_items": [
+      "Baier，P.，Berninger，M.，& Kiesel，F.（2020）．Environmental，social and governance reporting in annual reports．Financial Markets，Institutions & Instruments，29(3)，93–118．",
+      "Brown，R.，Dee，C. C.，& Gunny，K.（2023）．Client consequences of auditor independence violations – Evidence from SEC sanctions against PwC．",
+      "Chava，S.（2014）．Environmental externalities and cost of capital． Updated 2016 version． Management Science，60(9)，2223–2247．",
+      "李明（2020）．企業社會責任與公司治理．會計評論．",
+      "Smith, J. (n.d.). Sustainability disclosure and reporting.In press. Journal of ESG.",
+      "DiMaggio, P. J., & Powell, W.W. (1983). The iron cage revisited – institutional isomorphism."
+    ],
+    "notes": "source=15_extreme_noise_case.txt; insert line breaks within item, no blank-line separator changes; expected_count fixed to base"
+  },
+  {
+    "id": "case059",
+    "name": "15_extreme_noise_case_spaces",
+    "input": "Baier，P.，Berninger，M.，&\t Kiesel，F.（2020）．Environmental，social  and  governance  reporting  in  annual  reports．Financial  Markets，Institutions  &  Instruments，29(3)，93–118．  Brown，R.，Dee，C.  C.，&  Gunny，K.（2023）．Client  consequences  of  auditor  independence  violations  –  Evidence  from  SEC  sanctions  against  PwC．  Chava，S.（2014）．Environmental  externalities  and  cost  of  capital．  Updated  2016  version．  Management  Science，60(9)，2223–2247．  李明（2020）．企業社會責任與公司治理．會計評論．  Smith,    J.  (n.d.).  Sustainability  disclosure  and  reporting.  In  press.  Journal  of  ESG.  DiMaggio,    P.  J.,    &  Powell,    W.  W.  (1983).  The  iron  cage  revisited  –  institutional  isomorphism.",
+    "expected_count": 6,
+    "expected_items": [
+      "Baier，P.，Berninger，M.，& Kiesel，F.（2020）．Environmental，social and governance reporting in annual reports．Financial Markets，Institutions & Instruments，29(3)，93–118．",
+      "Brown，R.，Dee，C. C.，& Gunny，K.（2023）．Client consequences of auditor independence violations – Evidence from SEC sanctions against PwC．",
+      "Chava，S.（2014）．Environmental externalities and cost of capital． Updated 2016 version． Management Science，60(9)，2223–2247．",
+      "李明（2020）．企業社會責任與公司治理．會計評論．",
+      "Smith, J. (n.d.). Sustainability disclosure and reporting.In press. Journal of ESG.",
+      "DiMaggio, P. J., & Powell, W.W. (1983). The iron cage revisited – institutional isomorphism."
+    ],
+    "notes": "source=15_extreme_noise_case.txt; insert extra spaces/tabs, preserve blank-line separators; expected_count fixed to base"
+  },
+  {
+    "id": "case060",
+    "name": "15_extreme_noise_case_punct",
+    "input": "Baier,P.，Berninger，M。,& Kiesel，F。(2020）．Environmental,social and governance reporting in annual reports．Financial Markets,Institutions & Instruments，29(3)，93–118． Brown，R。,Dee,C. C。,& Gunny,K.（2023)．Client consequences of auditor independence violations － Evidence from SEC sanctions against PwC． Chava，S。(2014）．Environmental externalities and cost of capital． Updated 2016 version． Management Science,60（9）,2223－2247． 李明(2020）．企業社會責任與公司治理．會計評論． Smith, J。 （n。d。)。 Sustainability disclosure and reporting. In press. Journal of ESG. DiMaggio, P。 J.， & Powell， W. W。 （1983)。 The iron cage revisited － institutional isomorphism.",
+    "expected_count": 6,
+    "expected_items": [
+      "Baier，P.，Berninger，M.，& Kiesel，F.（2020）．Environmental，social and governance reporting in annual reports．Financial Markets，Institutions & Instruments，29(3)，93–118．",
+      "Brown，R.，Dee，C. C.，& Gunny，K.（2023）．Client consequences of auditor independence violations – Evidence from SEC sanctions against PwC．",
+      "Chava，S.（2014）．Environmental externalities and cost of capital． Updated 2016 version． Management Science，60(9)，2223–2247．",
+      "李明（2020）．企業社會責任與公司治理．會計評論．",
+      "Smith, J. (n.d.). Sustainability disclosure and reporting.In press. Journal of ESG.",
+      "DiMaggio, P. J., & Powell, W.W. (1983). The iron cage revisited – institutional isomorphism."
+    ],
+    "notes": "source=15_extreme_noise_case.txt; full/half punctuation replacement, preserve blank-line separators; expected_count fixed to base"
+  }
+]

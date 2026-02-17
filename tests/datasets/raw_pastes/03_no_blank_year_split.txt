@@ -1,0 +1,3 @@
+Aaa, A. (2019). First record text continues with context. Journal One, 1, 1-10.
+Bbb, B. (2020). Second record text continues with context. Journal Two, 2, 11-20.
+Ccc, C. (2018). Third record text continues with context. Journal Three, 3, 21-30.

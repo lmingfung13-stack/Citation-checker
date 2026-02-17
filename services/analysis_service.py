@@ -1,9 +1,21 @@
-import os
 import hashlib
+import os
 from collections import OrderedDict
 from threading import Lock
 
-from citation_core import run_check_from_file_bytes
+import pandas as pd
+
+from citation_core import (
+    DocParagraph,
+    extract_intext_citations,
+    extract_reference_items,
+    find_reference_section_start,
+    match_citations_to_refs,
+    parse_reference_item as parse_citation_core_reference_item,
+    read_docx_bytes,
+    read_pdf_bytes,
+)
+from services.reference_service import split_reference_items
 from utils.errors import ParseError, ReferenceSectionNotFoundError
 from utils.logging_utils import get_logger, log_exception
 
@@ -12,11 +24,23 @@ _ANALYSIS_CACHE = OrderedDict()
 _ANALYSIS_CACHE_LOCK = Lock()
 _LOGGER = get_logger("analysis_service")
 
+SUMMARY_COL_BODY_PARAGRAPHS = "正文段落數"
+SUMMARY_COL_REFERENCE_ITEMS = "偵測到的參考文獻項目數"
+SUMMARY_COL_CITATIONS = "提取出的正文引用數"
+SUMMARY_COL_MATCHED = "成功配對數"
+SUMMARY_COL_MISSING = "缺失引用數 (正文有/文末無)"
+SUMMARY_COL_UNCITED = "未引用文獻數 (文末有/正文無)"
 
-def _build_analysis_cache_key(file_bytes: bytes, resolved_file_type: str, filename: str | None):
+
+def _build_analysis_cache_key(
+    file_bytes: bytes,
+    resolved_file_type: str,
+    filename: str | None,
+    override_signature: str = "auto",
+):
     file_hash = hashlib.sha256(file_bytes).hexdigest()
     filename_key = (filename or "").strip()
-    return file_hash, resolved_file_type, filename_key
+    return file_hash, resolved_file_type, filename_key, override_signature
 
 
 def _get_cached_analysis(key):
@@ -39,7 +63,6 @@ def _set_cached_analysis(key, value):
 def _is_reference_section_not_found_message(message: str) -> bool:
     normalized = (message or "").strip().lower()
     keywords = (
-        "參考文獻",
         "reference",
         "bibliography",
         "heading",
@@ -48,23 +71,219 @@ def _is_reference_section_not_found_message(message: str) -> bool:
     return any(k in normalized for k in keywords)
 
 
-def run_file_analysis(file_bytes: bytes, filename: str | None = None, file_type: str | None = None):
+def _resolve_file_type(filename: str | None, file_type: str | None) -> str:
     resolved_file_type = (file_type or "").strip().lower()
     if not resolved_file_type and filename:
         resolved_file_type = os.path.splitext(filename)[1].lower().lstrip(".")
+    return resolved_file_type
 
+
+def _build_override_signature(
+    override_reference_text: str | None,
+    override_reference_items: list[str] | None,
+) -> str:
+    if override_reference_items is not None:
+        compact_items = [str(item).strip() for item in override_reference_items if str(item).strip()]
+        joined = "\n".join(compact_items)
+        digest = hashlib.sha256(joined.encode("utf-8")).hexdigest()
+        return f"items:{digest}"
+
+    text = (override_reference_text or "").strip()
+    if text:
+        digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+        return f"text:{digest}"
+
+    return "auto"
+
+
+def _read_paragraphs_from_bytes(file_bytes: bytes, resolved_file_type: str):
+    if resolved_file_type == "docx":
+        return read_docx_bytes(file_bytes)
+    if resolved_file_type == "pdf":
+        return read_pdf_bytes(file_bytes)
+    raise ValueError("Unsupported file type for citation analysis.")
+
+
+def _build_override_reference_items(
+    override_reference_text: str | None,
+    override_reference_items: list[str] | None,
+) -> list[str] | None:
+    if override_reference_items is not None:
+        if not isinstance(override_reference_items, list):
+            raise ParseError(detail="Override references must be a list of strings.")
+        cleaned = [str(item).strip() for item in override_reference_items if str(item).strip()]
+        if not cleaned:
+            raise ParseError(detail="Override reference list is empty.")
+        return cleaned
+
+    raw_text = (override_reference_text or "").strip()
+    if not raw_text:
+        return None
+
+    try:
+        items = split_reference_items(raw_text)
+    except Exception as e:
+        raise ParseError(
+            detail="Failed to split override reference text into reference items.",
+            cause=e,
+        ) from e
+
+    cleaned = [str(item).strip() for item in items if str(item).strip()]
+    if not cleaned:
+        raise ParseError(detail="Override reference text did not yield any reference items.")
+    return cleaned
+
+
+def _parse_override_references(reference_items: list[str]):
+    refs = []
+    ref_paras_raw = []
+    failed_items = []
+
+    for idx, raw_item in enumerate(reference_items):
+        item_text = str(raw_item).strip()
+        if not item_text:
+            continue
+        ref_paras_raw.append(DocParagraph(item_text, 0))
+        parsed = parse_citation_core_reference_item(item_text, idx, 0)
+        if parsed is None:
+            failed_items.append(item_text)
+            continue
+        refs.append(parsed)
+
+    return refs, ref_paras_raw, failed_items
+
+
+def _build_summary_df(body_count: int, ref_count: int, citation_count: int, matched_count: int, missing_count: int, uncited_count: int):
+    return pd.DataFrame([
+        {
+            SUMMARY_COL_BODY_PARAGRAPHS: body_count,
+            SUMMARY_COL_REFERENCE_ITEMS: ref_count,
+            SUMMARY_COL_CITATIONS: citation_count,
+            SUMMARY_COL_MATCHED: matched_count,
+            SUMMARY_COL_MISSING: missing_count,
+            SUMMARY_COL_UNCITED: uncited_count,
+        }
+    ])
+
+
+def _run_single_matching_engine(
+    file_bytes: bytes,
+    resolved_file_type: str,
+    override_reference_text: str | None = None,
+    override_reference_items: list[str] | None = None,
+):
+    # Single source of truth: one matching engine, selectable reference source.
+    paragraphs = _read_paragraphs_from_bytes(file_bytes, resolved_file_type)
+    ref_start = find_reference_section_start(paragraphs)
+
+    requested_override = override_reference_items is not None or bool((override_reference_text or "").strip())
+    override_warning = None
+    override_items_count = 0
+    override_parse_failed_count = 0
+    reference_source = "auto_extracted"
+
+    if ref_start is None:
+        if not requested_override:
+            raise ValueError("Reference section heading was not found.")
+        body_paras = paragraphs
+        ref_paras_raw = []
+        refs = []
+    else:
+        body_paras = paragraphs[:ref_start]
+        ref_paras_raw = paragraphs[ref_start:]
+        refs = extract_reference_items(paragraphs, ref_start)
+
+    if requested_override:
+        try:
+            override_items = _build_override_reference_items(override_reference_text, override_reference_items)
+        except ParseError as e:
+            override_warning = f"{e.message} Fallback to auto-extracted references."
+            _LOGGER.warning("analysis.override.invalid fallback=auto detail=%s", e.detail or e.message)
+            override_items = None
+
+        if override_items:
+            override_items_count = len(override_items)
+            parsed_override_refs, override_ref_paras_raw, failed_items = _parse_override_references(override_items)
+            override_parse_failed_count = len(failed_items)
+
+            if parsed_override_refs:
+                refs = parsed_override_refs
+                ref_paras_raw = override_ref_paras_raw
+                reference_source = "user_override"
+                if failed_items:
+                    override_warning = (
+                        f"Override references parsed with partial success: "
+                        f"{len(parsed_override_refs)}/{len(override_items)} items."
+                    )
+                    _LOGGER.warning(
+                        "analysis.override.partial parsed=%s total=%s",
+                        len(parsed_override_refs),
+                        len(override_items),
+                    )
+            else:
+                override_warning = "Override references could not be parsed. Fallback to auto-extracted references."
+                _LOGGER.warning("analysis.override.parse_failed fallback=auto total=%s", len(override_items))
+
+    citations = extract_intext_citations(body_paras, known_refs=refs)
+    matched_df, missing_df, uncited_df = match_citations_to_refs(citations, refs, ref_paras_raw)
+    summary_df = _build_summary_df(
+        body_count=len(body_paras),
+        ref_count=len(refs),
+        citation_count=len(citations),
+        matched_count=len(matched_df),
+        missing_count=len(missing_df),
+        uncited_count=len(uncited_df),
+    )
+
+    metadata = {
+        "reference_source": reference_source,
+        "reference_item_count": len(refs),
+        "override_requested": requested_override,
+        "override_items_count": override_items_count,
+        "override_parse_failed_count": override_parse_failed_count,
+        "warning": override_warning,
+    }
+    return (summary_df, matched_df, missing_df, uncited_df), metadata
+
+
+def run_file_analysis(file_bytes: bytes, filename: str | None = None, file_type: str | None = None):
+    result, _ = run_file_analysis_with_reference_override(
+        file_bytes=file_bytes,
+        filename=filename,
+        file_type=file_type,
+        override_reference_text=None,
+        override_reference_items=None,
+    )
+    return result
+
+
+def run_file_analysis_with_reference_override(
+    file_bytes: bytes,
+    filename: str | None = None,
+    file_type: str | None = None,
+    override_reference_text: str | None = None,
+    override_reference_items: list[str] | None = None,
+):
+    """Run analysis once and optionally override reference source with user-provided items/text."""
+    resolved_file_type = _resolve_file_type(filename, file_type)
     if not resolved_file_type:
         app_err = ParseError(detail="Unable to determine file type for citation analysis.")
         log_exception("analysis.resolve_file_type", app_err, _LOGGER)
         raise app_err
 
-    cache_key = _build_analysis_cache_key(file_bytes, resolved_file_type, filename)
+    override_signature = _build_override_signature(override_reference_text, override_reference_items)
+    cache_key = _build_analysis_cache_key(file_bytes, resolved_file_type, filename, override_signature)
     cached = _get_cached_analysis(cache_key)
     if cached is not None:
         return cached
 
     try:
-        result = run_check_from_file_bytes(file_bytes, resolved_file_type)
+        result_with_meta = _run_single_matching_engine(
+            file_bytes=file_bytes,
+            resolved_file_type=resolved_file_type,
+            override_reference_text=override_reference_text,
+            override_reference_items=override_reference_items,
+        )
     except ValueError as e:
         msg = str(e)
         if _is_reference_section_not_found_message(msg):
@@ -74,10 +293,13 @@ def run_file_analysis(file_bytes: bytes, filename: str | None = None, file_type:
         app_err = ParseError(message=msg or None, detail=msg, cause=e)
         log_exception("analysis.value_error", app_err, _LOGGER)
         raise app_err from e
+    except ParseError as e:
+        log_exception("analysis.parse_error", e, _LOGGER)
+        raise
     except Exception as e:
         app_err = ParseError(detail=str(e), cause=e)
         log_exception("analysis.unexpected_error", app_err, _LOGGER)
         raise app_err from e
 
-    _set_cached_analysis(cache_key, result)
-    return result
+    _set_cached_analysis(cache_key, result_with_meta)
+    return result_with_meta

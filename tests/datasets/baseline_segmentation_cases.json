@@ -1,0 +1,44 @@
+[
+  {
+    "id": "case001",
+    "name": "baseline_5refs_base",
+    "input": "Baier, P. (2020). Environmental, social and governance reporting in annual reports. Financial Markets and Portfolio Management, 34(4), 493-536.\n\nChava, S. (2014). Environmental externalities and cost of capital. Management Science, 60(9), 2223-2247.\n\nHummel, K. (2016). Sustainability performance and disclosure quality. Journal of Accounting and Public Policy, 35, 455-476.\n\nLi, M. (2020). Corporate social responsibility and governance quality in listed firms. Accounting Review, 18(2), 101-128.\n\nSmith, J. (2018). Sustainability disclosure and reporting quality. Journal of ESG Studies, 7(1), 15-30.",
+    "expected_count": 5,
+    "notes": "source=baseline_5refs.txt; baseline original with blank-line separators; expected_count fixed to 5"
+  },
+  {
+    "id": "case002",
+    "name": "baseline_5refs_no_blank",
+    "input": "Baier, P. (2020). Environmental, social and governance reporting in annual reports. Financial Markets and Portfolio Management, 34(4), 493-536. Chava, S. (2014). Environmental externalities and cost of capital. Management Science, 60(9), 2223-2247. Hummel, K. (2016). Sustainability performance and disclosure quality. Journal of Accounting and Public Policy, 35, 455-476. Li, M. (2020). Corporate social responsibility and governance quality in listed firms. Accounting Review, 18(2), 101-128. Smith, J. (2018). Sustainability disclosure and reporting quality. Journal of ESG Studies, 7(1), 15-30.",
+    "expected_count": 5,
+    "notes": "source=baseline_5refs.txt; remove blank lines and concatenate all 5 references; expected_count fixed to 5"
+  },
+  {
+    "id": "case003",
+    "name": "baseline_5refs_linebreak",
+    "input": "Baier, P. (2020). Environmental, social and governance reporting in annual\nreports. Financial Markets and Portfolio Management, 34(4), 493-536.\n\nChava, S. (2014). Environmental externalities and cost\nof capital. Management Science, 60(9), 2223-2247.\n\nHummel, K. (2016). Sustainability performance and disclosure\nquality. Journal of Accounting and Public Policy, 35, 455-476.\n\nLi, M. (2020). Corporate social responsibility and governance\nquality in listed firms. Accounting Review, 18(2), 101-128.\n\nSmith, J. (2018). Sustainability disclosure and\nreporting quality. Journal of ESG Studies, 7(1), 15-30.",
+    "expected_count": 5,
+    "notes": "source=baseline_5refs.txt; insert deterministic in-item line wraps without crossing items; expected_count fixed to 5"
+  },
+  {
+    "id": "case004",
+    "name": "baseline_5refs_spaces",
+    "input": "Baier,   P.  (2020).  Environmental,  social and governance reporting in annual reports.  Financial Markets and Portfolio Management,  34(4),  493-536.\n\nChava,   S.  (2014).  Environmental externalities and cost of capital.  Management Science,  60(9),  2223-2247.\n\nHummel,   K.  (2016).  Sustainability performance and disclosure quality.  Journal of Accounting and Public Policy,  35,  455-476.\n\nLi,   M.  (2020).  Corporate social responsibility and governance quality in listed firms.  Accounting Review,  18(2),  101-128.\n\nSmith,   J.  (2018).  Sustainability disclosure and reporting quality.  Journal of ESG Studies,  7(1),  15-30.",
+    "expected_count": 5,
+    "notes": "source=baseline_5refs.txt; insert deterministic extra spaces/tabs within each item; expected_count fixed to 5"
+  },
+  {
+    "id": "case005",
+    "name": "baseline_5refs_punct",
+    "input": "Baier, P。 （2020)。 Environmental, social and governance reporting in annual reports。 Financial Markets and Portfolio Management， 34（4）, 493－536。\n\nChava, S。 （2014)。 Environmental externalities and cost of capital. Management Science, 60(9)， 2223－2247.\n\nHummel， K. (2016）. Sustainability performance and disclosure quality。 Journal of Accounting and Public Policy, 35, 455－476。\n\nLi， M. (2020）. Corporate social responsibility and governance quality in listed firms. Accounting Review， 18（2）, 101－128。\n\nSmith, J。 （2018)。 Sustainability disclosure and reporting quality. Journal of ESG Studies, 7（1）, 15-30。",
+    "expected_count": 5,
+    "notes": "source=baseline_5refs.txt; apply deterministic full/half punctuation swaps and dash perturbation; expected_count fixed to 5"
+  },
+  {
+    "id": "case006",
+    "name": "baseline_5refs_mixed",
+    "input": "Baier, P。 （2020)。 Environmental, social and governance reporting in annual\nreports。 Financial Markets and Portfolio Management， 34（4）, 493－536。\nChava, S。 （2014)。 Environmental externalities and cost\nof capital. Management Science, 60(9)， 2223－2247.\nHummel, K。 （2016)。 Sustainability performance and disclosure\nquality. Journal of Accounting and Public Policy， 35， 455-476.\nLi, M。 （2020)。 Corporate social responsibility and governance\nquality in listed firms。 Accounting Review, 18(2)， 101-128.\nSmith， J. (2018）. Sustainability disclosure and\nreporting quality。 Journal of ESG Studies， 7(1)， 15－30.",
+    "expected_count": 5,
+    "notes": "source=baseline_5refs.txt; combine no_blank + linebreak + punct mutations; expected_count fixed to 5"
+  }
+]

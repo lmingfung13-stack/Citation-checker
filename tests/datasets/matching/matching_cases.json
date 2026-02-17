@@ -1,0 +1,99 @@
+[
+  {
+    "id": "m001",
+    "name": "basic_et_al_match",
+    "text": "Prior work (Baier et al., 2020) supports this setup.",
+    "references": [
+      "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental reporting in annual reports. Journal A."
+    ],
+    "expected": {
+      "matched": ["baier_2020"],
+      "missing_in_reference": [],
+      "extra_in_reference": [],
+      "ambiguous": []
+    }
+  },
+  {
+    "id": "m002",
+    "name": "multi_parenthetical_with_locator",
+    "text": "The framework follows (Chava, 2014, p. 12; DiMaggio & Powell, 1983).",
+    "references": [
+      "Chava, S. (2014). Environmental externalities and cost of capital. Journal B.",
+      "DiMaggio, P. J., & Powell, W. W. (1983). The iron cage revisited. American Sociological Review."
+    ],
+    "expected": {
+      "matched": ["chava_2014", "dimaggio_1983"],
+      "missing_in_reference": [],
+      "extra_in_reference": [],
+      "ambiguous": []
+    }
+  },
+  {
+    "id": "m003",
+    "name": "narrative_and_suffix",
+    "text": "DiMaggio and Powell (1983) are cited along with later evidence (Garcia, 2020a).",
+    "references": [
+      "DiMaggio, P. J., & Powell, W. W. (1983). The iron cage revisited. American Sociological Review.",
+      "Garcia, L. (2020a). Sustainability assurance timing. Journal C."
+    ],
+    "expected": {
+      "matched": ["dimaggio_1983", "garcia_2020a"],
+      "missing_in_reference": [],
+      "extra_in_reference": [],
+      "ambiguous": []
+    }
+  },
+  {
+    "id": "m004",
+    "name": "chinese_nd_inpress",
+    "text": "先前研究指出（李明，2020），並延伸至 (Smith, n.d.) 與 (Wang, in press)。",
+    "references": [
+      "李明（2020）。企業社會責任與公司治理。會計評論。",
+      "Smith, J. (n.d.). Sustainability disclosure and reporting. Working Paper.",
+      "Wang, H. (in press). Pending acceptance version. Accounting Studies."
+    ],
+    "expected": {
+      "matched": ["smith_nd", "wang_inpress", "李明_2020"],
+      "missing_in_reference": [],
+      "extra_in_reference": [],
+      "ambiguous": []
+    }
+  },
+  {
+    "id": "m005",
+    "name": "missing_and_extra",
+    "text": "Only one source is cited here (Baier et al., 2020), plus an absent one (Chava, 2014).",
+    "references": [
+      "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental reporting in annual reports. Journal D.",
+      "DiMaggio, P. J., & Powell, W. W. (1983). The iron cage revisited. American Sociological Review."
+    ],
+    "expected": {
+      "matched": ["baier_2020"],
+      "missing_in_reference": ["chava_2014"],
+      "extra_in_reference": ["dimaggio_1983"],
+      "ambiguous": []
+    }
+  },
+  {
+    "id": "m006",
+    "name": "ambiguous_same_key_no_false_extra",
+    "text": "Recent studies (Li, 2020) suggest heterogeneous outcomes.",
+    "references": [
+      "Li, M. (2020). First article on reporting quality. Journal E.",
+      "Li, X. (2020). Second article on reporting quality. Journal F.",
+      "Smith, J. (2019). Method note. Journal G."
+    ],
+    "expected": {
+      "matched": [],
+      "missing_in_reference": [],
+      "extra_in_reference": ["smith_2019"],
+      "ambiguous": [
+        {
+          "key": "li_2020",
+          "reason": "multiple_references_same_key",
+          "candidate_count_min": 2
+        }
+      ]
+    }
+  }
+]

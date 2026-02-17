@@ -9,7 +9,6 @@ import time
 import shutil
 import threading
 import tempfile
-import pandas as pd
 import streamlit as st
 from PIL import Image
 from services.convert_service import DOCX2PDF_AVAILABLE
@@ -17,9 +16,8 @@ from services.preview_service import get_pdf_page_image
 from services.reference_service import (
     safe_normalize_reference_text,
     split_reference_items,
-    match_citations,
 )
-from services.analysis_service import run_file_analysis
+from services.analysis_service import run_file_analysis_with_reference_override
 from services.export_service import build_excel_report_bytes
 from services.job_service import (
     JOB_STATUS_CANCELED,
@@ -178,6 +176,8 @@ if "file_type" not in st.session_state:
     st.session_state.file_type = None
 if "check_results" not in st.session_state:
     st.session_state.check_results = None
+if "analysis_meta" not in st.session_state:
+    st.session_state.analysis_meta = None
 if "last_processed_key" not in st.session_state:
     st.session_state.last_processed_key = None
 if "docx_pdf_job_id" not in st.session_state:
@@ -196,6 +196,8 @@ if "ref_tool_raw_output" not in st.session_state:
     st.session_state.ref_tool_raw_output = None
 if "ref_tool_sorted_output" not in st.session_state:
     st.session_state.ref_tool_sorted_output = None
+if "use_clean_references_for_analysis" not in st.session_state:
+    st.session_state.use_clean_references_for_analysis = True
 
 with st.expander("工具1：文獻列表整理（SAFE only）", expanded=False):
     raw_ref_text = st.text_area(
@@ -282,8 +284,25 @@ if uploaded:
                 st.caption("目前僅支援 Word 純文字核對 (未偵測到轉檔元件)。")
                 st.markdown("---")
 
+    clean_reference_text = (st.session_state.get("ref_tool_clean_text") or "").strip()
+    use_reference_override = False
+    if clean_reference_text:
+        use_reference_override = st.checkbox(
+            "使用工具1整理後文獻列表提高準確度",
+            key="use_clean_references_for_analysis",
+        )
+    else:
+        st.session_state.use_clean_references_for_analysis = False
+
+    override_reference_text = clean_reference_text if (clean_reference_text and use_reference_override) else None
+    override_signature = (
+        hashlib.sha256(override_reference_text.encode("utf-8")).hexdigest()
+        if override_reference_text
+        else "auto"
+    )
+
     content_hash = hashlib.sha256(raw_bytes).hexdigest()
-    current_key = f"{uploaded.name}_{use_conversion}_{content_hash}"
+    current_key = f"{uploaded.name}_{use_conversion}_{content_hash}_{override_signature}"
 
     with status_container:
         conversion_pending = False
@@ -291,6 +310,7 @@ if uploaded:
         if st.session_state.last_processed_key != current_key:
             st.session_state.filename = uploaded.name
             st.session_state.check_results = None
+            st.session_state.analysis_meta = None
             st.session_state.last_processed_key = current_key
 
             if raw_type == "docx" and use_conversion:
@@ -407,12 +427,14 @@ if uploaded:
         if st.session_state.check_results is None:
             try:
                 with st.spinner("Analyzing citations..."):
-                    results = run_file_analysis(
+                    results, analysis_meta = run_file_analysis_with_reference_override(
                         file_bytes=file_bytes,
                         filename=st.session_state.filename,
                         file_type=file_type,
+                        override_reference_text=override_reference_text,
                     )
                     st.session_state.check_results = results
+                    st.session_state.analysis_meta = analysis_meta
             except ReferenceSectionNotFoundError as e:
                 st.error(f"{e.message}")
                 st.stop()
@@ -424,44 +446,24 @@ if uploaded:
                 st.stop()
 
     summary_df, matched_df, missing_df, uncited_df = st.session_state.check_results
-
-    safe_linked_match_result = None
-    safe_clean_text = st.session_state.get("ref_tool_clean_text") or ""
-    if safe_clean_text.strip():
-        citation_raw_parts = []
-        for frame in (matched_df, missing_df):
-            if isinstance(frame, pd.DataFrame) and "citation_raw" in frame.columns:
-                for value in frame["citation_raw"].tolist():
-                    value_text = str(value).strip()
-                    if value_text:
-                        citation_raw_parts.append(value_text)
-
-        if citation_raw_parts:
-            try:
-                clean_reference_items = split_reference_items(safe_clean_text)
-                safe_linked_match_result = match_citations(
-                    text="\n".join(citation_raw_parts),
-                    reference_items=clean_reference_items,
-                )
-            except Exception:
-                safe_linked_match_result = None
+    analysis_meta = st.session_state.get("analysis_meta") or {}
 
     with metrics_container:
         col_m1, col_m2, col_m3 = st.columns(3)
-        col_m1.metric("成功配對", len(matched_df))
-        col_m2.metric("遺漏引用 (需補)", len(missing_df), delta_color="inverse")
-        col_m3.metric("未被引用 (需刪)", len(uncited_df), delta_color="inverse")
-        if safe_linked_match_result is not None:
-            st.caption("已使用工具1的 clean_text（SAFE normalize）做 citation key 比對。")
-            st.caption(
-                f"key matched={len(safe_linked_match_result.get('matched', []))}, "
-                f"missing_in_reference={len(safe_linked_match_result.get('missing_in_reference', []))}, "
-                f"extra_in_reference={len(safe_linked_match_result.get('extra_in_reference', []))}"
-            )
-            with st.expander("SAFE key 比對明細", expanded=False):
-                st.write("matched:", safe_linked_match_result.get("matched", []))
-                st.write("missing_in_reference:", safe_linked_match_result.get("missing_in_reference", []))
-                st.write("extra_in_reference:", safe_linked_match_result.get("extra_in_reference", []))
+        col_m1.metric("Matched", len(matched_df))
+        col_m2.metric("Missing In-Text", len(missing_df), delta_color="inverse")
+        col_m3.metric("Uncited References", len(uncited_df), delta_color="inverse")
+
+        reference_source = analysis_meta.get("reference_source", "auto_extracted")
+        reference_count = analysis_meta.get("reference_item_count", 0)
+        if reference_source == "user_override":
+            st.caption(f"reference source: user-provided cleaned list (items={reference_count})")
+        else:
+            st.caption(f"reference source: auto-extracted from document (items={reference_count})")
+
+        warning_text = (analysis_meta.get("warning") or "").strip()
+        if warning_text:
+            st.warning(warning_text)
 
     preview_img = None
     preview_caption = "👈 點擊左側表格行可預覽內容"

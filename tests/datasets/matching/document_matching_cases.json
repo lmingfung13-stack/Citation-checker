@@ -1,0 +1,87 @@
+﻿{
+  "version": 1,
+  "cases": [
+    {
+      "id": "d001",
+      "name": "pdf_before_heading_basic",
+      "file": "paper_01.pdf",
+      "references": [
+        "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental reporting in annual reports. Journal A.",
+        "Chava, S. (2014). Environmental externalities and cost of capital. Journal B."
+      ],
+      "body_extract": {
+        "mode": "before_heading",
+        "headings": ["References", "REFERENCES", "Bibliography", "參考文獻", "参考文献"],
+        "fallback_mode": "full_text",
+        "max_chars": 120000,
+        "end_marker": null
+      },
+      "expected": {
+        "citation_keys": ["baier_2020", "chava_2014"],
+        "matching": {
+          "matched": ["baier_2020", "chava_2014"],
+          "missing_in_reference": [],
+          "extra_in_reference": [],
+          "ambiguous": []
+        }
+      }
+    },
+    {
+      "id": "d002",
+      "name": "pdf_until_marker_missing_and_extra",
+      "file": "paper_02.pdf",
+      "references": [
+        "DiMaggio, P. J., & Powell, W. W. (1983). The iron cage revisited. American Sociological Review.",
+        "Chava, S. (2014). Environmental externalities and cost of capital. Journal B."
+      ],
+      "body_extract": {
+        "mode": "until_marker",
+        "headings": ["References", "REFERENCES", "Bibliography", "參考文獻", "参考文献"],
+        "fallback_mode": "full_text",
+        "max_chars": 120000,
+        "end_marker": "Appendix"
+      },
+      "expected": {
+        "citation_keys": ["dimaggio_1983", "garcia_2020a"],
+        "matching": {
+          "matched": ["dimaggio_1983"],
+          "missing_in_reference": ["garcia_2020a"],
+          "extra_in_reference": ["chava_2014"],
+          "ambiguous": []
+        }
+      }
+    },
+    {
+      "id": "d003",
+      "name": "docx_invalid_matching_expected_should_skip",
+      "file": "paper_03.docx",
+      "references": [
+        "Li, M. (2020). First article on reporting quality. Journal E.",
+        "Li, X. (2020). Second article on reporting quality. Journal F.",
+        "Smith, J. (2019). Method note. Journal G."
+      ],
+      "body_extract": {
+        "mode": "before_heading",
+        "headings": ["References", "REFERENCES", "Bibliography", "參考文獻", "参考文献"],
+        "fallback_mode": "first_n_chars",
+        "max_chars": 120000,
+        "end_marker": null
+      },
+      "expected": {
+        "citation_keys": ["li_2020"],
+        "matching": {
+          "matched": ["li_2020"],
+          "missing_in_reference": [],
+          "extra_in_reference": ["smith_2019"],
+          "ambiguous": [
+            {
+              "key": "li_2020",
+              "reason": "multiple_references_same_key",
+              "candidate_count_min": 2
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "case001",
+    "name": "full_half_punctuation_mixed",
+    "input": "Baier， P. （2020） 。\n李明（2021）： 研究；",
+    "expected_output": "Baier, P. (2020).\n李明(2021): 研究;"
+  },
+  {
+    "id": "case002",
+    "name": "dash_mixed",
+    "input": "A － B – C — D - E",
+    "expected_output": "A - B - C - D - E"
+  },
+  {
+    "id": "case003",
+    "name": "spaces_tabs_trim",
+    "input": "  Baier ,\t P .   ( 2020a )   \n\tSmith , J . ( n.d. )  ",
+    "expected_output": "Baier, P. (2020a)\nSmith, J. (n.d.)"
+  },
+  {
+    "id": "case004",
+    "name": "blank_lines_collapse_keep_single",
+    "input": "Ref A.\n\n\n\nRef B.\n\n \nRef C.",
+    "expected_output": "Ref A.\n\nRef B.\n\nRef C."
+  }
+]

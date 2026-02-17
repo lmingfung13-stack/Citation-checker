@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "expected_items_by_file": {
+    "01_blankline_normal.txt": [
+      "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure. Journal of Accounting and Public Policy, 35, 455-476.",
+      "Carey, M., & Liu, R. (2020). Practical reporting quality in manufacturing firms. Accounting Horizons, 28, 101-125.",
+      "Baier, A. (2019). Governance controls and transparency outcomes. Journal of Business Research, 77, 44-59."
+    ],
+    "02_consecutive_blanklines.txt": [
+      "Avery, T. (2018). Data quality checks in archival studies. Research Methods Review, 12, 1-15.",
+      "Benson, R. (2021). Robustness and reproducibility in reporting. Methodology Quarterly, 8, 77-90.",
+      "Carter, P. (2017). A practical guide to citation consistency. Editing Practice, 5, 33-41."
+    ],
+    "03_no_blank_year_split.txt": [
+      "Aaa, A. (2019). First record text continues with context. Journal One, 1, 1-10.",
+      "Bbb, B. (2020). Second record text continues with context. Journal Two, 2, 11-20.",
+      "Ccc, C. (2018). Third record text continues with context. Journal Three, 3, 21-30."
+    ],
+    "04_single_item_multiline.txt": [
+      "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure, including reporting quality and market response. Journal of Accounting and Public Policy, 35, 455-476."
+    ],
+    "05_multi_refs_same_line.txt": [
+      "Aaa, A. (2019). T1 and discussion text. Journal A, 1, 1-5.",
+      "Bbb, B. (2020). T2 and discussion text. Journal B, 2, 6-10.",
+      "Ccc, C. (2021). T3 and discussion text. Journal C, 3, 11-15."
+    ],
+    "06_full_half_mixed_punct.txt": [
+      "Hummel? K. & Schlick? C. ?2016?. Mixed punctuation sample? Journal of Accounting and Public Policy? 35? 455-476?",
+      "Baier, A. (2019). Another item with normal punctuation. Journal of Business Research, 77, 44-59."
+    ],
+    "07_dash_mixed.txt": [
+      "Norris, J. (2015). Baseline results and replication checks. Quantitative Review, 14, 100?120.",
+      "Ortiz, L. (2016). Follow-up evidence and robustness. Quantitative Review, 15, 121-140.",
+      "Park, S. (2017). Meta evidence across cohorts. Quantitative Review, 16, 141?160."
+    ],
+    "08_year_suffix_special_years.txt": [
+      "Lee, M. (2020a). Policy diffusion and timing. Public Policy Journal, 9, 1-20.",
+      "Lee, M. (2020b). Policy diffusion and timing: extension. Public Policy Journal, 10, 21-40.",
+      "Chen, Y. (n.d.). Working manuscript draft. Unpublished manuscript.",
+      "Wang, H. (in press). Pending acceptance version. Accounting Studies.",
+      "Liu, Q. (??). Conference paper draft. Internal circulation.",
+      "Zhao, P. (???). Pre-publication text. Publisher notes."
+    ],
+    "09_no_blank_multi_english.txt": [
+      "Smith, J. (2020). Financial transparency in public firms. Journal of Market Studies, 12, 10-24.",
+      "Brown, K. (2021). Governance disclosure quality and investor response. Accounting Review Letters, 8, 33-49.",
+      "Taylor, R. (2019). Board oversight and reporting consistency. Corporate Reporting Journal, 5, 77-91."
+    ],
+    "10_no_blank_multi_chinese.txt": [
+      "王小明 (2020). 永續揭露品質與公司治理. 會計研究, 15, 1-20.",
+      "李美玲 (2021). 企業透明度與投資人反應. 財務期刊, 22, 55-72.",
+      "陳大文 (2019). 董事會監督與資訊品質. 管理評論, 11, 101-118."
+    ],
+    "11_no_blank_multi_suffix.txt": [
+      "Garcia, L. (2020a). Sustainability assurance timing. Journal A, 4, 1-15.",
+      "Garcia, L. (2020b). Sustainability assurance timing: extension. Journal A, 5, 16-30.",
+      "Novak, P. (2018). Assurance scope and outcomes. Journal B, 6, 44-60."
+    ],
+    "12_no_blank_multi_special_years.txt": [
+      "Chen, Y. (n.d.). Draft framework for reporting controls. Working Paper Series, 3, 1-12.",
+      "Wang, H. (in press). Disclosure comparability across sectors. Accounting Studies, 14, 77-95.",
+      "Liu, Q. (未刊). ESG assurance field notes. Internal Manuscript, 1, 1-8.",
+      "Zhao, P. (印刷中). Cross-market reporting consistency. Publisher Proofs, 2, 9-20."
+    ],
+    "13_no_blank_counterexample_single.txt": [
+      "Smith, J. (2020). Revised 2021 edition with updated appendix and methods note. Journal of Editorial Practice, 7, 50-62."
+    ],
+    "14_mixed_realistic_case.txt": [
+      "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental, social and governance reporting in annual reports – A textual analysis. Financial Markets, Institutions & Instruments, 29(3), 93–118. Barber, R., Dee, C.",
+      "C., & Gunny, K. (2023). Client consequences of auditor independence violations: Evidence from SEC sanctions against PwC (SSRN Scholarly Paper No. 3711803). https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3711803 ",
+      "Channuntapipat, C., Samsonova-Taddei, A., & Turley, S.（2020）. Variation in sustainability assurance practice：An analysis of accounting versus non-accounting providers. The British Accounting Review, 52(2), 100843.",
+      "Chava, S. (2014).Environmental externalities and cost of capital. Revised 2016 edition. Management Science, 60(9), 2223–2247. DiMaggio, P. J., & Powell, W.",
+      "W. (1983). The iron cage revisited: Institutional isomorphism and collective rationality in organizational fields. American Sociological Review, 48(2), 147–160."
+    ],
+    "15_extreme_noise_case.txt": [
+      "Baier，P.，Berninger，M.，& Kiesel，F.（2020）．Environmental，social and governance reporting in annual reports．Financial Markets，Institutions & Instruments，29(3)，93–118． ",
+      "Brown，R.，Dee，C. C.，& Gunny，K.（2023）．Client consequences of auditor independence violations – Evidence from SEC sanctions against PwC． ",
+      "Chava，S.（2014）．Environmental externalities and cost of capital． Updated 2016 version． Management Science，60(9)，2223–2247． ",
+      "李明（2020）．企業社會責任與公司治理．會計評論．",
+      "Smith, J. (n.d.). Sustainability disclosure and reporting.In press. Journal of ESG.",
+      "DiMaggio, P. J., & Powell, W.W. (1983). The iron cage revisited – institutional isomorphism."
+    ]
+  }
+}

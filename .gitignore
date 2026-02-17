@@ -5,3 +5,4 @@ dist/
 cache/
 temp/
 .env
+tests/datasets/matching/docs/

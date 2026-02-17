@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "expected_parse_by_file": {
+    "14_mixed_realistic_case.txt": [
+      {
+        "first_author_surname": "Baier",
+        "year": 2020,
+        "year_suffix": null,
+        "year_token_type": "year"
+      },
+      {
+        "first_author_surname": "C",
+        "year": 2023,
+        "year_suffix": null,
+        "year_token_type": "year"
+      },
+      {
+        "first_author_surname": "Channuntapipat",
+        "year": 2020,
+        "year_suffix": null,
+        "year_token_type": "year"
+      }
+    ],
+    "15_extreme_noise_case.txt": [
+      {
+        "first_author_surname": "Baier",
+        "year": 2020,
+        "year_suffix": null,
+        "year_token_type": "year"
+      },
+      {
+        "first_author_surname": "Brown",
+        "year": 2023,
+        "year_suffix": null,
+        "year_token_type": "year"
+      },
+      {
+        "first_author_surname": "Chava",
+        "year": 2014,
+        "year_suffix": null,
+        "year_token_type": "year"
+      }
+    ]
+  }
+}
