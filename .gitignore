@@ -6,3 +6,4 @@ cache/
 temp/
 .env
 tests/datasets/matching/docs/
+*.cpython-*.py

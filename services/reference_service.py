@@ -3,6 +3,28 @@ from collections import defaultdict
 import unicodedata
 
 _SPLIT_YEAR_TOKEN = r"(?:19\d{2}[a-z]?|20\d{2}[a-z]?|n\s*\.\s*d\s*\.?|no\s+date|in\s+press|\u5370\u5237\u4e2d|\u672a\u520a)"
+_LATIN_SURNAME_START = r"[A-ZÀ-ÖØ-Þ]"
+_LATIN_SURNAME_BODY = r"[A-Za-zÀ-ÖØ-öø-ÿ'’\-]+"
+_ZH_CHAR_CLASS = r"\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff"
+_ZH_AUTHOR_COMMA_YEAR_START_PATTERN = (
+    rf"(?:\d+\s+)?[{_ZH_CHAR_CLASS}]"
+    rf"[{_ZH_CHAR_CLASS}、，,與和及·．\s]{{0,40}}"
+    rf"[,，]\s*(?:19\d{{2}}|20\d{{2}}[a-z]?)\s*[,，]"
+)
+_LATIN_OPTIONAL_INITIALS_BEFORE_COMMA = r"(?:\s+(?:[A-Z]\.\s*){1,4})?"
+_LATIN_NAME_WITH_OPTIONAL_INITIALS_BEFORE_COMMA = (
+    rf"{_LATIN_SURNAME_START}{_LATIN_SURNAME_BODY}"
+    rf"{_LATIN_OPTIONAL_INITIALS_BEFORE_COMMA}\s*,"
+)
+_BARE_YEAR_TOKEN = r"(?:19\d{2}[a-z]?|20\d{2}[a-z]?)"
+_EN_INITIALS_TOKEN = r"(?:[A-Z](?:\.[A-Z])*\.\s*)+"
+_EN_AUTHOR_BARE_YEAR_START_PATTERN = (
+    # Keep this stricter than generic inline starts:
+    # require initials immediately after the first comma (e.g., "Akerlof, G. A. 1970.")
+    # so we do not split inside author lists like "Kim, Y., M. S. Park, and B. Wier. 2012."
+    rf"(?:\d+\s+)?{_LATIN_SURNAME_START}{_LATIN_SURNAME_BODY},\s*{_EN_INITIALS_TOKEN}"
+    rf"[^()\n]{{0,180}}?\b{_BARE_YEAR_TOKEN}\."
+)
 _YEAR_PATTERN = re.compile(
     r"(?:\b(?:19\d{2}[a-z]?|20\d{2}[a-z]?|no\s+date|in\s+press)\b|n\s*\.\s*d\s*\.?|\u5370\u5237\u4e2d|\u672a\u520a)",
     re.IGNORECASE,
@@ -17,8 +39,59 @@ _AUTHOR_WITH_YEAR_PATTERN = (
 )
 _AUTHOR_START_PATTERN = re.compile(rf"^{_AUTHOR_WITH_YEAR_PATTERN}", re.IGNORECASE)
 _INITIALS_PATTERN = re.compile(r"^(?:[A-Z]\.)+(?:\s*[A-Z]\.)*$", re.IGNORECASE)
+_INLINE_REF_START_PATTERN = (
+    rf"(?:"
+    # Strict legacy start pattern.
+    rf"{_AUTHOR_WITH_YEAR_PATTERN}"
+    rf"|"
+    # Chinese multi-author noisy starts, e.g. 「王小明,陳大文與李小華(2020)」.
+    rf"(?:\d+\s+)?[\u4e00-\u9fff][\u4e00-\u9fff,，、與和及]{{1,40}}\s*[\(\uff08]\s*(?:19\d{{2}}|20\d{{2}}[a-z]?)\s*[\)\uff09]"
+    rf"|"
+    # Chinese no-parenthesis starts, e.g. 「王小明與李小華,2020,」.
+    rf"{_ZH_AUTHOR_COMMA_YEAR_START_PATTERN}"
+    rf"|"
+    # English noisy two-author starts, e.g. 「Agrawal, A. and Mandelker, G. N., (1987)」.
+    rf"(?:\d+\s+)?{_LATIN_SURNAME_START}{_LATIN_SURNAME_BODY},\s*[A-Z](?:\.[A-Z])*\."
+    rf"(?:\s*(?:and|&)\s*{_LATIN_SURNAME_START}{_LATIN_SURNAME_BODY},\s*[A-Z](?:\.[A-Z])*\.)?"
+    rf"\s*,?\s*[\(\uff08]\s*{_SPLIT_YEAR_TOKEN}\s*[\)\uff09]"
+    rf"|"
+    # More relaxed English start for heavy-noise lines with multiple authors or odd punctuation.
+    rf"(?:\d+\s+)?{_LATIN_NAME_WITH_OPTIONAL_INITIALS_BEFORE_COMMA}\s*[^()\n]{{0,220}}?[\(\uff08]\s*{_SPLIT_YEAR_TOKEN}\s*[\)\uff09]"
+    rf"|"
+    # English no-parenthesis year starts, e.g. 「Akerlof, G. A. 1970.」
+    rf"{_EN_AUTHOR_BARE_YEAR_START_PATTERN}"
+    rf")"
+)
 _INLINE_REF_SPLIT_PATTERN = re.compile(
-    rf"(?<=[\.;\u3002\uff1b])\s+(?={_AUTHOR_WITH_YEAR_PATTERN})",
+    # Prevent false splits inside author lists, e.g. ". and Peters, G.F. (2004) ..."
+    rf"(?<=[\.;\u3002\uff1b])\s+(?=(?!\s*(?:and|&)\b){_INLINE_REF_START_PATTERN})",
+    re.IGNORECASE,
+)
+_INLINE_REF_TIGHT_PUNCT_SPLIT_PATTERN = re.compile(
+    rf"(?<=[\.;\u3002\uff1b])(?=(?!\s*(?:and|&)\b){_INLINE_REF_START_PATTERN})",
+    re.IGNORECASE,
+)
+_INLINE_EN_START_AFTER_PAGE_RANGE_PATTERN = re.compile(
+    # Stricter candidate: require initials right after surname comma.
+    # This avoids false hits like "Economics, Vol. 17 ...".
+    rf"(?:\d+\s+)?{_LATIN_SURNAME_START}{_LATIN_SURNAME_BODY},\s*(?:[A-Z](?:\.[A-Z])*\.\s*)+"
+    rf"[^()\n]{{0,40}}"
+    rf"[^()\n]{{0,220}}[\(\uff08]\s*{_SPLIT_YEAR_TOKEN}\s*[\)\uff09]",
+    re.IGNORECASE,
+)
+_INLINE_EN_INSTITUTION_START_WITH_YEAR_PATTERN = re.compile(
+    # Institutional author with year token, e.g. "Blue Ribbon Committee (BRC) (1999)"
+    rf"(?:\d+\s+)?[A-Z][A-Za-z&.\-']+(?:\s+[A-Z][A-Za-z&.\-']+){{1,8}}"
+    rf"\s*(?:\([A-Za-z][^)\n]{{0,20}}\)\s*)?[\(\uff08]\s*(?:19\d{{2}}|20\d{{2}}[a-z]?)\s*[\)\uff09]",
+    re.IGNORECASE,
+)
+_INLINE_EN_AUTHOR_CONTINUATION_START_PATTERN = re.compile(
+    rf"^{_LATIN_SURNAME_START}{_LATIN_SURNAME_BODY},\s*(?:"
+    rf"(?:and|&)\s+(?:(?:[A-Z]\.\s*){{0,4}})?{_LATIN_SURNAME_START}{_LATIN_SURNAME_BODY}"
+    rf"|"
+    rf"(?:[A-Z]\.\s*){{1,4}}{_LATIN_SURNAME_START}{_LATIN_SURNAME_BODY}"
+    rf"(?:,\s*(?:and|&)\s+(?:(?:[A-Z]\.\s*){{0,4}})?{_LATIN_SURNAME_START}{_LATIN_SURNAME_BODY})?"
+    rf")",
     re.IGNORECASE,
 )
 _REFERENCE_START_YEAR_TOKEN = r"(?:\d{4}[a-z]?|n\s*[\.\u3002]\s*d\s*[\.\u3002]?|in\s+press)"
@@ -34,8 +107,24 @@ _REFERENCE_START_EN_RELAXED_PATTERN = re.compile(
     rf"[\(\uff08]\s*{_REFERENCE_START_YEAR_TOKEN}\s*[\)\uff09]",
     re.IGNORECASE,
 )
+_REFERENCE_START_EN_BARE_YEAR_PATTERN = re.compile(
+    _EN_AUTHOR_BARE_YEAR_START_PATTERN,
+    re.IGNORECASE,
+)
 _REFERENCE_START_ZH_PATTERN = re.compile(
     r"[\u4e00-\u9fff]{1,20}\s*[\(\uff08]\s*\d{4}[a-z]?\s*[\)\uff09]",
+    re.IGNORECASE,
+)
+_REFERENCE_START_ZH_COMMA_YEAR_PATTERN = re.compile(
+    _ZH_AUTHOR_COMMA_YEAR_START_PATTERN,
+    re.IGNORECASE,
+)
+_ZH_LINE_START_COMMA_YEAR_PATTERN = re.compile(
+    rf"^{_ZH_AUTHOR_COMMA_YEAR_START_PATTERN}",
+    re.IGNORECASE,
+)
+_EN_LINE_START_BARE_YEAR_PATTERN = re.compile(
+    rf"^{_EN_AUTHOR_BARE_YEAR_START_PATTERN}",
     re.IGNORECASE,
 )
 _REFERENCE_START_DETECTION_TRANSLATION = str.maketrans({
@@ -123,6 +212,10 @@ _CITATION_SEGMENT_TRANSLATION = str.maketrans({
     "—": "-",
     "\u3000": " ",
 })
+
+
+def _starts_with_author_connector(text: str) -> bool:
+    return re.match(r"^\s*(?:and|&)\b", text or "", re.IGNORECASE) is not None
 
 
 def _build_match_key_token(year: int | str | None, year_suffix: str | None, year_token_type: str | None) -> str:
@@ -290,11 +383,15 @@ def _find_reference_starts(text: str) -> list[int]:
     patterns = (
         _REFERENCE_START_EN_STRICT_PATTERN,
         _REFERENCE_START_EN_RELAXED_PATTERN,
+        _REFERENCE_START_EN_BARE_YEAR_PATTERN,
         _REFERENCE_START_ZH_PATTERN,
+        _REFERENCE_START_ZH_COMMA_YEAR_PATTERN,
     )
     for pattern in patterns:
         for match in pattern.finditer(detection_text):
             start_idx = match.start()
+            if _starts_with_author_connector(detection_text[start_idx:start_idx + 24]):
+                continue
             if not _is_reference_start_boundary(detection_text, start_idx):
                 continue
             candidates.add(start_idx)
@@ -317,7 +414,13 @@ def _split_references(raw_text: str) -> list[str]:
 
     def _looks_like_new_reference_start(line: str) -> bool:
         stripped = line.strip()
+        if _starts_with_author_connector(stripped):
+            return False
         if _AUTHOR_START_PATTERN.search(stripped) is not None:
+            return True
+        if _ZH_LINE_START_COMMA_YEAR_PATTERN.search(stripped) is not None:
+            return True
+        if _EN_LINE_START_BARE_YEAR_PATTERN.search(stripped) is not None:
             return True
         return re.search(
             rf"^[A-Z\u4e00-\u9fff][^()\n]{{0,100}}[\(\uff08]\s*{_SPLIT_YEAR_TOKEN}\s*[\)\uff09]",
@@ -358,8 +461,77 @@ def _split_references(raw_text: str) -> list[str]:
         normalized_line = re.sub(r"\s+", " ", line.strip())
         if not normalized_line:
             return []
-        segments = [part.strip() for part in _INLINE_REF_SPLIT_PATTERN.split(normalized_line) if part.strip()]
-        return segments or [normalized_line]
+        # First pass: conservative punctuation-boundary split.
+        primary_segments = [part.strip() for part in _INLINE_REF_SPLIT_PATTERN.split(normalized_line) if part.strip()]
+        if not primary_segments:
+            primary_segments = [normalized_line]
+
+        # Second pass: allow split when punctuation is directly followed by next ref start (no whitespace).
+        secondary_segments = []
+        for segment in primary_segments:
+            parts = [part.strip() for part in _INLINE_REF_TIGHT_PUNCT_SPLIT_PATTERN.split(segment) if part.strip()]
+            if parts:
+                secondary_segments.extend(parts)
+            else:
+                secondary_segments.append(segment)
+
+        # Third pass: targeted noisy case split, e.g. "...209-249 Agrawal, A. ... (1987)...".
+        refined_segments = []
+        for segment in secondary_segments:
+            split_points = []
+            for start_pattern in (
+                _INLINE_EN_START_AFTER_PAGE_RANGE_PATTERN,
+                _INLINE_EN_INSTITUTION_START_WITH_YEAR_PATTERN,
+            ):
+                for match in start_pattern.finditer(segment):
+                    start_idx = match.start()
+                    if start_idx <= 0:
+                        continue
+
+                    adjusted_start = start_idx
+                    number_prefix_match = re.match(r"\d+\s+", match.group(0))
+                    if number_prefix_match:
+                        adjusted_start = start_idx + number_prefix_match.end()
+                    if adjusted_start <= 0 or adjusted_start >= len(segment):
+                        continue
+
+                    prefix = segment[:adjusted_start].rstrip()
+                    # Only split when previous tail looks like a boundary-ish numeric/footer tail.
+                    if (
+                        re.search(r"\d{1,4}\s*[-–—]\s*\d{1,4}\s*$", prefix)
+                        or re.search(r"\d{1,4}\s*[\(\uff08]\s*\d{1,4}\s*[\)\uff09]\s*\.?\s*$", prefix)
+                        # OCR/page-footer tails in noisy references (case17), e.g. "... MAJ 36,4 636 Blue Ribbon ..."
+                        or re.search(r"\bMAJ\s+\d{1,3}\s*,\s*\d+\s+\d{1,4}\s*$", prefix, re.IGNORECASE)
+                        # Truncated "No" token before next reference start, e.g. "... 145-176. No DeFond, ..."
+                        or re.search(r"\.\s*No\s*$", prefix, re.IGNORECASE)
+                    ):
+                        split_points.append(adjusted_start)
+
+            pieces = []
+            if split_points:
+                boundaries = [0] + sorted(set(split_points)) + [len(segment)]
+                for i in range(len(boundaries) - 1):
+                    part = segment[boundaries[i]:boundaries[i + 1]].strip()
+                    if part:
+                        pieces.append(part)
+            if pieces:
+                refined_segments.extend(pieces)
+            else:
+                refined_segments.append(segment)
+        # Final pass: undo false splits inside long English author lists.
+        # Example: "Kim, Y., M. S. Park, and B. Wier. 2012." should stay one item.
+        merged_continuations = []
+        for segment in refined_segments:
+            if (
+                merged_continuations
+                and _INLINE_EN_AUTHOR_CONTINUATION_START_PATTERN.search(segment)
+                and re.search(r"(?:,\s*(?:[A-Z]\.\s*){1,4}|(?:[A-Z]\.\s*){2,4})$", merged_continuations[-1])
+            ):
+                merged_continuations[-1] = f"{merged_continuations[-1]} {segment}".strip()
+                continue
+            merged_continuations.append(segment)
+
+        return merged_continuations or [normalized_line]
 
     def _split_lines_by_fallback(lines: list[str]) -> list[str]:
         items = []
@@ -377,7 +549,7 @@ def _split_references(raw_text: str) -> list[str]:
             current_text = " ".join(current_lines)
             current_has_year = _YEAR_PATTERN.search(current_text) is not None
             line_has_year = _YEAR_PATTERN.search(line) is not None
-            line_looks_like_author_start = _AUTHOR_START_PATTERN.search(line) is not None
+            line_looks_like_author_start = _looks_like_new_reference_start(line)
 
             if current_has_year and (line_has_year or line_looks_like_author_start):
                 items.append(" ".join(current_lines))

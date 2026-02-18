@@ -25,11 +25,11 @@ _ANALYSIS_CACHE_LOCK = Lock()
 _LOGGER = get_logger("analysis_service")
 
 SUMMARY_COL_BODY_PARAGRAPHS = "正文段落數"
-SUMMARY_COL_REFERENCE_ITEMS = "偵測到的參考文獻項目數"
-SUMMARY_COL_CITATIONS = "提取出的正文引用數"
+SUMMARY_COL_REFERENCE_ITEMS = "參考文獻項目數"
+SUMMARY_COL_CITATIONS = "正文引用數"
 SUMMARY_COL_MATCHED = "成功配對數"
-SUMMARY_COL_MISSING = "缺失引用數 (正文有/文末無)"
-SUMMARY_COL_UNCITED = "未引用文獻數 (文末有/正文無)"
+SUMMARY_COL_MISSING = "缺失引用數（正文有/文末無）"
+SUMMARY_COL_UNCITED = "未引用文獻數（文末有/正文無）"
 
 
 def _build_analysis_cache_key(
@@ -67,6 +67,10 @@ def _is_reference_section_not_found_message(message: str) -> bool:
         "bibliography",
         "heading",
         "section",
+        "參考文獻",
+        "参考文献",
+        "文獻",
+        "文献",
     )
     return any(k in normalized for k in keywords)
 
@@ -101,7 +105,7 @@ def _read_paragraphs_from_bytes(file_bytes: bytes, resolved_file_type: str):
         return read_docx_bytes(file_bytes)
     if resolved_file_type == "pdf":
         return read_pdf_bytes(file_bytes)
-    raise ValueError("Unsupported file type for citation analysis.")
+    raise ValueError("不支援的檔案類型，無法進行引用分析。")
 
 
 def _build_override_reference_items(
@@ -110,10 +114,10 @@ def _build_override_reference_items(
 ) -> list[str] | None:
     if override_reference_items is not None:
         if not isinstance(override_reference_items, list):
-            raise ParseError(detail="Override references must be a list of strings.")
+            raise ParseError(detail="覆蓋參考文獻必須是字串陣列。")
         cleaned = [str(item).strip() for item in override_reference_items if str(item).strip()]
         if not cleaned:
-            raise ParseError(detail="Override reference list is empty.")
+            raise ParseError(detail="覆蓋參考文獻清單為空。")
         return cleaned
 
     raw_text = (override_reference_text or "").strip()
@@ -124,13 +128,13 @@ def _build_override_reference_items(
         items = split_reference_items(raw_text)
     except Exception as e:
         raise ParseError(
-            detail="Failed to split override reference text into reference items.",
+            detail="無法將覆蓋參考文獻文字切分為項目。",
             cause=e,
         ) from e
 
     cleaned = [str(item).strip() for item in items if str(item).strip()]
     if not cleaned:
-        raise ParseError(detail="Override reference text did not yield any reference items.")
+        raise ParseError(detail="覆蓋參考文獻文字無法產生任何有效項目。")
     return cleaned
 
 
@@ -184,7 +188,7 @@ def _run_single_matching_engine(
 
     if ref_start is None:
         if not requested_override:
-            raise ValueError("Reference section heading was not found.")
+            raise ValueError("找不到參考文獻章節標題。")
         body_paras = paragraphs
         ref_paras_raw = []
         refs = []
@@ -197,7 +201,7 @@ def _run_single_matching_engine(
         try:
             override_items = _build_override_reference_items(override_reference_text, override_reference_items)
         except ParseError as e:
-            override_warning = f"{e.message} Fallback to auto-extracted references."
+            override_warning = f"{e.message} 已回退為文件自動抽取文獻。"
             _LOGGER.warning("analysis.override.invalid fallback=auto detail=%s", e.detail or e.message)
             override_items = None
 
@@ -212,8 +216,8 @@ def _run_single_matching_engine(
                 reference_source = "user_override"
                 if failed_items:
                     override_warning = (
-                        f"Override references parsed with partial success: "
-                        f"{len(parsed_override_refs)}/{len(override_items)} items."
+                        f"覆蓋參考文獻僅部分解析成功："
+                        f"{len(parsed_override_refs)}/{len(override_items)} 筆。"
                     )
                     _LOGGER.warning(
                         "analysis.override.partial parsed=%s total=%s",
@@ -221,7 +225,7 @@ def _run_single_matching_engine(
                         len(override_items),
                     )
             else:
-                override_warning = "Override references could not be parsed. Fallback to auto-extracted references."
+                override_warning = "覆蓋參考文獻無法解析，已回退為文件自動抽取文獻。"
                 _LOGGER.warning("analysis.override.parse_failed fallback=auto total=%s", len(override_items))
 
     citations = extract_intext_citations(body_paras, known_refs=refs)
@@ -267,7 +271,7 @@ def run_file_analysis_with_reference_override(
     """Run analysis once and optionally override reference source with user-provided items/text."""
     resolved_file_type = _resolve_file_type(filename, file_type)
     if not resolved_file_type:
-        app_err = ParseError(detail="Unable to determine file type for citation analysis.")
+        app_err = ParseError(detail="無法判斷檔案類型，無法進行引用分析。")
         log_exception("analysis.resolve_file_type", app_err, _LOGGER)
         raise app_err
 
