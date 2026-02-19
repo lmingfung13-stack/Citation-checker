@@ -20,6 +20,11 @@ except ImportError:
 # -------------------------
 
 REFERENCE_HEADINGS = ["參考文獻", "參考資料", "references", "reference", "bibliography"]
+REFERENCE_TAIL_STOP_HEADINGS = [
+    "技術手冊、準則與報告",
+    "technical manuals, standards and reports",
+    "technical manuals, standards & reports",
+]
 
 FULLWIDTH_TO_HALFWIDTH = {
     "（": "(", "）": ")", "＆": "&", "’": "'", "‘": "'",
@@ -224,25 +229,106 @@ def find_reference_section_start(paragraphs: List[DocParagraph]) -> Optional[int
             if any(h.lower() in t for h in REFERENCE_HEADINGS): return i
     return None
 
+
+def _looks_like_reference_tail_heading(text: str) -> bool:
+    t = normalize_text(text).strip()
+    if not t:
+        return False
+    if len(t) > 60:
+        return False
+    if re.search(r"(?:19|20)\d{2}", t):
+        return False
+    compact = re.sub(r"[\W_]+", "", t.lower())
+    for marker in REFERENCE_TAIL_STOP_HEADINGS:
+        marker_compact = re.sub(r"[\W_]+", "", marker.lower())
+        if marker_compact and marker_compact in compact:
+            return True
+    return False
+
+
+def _looks_like_non_reference_tail_content(text: str) -> bool:
+    t = normalize_text(text).strip()
+    if not t:
+        return False
+    # Stop before table/appendix content that often appears after reference lists.
+    if re.match(r"^(?:表\s*[一二三四五六七八九十\d]+|table\s*[ivx\d]+)\b", t, re.IGNORECASE):
+        return True
+    if re.match(r"^(?:附錄|appendix)\b", t, re.IGNORECASE):
+        return True
+    if "產業樣本年度分析" in t or "年度產業類別" in t:
+        return True
+    return False
+
+
+def _looks_like_running_header_footer_noise(text: str) -> bool:
+    t = normalize_text(text).strip()
+    if not t:
+        return False
+    if re.fullmatch(r"\d{1,4}", t):
+        return True
+    low = t.lower()
+    if "this content downloaded from" in low or "all use subject to" in low:
+        return True
+    if re.match(r"^\d+\s+[A-Za-z][A-Za-z\-\s\.]{8,}$", t) and not any(ch in t for ch in ",()"):
+        return True
+    if (
+        re.match(r"^(?:[A-Z][A-Za-z'\-]+\s+){2,}[A-Z][A-Za-z'\-]+$", t)
+        and not any(ch in t for ch in ",()")
+        and not re.search(r"(?:19|20)\d{2}", t)
+    ):
+        return True
+    return False
+
 # -------------------------
 # Reference parsing
 # -------------------------
 
 def extract_reference_items(paragraphs: List[DocParagraph], start_idx: int) -> List[ReferenceItem]:
-    raw_paras = [p for p in paragraphs[start_idx + 1:] if normalize_text(p.text)]
+    raw_paras: List[DocParagraph] = []
+    for p in paragraphs[start_idx + 1:]:
+        t = normalize_text(p.text)
+        if not t:
+            continue
+        if _looks_like_running_header_footer_noise(t):
+            continue
+        # Stop when encountering known non-reference appendix headings.
+        if _looks_like_reference_tail_heading(t) or _looks_like_non_reference_tail_content(t):
+            break
+        raw_paras.append(p)
     if not raw_paras: return []
 
     year_re = re.compile(r"\(" + YEAR_PATTERN_STR + r"([- ]?[a-zA-Z])?\)")
+    year_any_parenthetical_re = re.compile(r"\([^\)]*(?:19|20)\d{2}[^\)]*\)")
     chinese_year_re = re.compile(r"(?:[,，\s]|^)\s*(" + YEAR_PATTERN_STR + r")\s*[,，\.]")
     english_dot_year_re = re.compile(r"(?:[\.\s])(" + YEAR_PATTERN_STR + r")\.")
 
     def looks_like_new_item(t: str) -> bool:
         t = t.strip()
         if year_re.search(t) and re.match(r"^[A-Za-z\u4e00-\u9fff]", t): return True
+        if year_any_parenthetical_re.search(t) and re.match(r"^[A-Za-z]", t): return True
         if re.match(r"^[" + ENG_CHARS + r"][" + ENG_CHARS + r"'\-\s]+,\s+[" + ENG_CHARS + r"]\.", t): return True
         if re.search(r"^[A-Z][a-z]+[A-Z]{1,3}\(" + YEAR_PATTERN_STR + r"\)", t): return True
         if re.match(r"^[\u4e00-\u9fff]", t) and chinese_year_re.search(t): return True
         if re.match(r"^[A-Z]", t) and english_dot_year_re.search(t): return True
+        return False
+
+    def should_force_append(current_text: str, next_text: str) -> bool:
+        curr = normalize_text(current_text).strip()
+        nxt = normalize_text(next_text).strip()
+        if not curr or not nxt:
+            return False
+        if curr.endswith((".", "。", ".)", ".”", "\"")):
+            return False
+        if not year_re.search(curr):
+            return False
+        # If next line starts with a strong author-start pattern, keep split behavior.
+        if re.match(r"^[" + ENG_CHARS + r"][" + ENG_CHARS + r"'\-\s]+,\s+[" + ENG_CHARS + r"]\.", nxt):
+            return False
+        if re.match(r"^[\u4e00-\u9fff]", nxt) and chinese_year_re.search(nxt):
+            return False
+        # If next line has no year marker, treat as continuation of current reference.
+        if not year_re.search(nxt) and not year_any_parenthetical_re.search(nxt):
+            return True
         return False
     
     merged_paras: List[DocParagraph] = []
@@ -317,7 +403,7 @@ def extract_reference_items(paragraphs: List[DocParagraph], start_idx: int) -> L
     current_page = 1
     
     for p in split_paras:
-        if looks_like_new_item(p.text):
+        if looks_like_new_item(p.text) and not should_force_append(current_text, p.text):
             if current_text:
                 parsed = parse_reference_item(current_text, len(items), current_page)
                 if parsed: items.append(parsed)
@@ -340,11 +426,16 @@ def parse_reference_item(text: str, idx: int, page: int) -> Optional[ReferenceIt
     text_norm = normalize_text(text)
     
     ym = re.search(r"\((" + YEAR_PATTERN_STR + r")([- ]?[a-zA-Z])?\)", text_norm)
+    ym_any = re.search(r"\(([^)]*(?:19|20)\d{2}[^)]*)\)", text_norm)
     year, pre, found = "", "", False
     
     if ym:
         year = norm_year(ym.group(1) + (ym.group(2) or ""))
         pre = text_norm[:ym.start()].strip()
+        found = True
+    elif ym_any:
+        year = norm_year(ym_any.group(1))
+        pre = text_norm[:ym_any.start()].strip()
         found = True
     else:
         ym_zh = re.search(r"(?:[,，\s])\s*(" + YEAR_PATTERN_STR + r")\s*[,，\.]", text_norm)

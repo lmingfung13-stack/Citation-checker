@@ -1,0 +1,2354 @@
+{
+  "version": 1,
+  "cases": {
+    "t001": {
+      "level2_auto_reference_keys": [
+        "baier_2020",
+        "barnea_2010",
+        "chava_2014"
+      ],
+      "level2_auto_reference_positions": [
+        "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental, social and governance reporting in annual reports: A textual analysis. Financial Markets, Institutions & Instruments, 29(3), 93-118.",
+        "Chava, S. (2014). Environmental externalities and cost of capital. Management Science, 60(9), 2223-2247.",
+        "Barnea, A., & Rubin, A. (2010). Corporate social responsibility as a conflict between shareholders. Journal of Business Ethics, 97(1), 71-86."
+      ],
+      "level2_auto_parsed_fields": [
+        {
+          "item_idx": 0,
+          "key": "baier_2020",
+          "author1": "Baier",
+          "author2": "Berninger",
+          "authors": [
+            "Baier",
+            "Berninger",
+            "Kiesel"
+          ],
+          "year": "2020",
+          "source": "Environmental, social and governance reporting in annual reports: A textual analysis. Financial Markets, Institutions & Instruments, 29(3), 93-118"
+        },
+        {
+          "item_idx": 1,
+          "key": "chava_2014",
+          "author1": "Chava",
+          "authors": [
+            "Chava"
+          ],
+          "year": "2014",
+          "source": "Environmental externalities and cost of capital. Management Science, 60(9), 2223-2247"
+        },
+        {
+          "item_idx": 2,
+          "key": "barnea_2010",
+          "author1": "Barnea",
+          "author2": "Rubin",
+          "authors": [
+            "Barnea",
+            "Rubin"
+          ],
+          "year": "2010",
+          "source": "Corporate social responsibility as a conflict between shareholders. Journal of Business Ethics, 97(1), 71-86"
+        }
+      ]
+    },
+    "t002": {
+      "level2_auto_reference_keys": [
+        "baier_2020",
+        "barber_2023",
+        "barnea_2010",
+        "bentleygoode_2025",
+        "boiral_2019",
+        "caliendo_2008",
+        "campbell_2007",
+        "carey_2021",
+        "casey_2015",
+        "channuntapipat_2020",
+        "chava_2014",
+        "chen_2018",
+        "cho_2015",
+        "clarkson_2008",
+        "delmas_2011",
+        "devilliers_2011",
+        "dhaliwal_2011",
+        "dimaggio_1983",
+        "eccles_2014",
+        "farooq_2019",
+        "ge_2024",
+        "hong_2012",
+        "hummel_2016",
+        "ioannou_2019",
+        "jo_2011",
+        "jo_2012",
+        "kao_2024",
+        "kaya_2025",
+        "khan_2016",
+        "li_2002",
+        "lindblom_1994",
+        "lu_2023",
+        "lyon_2011"
+      ],
+      "level2_auto_reference_positions": [
+        "Baier, P., Berninger, M., & Kiesel, F. (2020). Environmental, social and governance reporting in annual reports: A textual analysis. Financial Markets, Institutions & Instruments, 29(3), 93-118.",
+        "Barber, R., Dee, C. C., & Gunny, K. (2023). Client consequences of auditor Independence violations: Evidence from SEC sanctions against PwC (SSRN Scholarly Paper No. 3711803). https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3711803",
+        "Barnea, A., & Rubin, A. (2010). Corporate social responsibility as a conflict between shareholders. Journal of business ethics, 97(1), 71-86.",
+        "Bentley-Goode, K. A., Simnett, R., Thompson, A., & Trotman, A. J. (2025). Choice of assurance provider and impact on quality of sustainability reporting: Evidence from sustainability reporting restatements. Accounting & Finance, 65, 2135-2172.",
+        "Boiral, O., Heras-Saizarbitoria, I., & Brotherton, M. C. (2019). Assessing and improving the quality of sustainability reports: The auditors' perspective. Journal of business ethics, 155(3), 703-721.",
+        "Caliendo, M., & Kopeinig, S. (2008). Some practical guidance for the implementation of propensity score matching. Journal of Economic Surveys, 22(1), 31-72.",
+        "Campbell, J. L. (2007). Why would corporations behave in socially responsible ways? An institutional theory of corporate social responsibility. Academy of Management Review.",
+        "Carey, P., Khan, A., Mihret, D. G., & Muttakin, M. B. (2021). Voluntary sustainability assurance, capital constraint and cost of debt: International evidence. International Journal of Auditing, 25(2), 351-372.",
+        "Casey, R. J., & Grenier, J. H. (2015). Understanding and contributing to the enigma of corporate social responsibility (CSR) assurance in the United States. Auditing: A Journal of Practice and Theory, 34(1), 97-130.",
+        "Channuntapipat, C., Samsonova-Taddei, A., & Turley, S. (2020). Variation in sustainability assurance practice: An analysis of accounting versus non-accounting providers. The British Accounting Review, 52(2), 100843.",
+        "Chava, S. (2014). Environmental externalities and cost of capital. Management Science, 60(9), 2223-2247.",
+        "Chen, Y. C., Hung, M., & Wang, Y. (2018). The effect of mandatory CSR disclosure on firm profitability and social externalities: Evidence from China. Journal of accounting and economics, 65(1), 169-190.",
+        "Cho, C. H., Michelon, G., Patten, D. M., & Roberts, R. W. (2015). CSR disclosure: The more things change…? Accounting, Auditing & Accountability Journal, 28(1), 14-35.",
+        "Clarkson, P. M., Li, Y., Richardson, G. D., & Vasvari, F. P. (2008). Revisiting the relation between environmental performance and environmental disclosure: An empirical analysis. Accounting, Organizations and Society, 33(4-5), 303-327.",
+        "De Villiers, C., Naiker, V., & Van Staden, C. J. (2011). The effect of board characteristics on firm environmental performance. Journal of management, 37(6), 1636-1663.",
+        "Delmas, M. A., & Burbano, V. C. (2011). The drivers of greenwashing. California Management Review, 54(1), 64-87.",
+        "Dhaliwal, D. S., Li, O. Z., Tsang, A., & Yang, Y. G. (2011). Voluntary nonfinancial disclosure and the cost of equity capital: The initiation of corporate social responsibility reporting. The Accounting Review.",
+        "DiMaggio, P. J., & Powell, W. W. (1983). The iron cage revisited: Institutional isomorphism and collective rationality in organizational fields. American Sociological Review, 48(2), 147-160.",
+        "Eccles, R. G., Ioannou, I., & Serafeim, G. (2014). The impact of corporate sustainability on organizational processes and performance. Management Science, 60(11), 2835-2857.",
+        "Farooq, M. B., & de Villiers, C. (2019). The shaping of sustainability assurance through the competition between accounting and non-accounting providers. Accounting, Auditing & Accountability Journal, 32(1), 307-336.",
+        "Ge, Q., Simnett, R., & Zhou, S. (2024). Evaluating the use of international standards for assurance engagements by non-accounting practitioners. Auditing: A Journal of Practice & Theory, 43(1), 101-124.",
+        "Hong, H., Kubik, J. D., & Scheinkman, J. A. (2012). Financial constraints on corporate goodness. NBER Working Paper.",
+        "Hummel, K., & Schlick, C. (2016). The relationship between sustainability performance and sustainability disclosure - Reconciling voluntary disclosure theory and legitimacy theory. Journal of Accounting and Public Policy, 35, 455-476.",
+        "Ioannou, I., & Serafeim, G. (2019). The consequences of mandatory corporate sustainability reporting.",
+        "Jo, H., & Harjoto, M. A. (2011). Corporate governance and firm value: The impact of corporate social responsibility. Journal of Business Ethics.",
+        "Jo, H., & Harjoto, M. A. (2012). The causal effect of corporate governance on corporate social responsibility. Journal of business ethics, 106(1), 53-72.",
+        "Kao, M. F., Jian, C. H., & Tseng, C. H. (2024). Managerial ability and voluntary ESG disclosure and assurance: evidence from Taiwan. Sustainability Accounting, Management and Policy Journal, 15(1), 207-231.",
+        "Kaya, N., Ersoy Bozcuk, A., Tutcu, B., Terzioğlu, M., & Ünal Uyar, G. F. (2025). Evaluating ESG practices from the perspective of transparency and accountability through clustering analysis and MCDM methods. Sustainability, 17, 10440.",
+        "Khan, M., Serafeim, G., & Yoon, A. (2016). Corporate sustainability: First evidence on materiality. The Accounting Review, 91(6), 1697-1724.",
+        "Li, Y., Richardson, G. D., & Thornton, D. B. (2002). Corporate disclosure of environmental liability information: Theory and evidence. Journal of Accounting Research.",
+        "Lindblom, C. K. (1994). The implications of organizational legitimacy for corporate social performance and disclosure. Paper presented at the CRitical Perspectives on Accounting Conference, New York.",
+        "Lu, M., Simnett, R., & Zhou, S. (2023). Using the same provider for financial statement audit and assurance of extended external reports: Choices and consequences. Auditing: A Journal of Practice & Theory, 42(1), 125-154.",
+        "Lyon, T. P., & Maxwell, J. W. (2011). Greenwash: Corporate environmental disclosure under threat of audit. Journal of Economics & Management Strategy, 20(1), 3-41."
+      ],
+      "level2_auto_parsed_fields": [
+        {
+          "item_idx": 0,
+          "key": "baier_2020",
+          "author1": "Baier",
+          "author2": "Berninger",
+          "authors": [
+            "Baier",
+            "Berninger",
+            "Kiesel"
+          ],
+          "year": "2020",
+          "source": "Environmental, social and governance reporting in annual reports: A textual analysis. Financial Markets, Institutions & Instruments, 29(3), 93-118"
+        },
+        {
+          "item_idx": 1,
+          "key": "barber_2023",
+          "author1": "Barber",
+          "author2": "Dee",
+          "authors": [
+            "Barber",
+            "Dee",
+            "Gunny"
+          ],
+          "year": "2023"
+        },
+        {
+          "item_idx": 2,
+          "key": "barnea_2010",
+          "author1": "Barnea",
+          "author2": "Rubin",
+          "authors": [
+            "Barnea",
+            "Rubin"
+          ],
+          "year": "2010",
+          "source": "Corporate social responsibility as a conflict between shareholders. Journal of business ethics, 97(1), 71-86"
+        },
+        {
+          "item_idx": 3,
+          "key": "bentleygoode_2025",
+          "author1": "Bentley-Goode",
+          "author2": "Simnett",
+          "authors": [
+            "Bentley-Goode",
+            "Simnett",
+            "Thompson",
+            "Trotman"
+          ],
+          "year": "2025",
+          "source": "Choice of assurance provider and impact on quality of sustainability reporting: Evidence from sustainability reporting restatements. Accounting & Finance, 65, 2135-2172"
+        },
+        {
+          "item_idx": 4,
+          "key": "boiral_2019",
+          "author1": "Boiral",
+          "author2": "Heras-Saizarbitoria",
+          "authors": [
+            "Boiral",
+            "Heras-Saizarbitoria",
+            "Brotherton"
+          ],
+          "year": "2019",
+          "source": "Assessing and improving the quality of sustainability reports: The auditors' perspective. Journal of business ethics, 155(3), 703-721"
+        },
+        {
+          "item_idx": 5,
+          "key": "caliendo_2008",
+          "author1": "Caliendo",
+          "author2": "Kopeinig",
+          "authors": [
+            "Caliendo",
+            "Kopeinig"
+          ],
+          "year": "2008",
+          "source": "Some practical guidance for the implementation of propensity score matching. Journal of Economic Surveys, 22(1), 31-72"
+        },
+        {
+          "item_idx": 6,
+          "key": "campbell_2007",
+          "author1": "Campbell",
+          "authors": [
+            "Campbell"
+          ],
+          "year": "2007",
+          "source": "Why would corporations behave in socially responsible ways? An institutional theory of corporate social responsibility. Academy of Management Review"
+        },
+        {
+          "item_idx": 7,
+          "key": "carey_2021",
+          "author1": "Carey",
+          "author2": "Khan",
+          "authors": [
+            "Carey",
+            "Khan",
+            "Mihret",
+            "Muttakin"
+          ],
+          "year": "2021",
+          "source": "Voluntary sustainability assurance, capital constraint and cost of debt: International evidence. International Journal of Auditing, 25(2), 351-372"
+        },
+        {
+          "item_idx": 8,
+          "key": "casey_2015",
+          "author1": "Casey",
+          "author2": "Grenier",
+          "authors": [
+            "Casey",
+            "Grenier"
+          ],
+          "year": "2015",
+          "source": "Understanding and contributing to the enigma of corporate social responsibility (CSR) assurance in the United States. Auditing: A Journal of Practice and Theory, 34(1), 97-130"
+        },
+        {
+          "item_idx": 9,
+          "key": "channuntapipat_2020",
+          "author1": "Channuntapipat",
+          "author2": "Samsonova-Taddei",
+          "authors": [
+            "Channuntapipat",
+            "Samsonova-Taddei",
+            "Turley"
+          ],
+          "year": "2020",
+          "source": "Variation in sustainability assurance practice: An analysis of accounting versus non-accounting providers. The British Accounting Review, 52(2), 100843"
+        },
+        {
+          "item_idx": 10,
+          "key": "chava_2014",
+          "author1": "Chava",
+          "authors": [
+            "Chava"
+          ],
+          "year": "2014",
+          "source": "Environmental externalities and cost of capital. Management Science, 60(9), 2223-2247"
+        },
+        {
+          "item_idx": 11,
+          "key": "chen_2018",
+          "author1": "Chen",
+          "author2": "Hung",
+          "authors": [
+            "Chen",
+            "Hung",
+            "Wang"
+          ],
+          "year": "2018",
+          "source": "The effect of mandatory CSR disclosure on firm profitability and social externalities: Evidence from China. Journal of accounting and economics, 65(1), 169-190"
+        },
+        {
+          "item_idx": 12,
+          "key": "cho_2015",
+          "author1": "Cho",
+          "author2": "Michelon",
+          "authors": [
+            "Cho",
+            "Michelon",
+            "Patten",
+            "Roberts"
+          ],
+          "year": "2015",
+          "source": "CSR disclosure: The more things change…? Accounting, Auditing & Accountability Journal, 28(1), 14-35"
+        },
+        {
+          "item_idx": 13,
+          "key": "clarkson_2008",
+          "author1": "Clarkson",
+          "author2": "Li",
+          "authors": [
+            "Clarkson",
+            "Li",
+            "Richardson",
+            "Vasvari"
+          ],
+          "year": "2008",
+          "source": "Revisiting the relation between environmental performance and environmental disclosure: An empirical analysis. Accounting, Organizations and Society, 33(4-5), 303-327"
+        },
+        {
+          "item_idx": 14,
+          "key": "devilliers_2011",
+          "author1": "Villiers",
+          "author2": "Naiker",
+          "authors": [
+            "Villiers",
+            "Naiker",
+            "Staden"
+          ],
+          "year": "2011",
+          "source": "The effect of board characteristics on firm environmental performance. Journal of management, 37(6), 1636-1663"
+        },
+        {
+          "item_idx": 15,
+          "key": "delmas_2011",
+          "author1": "Delmas",
+          "author2": "Burbano",
+          "authors": [
+            "Delmas",
+            "Burbano"
+          ],
+          "year": "2011",
+          "source": "The drivers of greenwashing. California Management Review, 54(1), 64-87"
+        },
+        {
+          "item_idx": 16,
+          "key": "dhaliwal_2011",
+          "author1": "Dhaliwal",
+          "author2": "Li",
+          "authors": [
+            "Dhaliwal",
+            "Li",
+            "Tsang",
+            "Yang"
+          ],
+          "year": "2011",
+          "source": "Voluntary nonfinancial disclosure and the cost of equity capital: The initiation of corporate social responsibility reporting. The Accounting Review"
+        },
+        {
+          "item_idx": 17,
+          "key": "dimaggio_1983",
+          "author1": "DiMaggio",
+          "author2": "Powell",
+          "authors": [
+            "DiMaggio",
+            "Powell"
+          ],
+          "year": "1983",
+          "source": "The iron cage revisited: Institutional isomorphism and collective rationality in organizational fields. American Sociological Review, 48(2), 147-160"
+        },
+        {
+          "item_idx": 18,
+          "key": "eccles_2014",
+          "author1": "Eccles",
+          "author2": "Ioannou",
+          "authors": [
+            "Eccles",
+            "Ioannou",
+            "Serafeim"
+          ],
+          "year": "2014",
+          "source": "The impact of corporate sustainability on organizational processes and performance. Management Science, 60(11), 2835-2857"
+        },
+        {
+          "item_idx": 19,
+          "key": "farooq_2019",
+          "author1": "Farooq",
+          "author2": "Villiers",
+          "authors": [
+            "Farooq",
+            "Villiers"
+          ],
+          "year": "2019",
+          "source": "The shaping of sustainability assurance through the competition between accounting and non-accounting providers. Accounting, Auditing & Accountability Journal, 32(1), 307-336"
+        },
+        {
+          "item_idx": 20,
+          "key": "ge_2024",
+          "author1": "Ge",
+          "author2": "Simnett",
+          "authors": [
+            "Ge",
+            "Simnett",
+            "Zhou"
+          ],
+          "year": "2024",
+          "source": "Evaluating the use of international standards for assurance engagements by non-accounting practitioners. Auditing: A Journal of Practice & Theory, 43(1), 101-124"
+        },
+        {
+          "item_idx": 21,
+          "key": "hong_2012",
+          "author1": "Hong",
+          "author2": "Kubik",
+          "authors": [
+            "Hong",
+            "Kubik",
+            "Scheinkman"
+          ],
+          "year": "2012",
+          "source": "Financial constraints on corporate goodness. NBER Working Paper"
+        },
+        {
+          "item_idx": 22,
+          "key": "hummel_2016",
+          "author1": "Hummel",
+          "author2": "Schlick",
+          "authors": [
+            "Hummel",
+            "Schlick"
+          ],
+          "year": "2016",
+          "source": "The relationship between sustainability performance and sustainability disclosure - Reconciling voluntary disclosure theory and legitimacy theory. Journal of Accounting and Public Policy, 35, 455-476"
+        },
+        {
+          "item_idx": 23,
+          "key": "ioannou_2019",
+          "author1": "Ioannou",
+          "author2": "Serafeim",
+          "authors": [
+            "Ioannou",
+            "Serafeim"
+          ],
+          "year": "2019",
+          "source": "The consequences of mandatory corporate sustainability reporting"
+        },
+        {
+          "item_idx": 24,
+          "key": "jo_2011",
+          "author1": "Jo",
+          "author2": "Harjoto",
+          "authors": [
+            "Jo",
+            "Harjoto"
+          ],
+          "year": "2011",
+          "source": "Corporate governance and firm value: The impact of corporate social responsibility. Journal of Business Ethics"
+        },
+        {
+          "item_idx": 25,
+          "key": "jo_2012",
+          "author1": "Jo",
+          "author2": "Harjoto",
+          "authors": [
+            "Jo",
+            "Harjoto"
+          ],
+          "year": "2012",
+          "source": "The causal effect of corporate governance on corporate social responsibility. Journal of business ethics, 106(1), 53-72"
+        },
+        {
+          "item_idx": 26,
+          "key": "kao_2024",
+          "author1": "Kao",
+          "author2": "Jian",
+          "authors": [
+            "Kao",
+            "Jian",
+            "Tseng"
+          ],
+          "year": "2024",
+          "source": "Managerial ability and voluntary ESG disclosure and assurance: evidence from Taiwan. Sustainability Accounting, Management and Policy Journal, 15(1), 207-231"
+        },
+        {
+          "item_idx": 27,
+          "key": "kaya_2025",
+          "author1": "Kaya",
+          "author2": "Bozcuk",
+          "authors": [
+            "Kaya",
+            "Bozcuk",
+            "Tutcu",
+            "lu",
+            "Uyar"
+          ],
+          "year": "2025",
+          "source": "Evaluating ESG practices from the perspective of transparency and accountability through clustering analysis and MCDM methods. Sustainability, 17, 10440"
+        },
+        {
+          "item_idx": 28,
+          "key": "khan_2016",
+          "author1": "Khan",
+          "author2": "Serafeim",
+          "authors": [
+            "Khan",
+            "Serafeim",
+            "Yoon"
+          ],
+          "year": "2016",
+          "source": "Corporate sustainability: First evidence on materiality. The Accounting Review, 91(6), 1697-1724"
+        },
+        {
+          "item_idx": 29,
+          "key": "li_2002",
+          "author1": "Li",
+          "author2": "Richardson",
+          "authors": [
+            "Li",
+            "Richardson",
+            "Thornton"
+          ],
+          "year": "2002",
+          "source": "Corporate disclosure of environmental liability information: Theory and evidence. Journal of Accounting Research"
+        },
+        {
+          "item_idx": 30,
+          "key": "lindblom_1994",
+          "author1": "Lindblom",
+          "authors": [
+            "Lindblom"
+          ],
+          "year": "1994",
+          "source": "The implications of organizational legitimacy for corporate social performance and disclosure. Paper presented at the CRitical Perspectives on Accounting Conference, New York"
+        },
+        {
+          "item_idx": 31,
+          "key": "lu_2023",
+          "author1": "Lu",
+          "author2": "Simnett",
+          "authors": [
+            "Lu",
+            "Simnett",
+            "Zhou"
+          ],
+          "year": "2023",
+          "source": "Using the same provider for financial statement audit and assurance of extended external reports: Choices and consequences. Auditing: A Journal of Practice & Theory, 42(1), 125-154"
+        },
+        {
+          "item_idx": 32,
+          "key": "lyon_2011",
+          "author1": "Lyon",
+          "author2": "Maxwell",
+          "authors": [
+            "Lyon",
+            "Maxwell"
+          ],
+          "year": "2011",
+          "source": "Greenwash: Corporate environmental disclosure under threat of audit. Journal of Economics & Management Strategy, 20(1), 3-41"
+        }
+      ]
+    },
+    "t003": {
+      "level2_auto_reference_keys": [
+        "agrawal_1987",
+        "akturan_2018",
+        "ameen_1996",
+        "ashbaughskaife_2006",
+        "banker_2000",
+        "beasley_1996",
+        "benamar_2015",
+        "berrone_2015",
+        "bierbusse_1997",
+        "birindelli_2024",
+        "campbell_2008",
+        "carter_2003",
+        "core_1999",
+        "delmas_2011",
+        "dess_2001",
+        "drucker_1970",
+        "du_2015",
+        "dziawgo_2021",
+        "eccles_2014",
+        "edmans_2011",
+        "elstad_2011",
+        "fama_1980",
+        "fama_1983",
+        "ferronvilchez_2021",
+        "hu_2024",
+        "jaworski_1993",
+        "kesner_1990",
+        "lane_2016",
+        "lee_2023",
+        "leonidou_2017",
+        "li_2022",
+        "lyon_2011",
+        "lyon_2013",
+        "lyon_2015",
+        "ma_2023",
+        "marquis_2016",
+        "monteronavarro_2021",
+        "murphy_1996",
+        "oh_2015",
+        "olatubosun_2021",
+        "parguel_2011",
+        "pearce_1992",
+        "pears_2023",
+        "pinches_1973",
+        "pizzetti_2021",
+        "rasoava_2019",
+        "rose_2007",
+        "schneider_2003",
+        "setopamies_2015",
+        "shocker_1974",
+        "tamimi_2017",
+        "tang_2017",
+        "terjesen_2015",
+        "testa_2018",
+        "tho_2021",
+        "torchia_2011",
+        "walker_2012",
+        "wiersma_2008",
+        "xiao_2022",
+        "yu_2020",
+        "zahid_2023",
+        "侍台誠_2019",
+        "俞海琴_1999",
+        "吳克_2012",
+        "廖益興_2010",
+        "李馨蘋_2007",
+        "杜玉振_2002",
+        "林泉興_2017",
+        "洪志銘_2022",
+        "湯惠雯_2017",
+        "王震宇_2006",
+        "莊譯甯_2023",
+        "許庭瑜_2015",
+        "陳姿郡_2011",
+        "馮建棨_2023",
+        "黃俊凱_2024",
+        "黃雅苓_1999",
+        "黃麗芬_2003"
+      ],
+      "level2_auto_reference_positions": [
+        "王震宇(2006),財務性與非財務性績效衡量指標之運用─整合衡量指標與工具發揮績效管理之效益,會計研究月刊,(250),60-63 .",
+        "杜玉振、黃荃與林容竹(2002),董事會特性對經營績效、財務決策之影響研究以台灣上市公司為例,管理與系統,9(3),345-368 .",
+        "吳克、余惠芳、黃曉如與邱資凱(2012),財務槓桿、公司治理與公司績效之實證研究,全球管理與經濟,8(2),40-54 .",
+        "李馨蘋與莊宗憲(2007),公司治理機制與公司績效之實證研究.東吳經濟商學學報,57,1-27.",
+        "侍台誠、蔡麗雯與相惠萍(2019),臺灣上市公司企業社會責任履行績效之影響因素研究－公司治理與智慧資本觀點,會計審計論叢,9(1),119-166 .",
+        "林泉興(2017),重視非財務績效資訊於衡量企業價值的重要性,KPMG 永續觀點.",
+        "洪志銘(2022),ESG揭露很重要,瞭解 ESG更重要,經濟前瞻,(203),17-20 .",
+        "俞海琴與陳慧娟(1999),我國上市公司成長、槓桿與托賓 Q 關聯之研究,風險管理學報,1(1),81-101 .",
+        "陳姿郡(2011),我國上市櫃公司女性董監事比例對投資決策與公司績效之影響, 國立臺北大學碩士論文.",
+        "許庭瑜(2015),多元、獨立性促進董事會運作,工商時報.",
+        "莊譯甯、劉正田與李家琪(2023),企業社會責任、投資與融資活動對經營績效之影響,輔仁管理評論,30(2),1-29.",
+        "馮建棨(2023),揭密企業漂綠有哪兩大類型？環署提 3 規定,防止公司「造假ESG」,工商時報.",
+        "湯惠雯(2017),CEO 雙重性、公司治理與公司績效－外部環境的角色,中山管理評論, 25(4),967-1008 .",
+        "黃俊凱(2024),抓漂綠,也要避免寒蟬效應,工商時報-寰瀛法律.",
+        "黃雅苓(1999),研究發展支出與經營績效關係及其費用化之探討-以台灣上市公司之電子業與非電子業為例,國立政治大學會計學系碩士論文.",
+        "黃麗芬(2003),景氣循環、研究發展對財務績效影響之研究-以我國上市上櫃資訊電子業為例,中原大學碩士論文.",
+        "廖益興(2010),董事會組成, 股權結構與年報資訊揭露水準,臺大管理論叢, 20(2),209-249",
+        "Agrawal, A. and Mandelker, G. N., (1987), Managerial incentives and corporate investment and financing decisions, Journal of Finance, 42(4), 823-837.",
+        "Akturan, U., (2018), How does greenwashing affect green branding equity and purchase intention? An empirical research, Marketing Intelligence & Planning, 36 (7), 809824.",
+        "Ameen, E. C., Guffey, D. M. and McMillan, J. J., (1996), Gender differences in determining the ethical sensitivity of future accounting professionals, Journal of Business Ethics, 15, 591-597.",
+        "Ashbaugh-Skaife, H. , Collins, D. W. and LaFond, R. , (2006), The effects of corporate governance on firms' credit ratings, Journal of Accounting and Economics, 42(12), 203-243.",
+        "Banker, R. D., Potter, G. and Srinivasan, D., (2000), An Empirical Investigation of an Incentive Plan That Include Nonfinancial Performance Measures, The Accounting Review, 75, 65-92.",
+        "Beasley, M. S., (1996), An Empirical Analysis of the Relation between the Board of Director Composition and Financial Statement Fraud, Accounting Review, 71(4), 443-465.",
+        "Ben-Amar, W., Chang, M. and McIlkenny, P., (2015), Board gender diversity and corporate response to sustainability initiatives: Evidence from the carbon disclosure project, Journal of Business Ethics, (142), 369-383.",
+        "Berrone, P., Fosfuri, A. and Gelabert, L., (2015), Does Greenwashing Pay Off? Understanding the Relationship Between Environmental Actions and Environmental Legitimacy, Journal of Business Ethics, 1-17.",
+        "Bierbusse, P. and Siesfeld, T., (1997), Measures that Matter, Journal of Strategic Performance Measurement, 1(2), 6-11.",
+        "Birindelli, G., Chiappini, H. and Jalal, R. N.-U.-D., (2024), Greenwashing, bank financial performance and the moderating role of gender diversity, Research in International Business and Finance, Volume 69.",
+        "Campbell, K. and Minguez-Vera, A., (2008), Gender diversity in the boardroom and firm financial performance, Journal of Business Ethics, 83(3), 435-451.",
+        "Carter, D. A., Simkins, B. J. and Simpson W. G., (2003), Corporate governance, board diversity, and firm value, Financial Review, 38(1), 33-53.",
+        "Core, J. E., Holthausen, R. W., and Larcker, D. F., (1999), Corporate governance, chief executive officer compensation, and firm performance, Journal of Financial Economics, 51(3), 371-406.",
+        "Delmas, M. A. and Cuerel Burbano, V., (2011), The Drivers of Greenwashing, California Management Review, 54(1).",
+        "Dess, G. G. and Shaw, J. D., (2001), Voluntary Turnover, Social Capital, and Organizational Performance, The Academy of Management Review, 26(3), 446456.",
+        "Drucker, P. F., (1970), Managing for Results, Economic Tasks and Risk-Taking Decisions.",
+        "Du, X., (2015), How the market values greenwashing? Evidence from China, Journal of Business Ethics, 128(3), 547-574.",
+        "Dziawgo, D., (2021), Acceptance of sustainability concept by Polish individual investors, European Research Studies Journal, 24(3), 335-348.",
+        "Eccles, R. G., Ioannou, I., and Serafeim, G., (2014), The Impact of Corporate Sustainability on Organizational Processes and Performance, Management Science, 60(11), 2835-2857.",
+        "Edmans, A., (2011), Does the stock market fully value intangibles? Employee satisfaction and equity prices, Journal of Financial Economics, 101(3), 621-640.",
+        "Elstad, B. and Ladegard, G., (2011), Women on corporate boards: Key influencers or tokens?, Journal of Management and Governance, 16(4), 1-21.",
+        "Fama, E. F., (1980), Agency problems and the theory of the firm, Journal of Political Economy, 88(2), 288-307.",
+        "Fama, E. F. and Jensen, M. C., (1983), Separation of ownership and control, Journal of Law and Economics, 26(2), 301-325.",
+        "Ferrón-Vílchez, V., Valero-Gil, J. and Suárez-Perales, I., (2021), How does greenwashing influence managers' decision-making? An experimental approach under stakeholder view, Corporate Social Responsibility and Environmental Management, 28(2), 860-880.",
+        "Hu, P., Li, X., Li, N., Wang, Y. and Wang, D. D., (2024), Peeking into Corporate Greenwashing through the Readability of ESG Disclosures, Sustainability, 16(6), 2571.",
+        "Jaworski, B. J. and Kohli, A. K., (1993), Market Orientation: Antecedents and Consequences, Journal of Marketing, 57(3), 53-70.",
+        "Kesner, I. F. and Johnson, R. B., (1990), An Investigation of The Relationship between Board Composition and Stockholder Suits, Strategic Management Journal, 11(4), 327-336.",
+        "Lane, E.L., (2016), Volkswagen and the High-tech Greenwash, European Journal of Risk Regulation, 7(1), 32-34.",
+        "Lee, M. T. and Raschke, R. L., (2023), Stakeholder legitimacy in firm greening and financial performance: What about greenwashing temptations?, Journal of Business Research, Volume 155, Part B.",
+        "Leonidou, C. N. and Skarmeas, D., (2017), Gray shades of green: Causes and consequences of green skepticism. Journal of Business Ethics, 144(2), 401- 415.",
+        "Li, W., Li, W., Seppänen, V. and Koivumäki, T., (2022), How and when does perceived greenwashing affect employees' job performance? Evidence from China, Corporate Social Responsibility and Environmental Management, 29(5), 17221735.",
+        "Lyon, T. P., and Montgomery, A. W., (2015), The Means and End of Greenwash, Organization & Environment, 28(2), 223-249.",
+        "Lyon, T. P. and Maxwell, J. W., (2011), Greenwash: Corporate Environmental Disclosure under Threat of Audit, Journal of Economics & Management Strategy, 20(1), 3-41.",
+        "Lyon T., Yao Lu, Shi, X. and Yin, Q., (2013), How do investors respond to Green Company Awards in China?, Ecological Economics, 94, 1-8.",
+        "Ma, Y, (2023), From Beans to Cups: A Comprehensive Study of Starbucks Sustainability Marketing and Impact on Brand Loyalty, Advances in Economics Management and Political Sciences, 61(1), 9-16.",
+        "Marquis, C., Toffel, M. W. and Zhou, Y., (2016), Scrutiny, norms, and selective disclosure: A global study of greenwashing, Organization Science, 27(2), 483- 504.",
+        "Montero-Navarro, A., González-Torres, T., Rodríguez-Sánchez,J.-L. and Gallego-Losada, R., (2021), A bibliometric analysis of greenwashing research: a closer look at agriculture, food industry and food retail, British Food Journal, 123(13), 547560.",
+        "Murphy, G. B., Trailer, J. W. and Hill, R. C., (1996), Measuring performance in entrepreneurship research, Journal of Business Research, 36(1), 15-23.",
+        "Oh, W. and Park, S., (2015), The relationship between corporate social responsibility and corporate financial performance in Korea, Emerging Markets Finance and Trade, 51(3), 85-94.",
+        "Olatubosun, P. and Nyazenga, S., (2021), Greenwashing and responsible investment practices: empirical evidence from Zimbabwe, Qualitative Research in Financial Markets, 13(1), 16-36.",
+        "Parguel, B., Benoît-Moreau, F. and Larceneux, F., (2011), How Sustainability Ratings Might Deter 'Greenwashing': A Closer Look at Ethical Corporate Communication, Journal of Business Ethics, 102, 15-28.",
+        "Pearce J. A., and Zahra, S. A., (1992), Board composition from a strategic contingency perspective, Journal of Management Studies, 29, 411-438.",
+        "Pears, P., Baines, T. and Williams, O., (2023), Greenwashing: Navigating the Risk, Harvard Law School Forum on Corporate Governance.",
+        "Pinches, G. E., Mingo, K. A. and Caruthers, J. K., (1973), The Stability of Financial Patterns in Industrial Organizations, The Journal of Finance, 28(2), 389-396.",
+        "Pizzetti, M., Gatti, L. and Seele, P., (2021), Firms Talk, Suppliers Walk: Analyzing the Locus of Greenwashing in the Blame Game and Introducing 'Vicarious Greenwashing', Journal of Business Ethics, Springer, 170(1), 21-38.",
+        "Rasoava, R., (2019), Executive compensation and firm performance: a non-linear relationship. Problems and Perspectives in Management, 17(2), 1-17.",
+        "Rose, C., (2007), Does female board representation influence firm performance? The Danish evidence, Corporate Governance: An International Review, 15 (2), 404413.",
+        "Schneider, B., Hanges, P. J., Smith, D. B. and Salvaggio, A. N, (2003), Which comes first: Employee attitudes or organizational financial and market performance? , Journal of Applied Psychology, 88(5), 836-851",
+        "Setó-Pamies, D., (2015), The Relationship between Women Directors and Corporate Social Responsibility, Corporate Social Responsibility and Environmental Management, Corporate Social Responsibility and Environmental Management, 22(6), 334-345.",
+        "Shocker, A. D. and Sethi, S. P., (1974), An Approach to Incorporating Social Preferences in Developing Corporate Action, California Management Review, 15(4)",
+        "Tamimi, N. and Sebastianelli, R., (2017), Transparency among S&P 500 companies: an analysis of ESG disclosure scores, Management Decision, 55(8), 1660-1680.",
+        "Tang, H. W., (2017), CEO Duality, Corporate Governance, and Firm Performance - The Role of External Environment, Sun Yat-Sen Management Review, 25(4), 967-1008.",
+        "Terjesen, S., Couto, E., and Francisco, P., (2015), Does the presence of independent and female directors impact firm performance? A multi-country study of board diversity, Journal of Management and Governance, 20, 447-483.",
+        "Testa, F., Boiral, O. and Iraldo, F., (2018), Internalization of Environmental Practices and Institutional Complexity: Can Stakeholders Pressures Encourage Greenwashing?, Journal of Business Ethics, 147(2), 287-307.",
+        "Tho, N. X., Dung, L. T. and Ngo, T. T. H., (2021), Firm Financial Performance: A Review on Accounting & MarketBased Approach, International Journal of Business and Management Invention, 10(6).",
+        "Torchia, M., Calabrò, A. and Huse, M. , (2011) , Women Directors on Corporate Boards: From Tokenism to Critical Mass, Journal of Business Ethics, 102, 299-317.",
+        "Walker, K. and Wan, F., (2012), The Harm of Symbolic Actions and Green-Washing: Corporate Actions and Communications on Environmental Performance and Their Financial Implications, Journal of Business Ethics, 109, 227-242.",
+        "Wiersma, E., (2008), An exploratory study of relative and incremental information content of two non-financial performance measures: Field study evidence on absence frequency and on-time delivery. Accounting, Organizations and Society, 33(2-3), 249-265.",
+        "Yu, E. P.-Y., Luu, B.V. and Chen, C.H., (2020), Greenwashing in environmental, social and governance disclosures, Research in International Business and Finance, 52, 101192.",
+        "Xiao, Z., Wang, Y. and Guo, D., (2022), Will Greenwashing Result in Brand Avoidance? A Moderated Mediation Model, Sustainability, 14(12), 7204.",
+        "Zahid, R. M. A., Maqsood, U. S., Irshad, S., Khan, M. K., (2023), The role of women on board in combatting greenwashing: A new perspective on environmental performance, Business Ethics the Environment & Responsibility."
+      ],
+      "level2_auto_parsed_fields": [
+        {
+          "item_idx": 0,
+          "key": "王震宇_2006",
+          "author1": "王震宇",
+          "authors": [
+            "王震宇"
+          ],
+          "year": "2006",
+          "source": "財務性與非財務性績效衡量指標之運用─整合衡量指標與工具發揮績效管理之效益,會計研究月刊,(250),60-63"
+        },
+        {
+          "item_idx": 1,
+          "key": "杜玉振_2002",
+          "author1": "杜玉振",
+          "author2": "黃荃",
+          "authors": [
+            "杜玉振",
+            "黃荃",
+            "林容竹"
+          ],
+          "year": "2002",
+          "source": "董事會特性對經營績效、財務決策之影響研究以台灣上市公司為例,管理與系統,9(3),345-368"
+        },
+        {
+          "item_idx": 2,
+          "key": "吳克_2012",
+          "author1": "吳克",
+          "author2": "余惠芳",
+          "authors": [
+            "吳克",
+            "余惠芳",
+            "黃曉如",
+            "邱資凱"
+          ],
+          "year": "2012",
+          "source": "財務槓桿、公司治理與公司績效之實證研究,全球管理與經濟,8(2),40-54"
+        },
+        {
+          "item_idx": 3,
+          "key": "李馨蘋_2007",
+          "author1": "李馨蘋",
+          "author2": "莊宗憲",
+          "authors": [
+            "李馨蘋",
+            "莊宗憲"
+          ],
+          "year": "2007",
+          "source": "公司治理機制與公司績效之實證研究.東吳經濟商學學報,57,1-27"
+        },
+        {
+          "item_idx": 4,
+          "key": "侍台誠_2019",
+          "author1": "侍台誠",
+          "author2": "蔡麗雯",
+          "authors": [
+            "侍台誠",
+            "蔡麗雯",
+            "相惠萍"
+          ],
+          "year": "2019",
+          "source": "臺灣上市公司企業社會責任履行績效之影響因素研究－公司治理與智慧資本觀點,會計審計論叢,9(1),119-166"
+        },
+        {
+          "item_idx": 5,
+          "key": "林泉興_2017",
+          "author1": "林泉興",
+          "authors": [
+            "林泉興"
+          ],
+          "year": "2017",
+          "source": "重視非財務績效資訊於衡量企業價值的重要性,KPMG 永續觀點"
+        },
+        {
+          "item_idx": 6,
+          "key": "洪志銘_2022",
+          "author1": "洪志銘",
+          "authors": [
+            "洪志銘"
+          ],
+          "year": "2022",
+          "source": "ESG揭露很重要,瞭解 ESG更重要,經濟前瞻,(203),17-20"
+        },
+        {
+          "item_idx": 7,
+          "key": "俞海琴_1999",
+          "author1": "俞海琴",
+          "author2": "陳慧娟",
+          "authors": [
+            "俞海琴",
+            "陳慧娟"
+          ],
+          "year": "1999",
+          "source": "我國上市公司成長、槓桿與托賓 Q 關聯之研究,風險管理學報,1(1),81-101"
+        },
+        {
+          "item_idx": 8,
+          "key": "陳姿郡_2011",
+          "author1": "陳姿郡",
+          "authors": [
+            "陳姿郡"
+          ],
+          "year": "2011",
+          "source": "我國上市櫃公司女性董監事比例對投資決策與公司績效之影響, 國立臺北大學碩士論文"
+        },
+        {
+          "item_idx": 9,
+          "key": "許庭瑜_2015",
+          "author1": "許庭瑜",
+          "authors": [
+            "許庭瑜"
+          ],
+          "year": "2015",
+          "source": "多元、獨立性促進董事會運作,工商時報"
+        },
+        {
+          "item_idx": 10,
+          "key": "莊譯甯_2023",
+          "author1": "莊譯甯",
+          "author2": "劉正田",
+          "authors": [
+            "莊譯甯",
+            "劉正田",
+            "李家琪"
+          ],
+          "year": "2023",
+          "source": "企業社會責任、投資與融資活動對經營績效之影響,輔仁管理評論,30(2),1-29"
+        },
+        {
+          "item_idx": 11,
+          "key": "馮建棨_2023",
+          "author1": "馮建棨",
+          "authors": [
+            "馮建棨"
+          ],
+          "year": "2023",
+          "source": "揭密企業漂綠有哪兩大類型？環署提 3 規定,防止公司「造假ESG」,工商時報"
+        },
+        {
+          "item_idx": 12,
+          "key": "湯惠雯_2017",
+          "author1": "湯惠雯",
+          "authors": [
+            "湯惠雯"
+          ],
+          "year": "2017",
+          "source": "CEO 雙重性、公司治理與公司績效－外部環境的角色,中山管理評論, 25(4),967-1008"
+        },
+        {
+          "item_idx": 13,
+          "key": "黃俊凱_2024",
+          "author1": "黃俊凱",
+          "authors": [
+            "黃俊凱"
+          ],
+          "year": "2024",
+          "source": "抓漂綠,也要避免寒蟬效應,工商時報-寰瀛法律"
+        },
+        {
+          "item_idx": 14,
+          "key": "黃雅苓_1999",
+          "author1": "黃雅苓",
+          "authors": [
+            "黃雅苓"
+          ],
+          "year": "1999",
+          "source": "研究發展支出與經營績效關係及其費用化之探討-以台灣上市公司之電子業與非電子業為例,國立政治大學會計學系碩士論文"
+        },
+        {
+          "item_idx": 15,
+          "key": "黃麗芬_2003",
+          "author1": "黃麗芬",
+          "authors": [
+            "黃麗芬"
+          ],
+          "year": "2003",
+          "source": "景氣循環、研究發展對財務績效影響之研究-以我國上市上櫃資訊電子業為例,中原大學碩士論文"
+        },
+        {
+          "item_idx": 16,
+          "key": "廖益興_2010",
+          "author1": "廖益興",
+          "authors": [
+            "廖益興"
+          ],
+          "year": "2010",
+          "source": "董事會組成, 股權結構與年報資訊揭露水準,臺大管理論叢, 20(2),209-249"
+        },
+        {
+          "item_idx": 17,
+          "key": "agrawal_1987",
+          "author1": "Agrawal",
+          "author2": "Mandelker",
+          "authors": [
+            "Agrawal",
+            "Mandelker"
+          ],
+          "year": "1987",
+          "source": "Managerial incentives and corporate investment and financing decisions, Journal of Finance, 42(4), 823-837"
+        },
+        {
+          "item_idx": 18,
+          "key": "akturan_2018",
+          "author1": "Akturan",
+          "authors": [
+            "Akturan"
+          ],
+          "year": "2018",
+          "source": "How does greenwashing affect green branding equity and purchase intention? An empirical research, Marketing Intelligence & Planning, 36 (7), 809824"
+        },
+        {
+          "item_idx": 19,
+          "key": "ameen_1996",
+          "author1": "Ameen",
+          "author2": "Guffey",
+          "authors": [
+            "Ameen",
+            "Guffey",
+            "McMillan"
+          ],
+          "year": "1996",
+          "source": "Gender differences in determining the ethical sensitivity of future accounting professionals, Journal of Business Ethics, 15, 591-597"
+        },
+        {
+          "item_idx": 20,
+          "key": "ashbaughskaife_2006",
+          "author1": "Ashbaugh-Skaife",
+          "author2": "Collins",
+          "authors": [
+            "Ashbaugh-Skaife",
+            "Collins",
+            "LaFond"
+          ],
+          "year": "2006",
+          "source": "The effects of corporate governance on firms' credit ratings, Journal of Accounting and Economics, 42(12), 203-243"
+        },
+        {
+          "item_idx": 21,
+          "key": "banker_2000",
+          "author1": "Banker",
+          "author2": "Potter",
+          "authors": [
+            "Banker",
+            "Potter",
+            "Srinivasan"
+          ],
+          "year": "2000",
+          "source": "An Empirical Investigation of an Incentive Plan That Include Nonfinancial Performance Measures, The Accounting Review, 75, 65-92"
+        },
+        {
+          "item_idx": 22,
+          "key": "beasley_1996",
+          "author1": "Beasley",
+          "authors": [
+            "Beasley"
+          ],
+          "year": "1996",
+          "source": "An Empirical Analysis of the Relation between the Board of Director Composition and Financial Statement Fraud, Accounting Review, 71(4), 443-465"
+        },
+        {
+          "item_idx": 23,
+          "key": "benamar_2015",
+          "author1": "Ben-Amar",
+          "author2": "Chang",
+          "authors": [
+            "Ben-Amar",
+            "Chang",
+            "McIlkenny"
+          ],
+          "year": "2015",
+          "source": "Board gender diversity and corporate response to sustainability initiatives: Evidence from the carbon disclosure project, Journal of Business Ethics, (142), 369-383"
+        },
+        {
+          "item_idx": 24,
+          "key": "berrone_2015",
+          "author1": "Berrone",
+          "author2": "Fosfuri",
+          "authors": [
+            "Berrone",
+            "Fosfuri",
+            "Gelabert"
+          ],
+          "year": "2015",
+          "source": "Does Greenwashing Pay Off? Understanding the Relationship Between Environmental Actions and Environmental Legitimacy, Journal of Business Ethics, 1-17"
+        },
+        {
+          "item_idx": 25,
+          "key": "bierbusse_1997",
+          "author1": "Bierbusse",
+          "author2": "Siesfeld",
+          "authors": [
+            "Bierbusse",
+            "Siesfeld"
+          ],
+          "year": "1997",
+          "source": "Measures that Matter, Journal of Strategic Performance Measurement, 1(2), 6-11"
+        },
+        {
+          "item_idx": 26,
+          "key": "birindelli_2024",
+          "author1": "Birindelli",
+          "author2": "Chiappini",
+          "authors": [
+            "Birindelli",
+            "Chiappini",
+            "Jalal"
+          ],
+          "year": "2024",
+          "source": "Greenwashing, bank financial performance and the moderating role of gender diversity, Research in International Business and Finance, Volume 69"
+        },
+        {
+          "item_idx": 27,
+          "key": "campbell_2008",
+          "author1": "Campbell",
+          "author2": "Minguez-Vera",
+          "authors": [
+            "Campbell",
+            "Minguez-Vera"
+          ],
+          "year": "2008",
+          "source": "Gender diversity in the boardroom and firm financial performance, Journal of Business Ethics, 83(3), 435-451"
+        },
+        {
+          "item_idx": 28,
+          "key": "carter_2003",
+          "author1": "Carter",
+          "author2": "Simkins",
+          "authors": [
+            "Carter",
+            "Simkins"
+          ],
+          "year": "2003",
+          "source": "Corporate governance, board diversity, and firm value, Financial Review, 38(1), 33-53"
+        },
+        {
+          "item_idx": 29,
+          "key": "core_1999",
+          "author1": "Core",
+          "author2": "Holthausen",
+          "authors": [
+            "Core",
+            "Holthausen",
+            "Larcker"
+          ],
+          "year": "1999",
+          "source": "Corporate governance, chief executive officer compensation, and firm performance, Journal of Financial Economics, 51(3), 371-406"
+        },
+        {
+          "item_idx": 30,
+          "key": "delmas_2011",
+          "author1": "Delmas",
+          "author2": "Burbano",
+          "authors": [
+            "Delmas",
+            "Burbano"
+          ],
+          "year": "2011",
+          "source": "The Drivers of Greenwashing, California Management Review, 54(1"
+        },
+        {
+          "item_idx": 31,
+          "key": "dess_2001",
+          "author1": "Dess",
+          "author2": "Shaw",
+          "authors": [
+            "Dess",
+            "Shaw"
+          ],
+          "year": "2001",
+          "source": "Voluntary Turnover, Social Capital, and Organizational Performance, The Academy of Management Review, 26(3), 446456"
+        },
+        {
+          "item_idx": 32,
+          "key": "drucker_1970",
+          "author1": "Drucker",
+          "authors": [
+            "Drucker"
+          ],
+          "year": "1970",
+          "source": "Managing for Results, Economic Tasks and Risk-Taking Decisions"
+        },
+        {
+          "item_idx": 33,
+          "key": "du_2015",
+          "author1": "Du",
+          "authors": [
+            "Du"
+          ],
+          "year": "2015",
+          "source": "How the market values greenwashing? Evidence from China, Journal of Business Ethics, 128(3), 547-574"
+        },
+        {
+          "item_idx": 34,
+          "key": "dziawgo_2021",
+          "author1": "Dziawgo",
+          "authors": [
+            "Dziawgo"
+          ],
+          "year": "2021",
+          "source": "Acceptance of sustainability concept by Polish individual investors, European Research Studies Journal, 24(3), 335-348"
+        },
+        {
+          "item_idx": 35,
+          "key": "eccles_2014",
+          "author1": "Eccles",
+          "author2": "Ioannou",
+          "authors": [
+            "Eccles",
+            "Ioannou",
+            "Serafeim"
+          ],
+          "year": "2014",
+          "source": "The Impact of Corporate Sustainability on Organizational Processes and Performance, Management Science, 60(11), 2835-2857"
+        },
+        {
+          "item_idx": 36,
+          "key": "edmans_2011",
+          "author1": "Edmans",
+          "authors": [
+            "Edmans"
+          ],
+          "year": "2011",
+          "source": "Does the stock market fully value intangibles? Employee satisfaction and equity prices, Journal of Financial Economics, 101(3), 621-640"
+        },
+        {
+          "item_idx": 37,
+          "key": "elstad_2011",
+          "author1": "Elstad",
+          "author2": "Ladegard",
+          "authors": [
+            "Elstad",
+            "Ladegard"
+          ],
+          "year": "2011",
+          "source": "Women on corporate boards: Key influencers or tokens?, Journal of Management and Governance, 16(4), 1-21"
+        },
+        {
+          "item_idx": 38,
+          "key": "fama_1980",
+          "author1": "Fama",
+          "authors": [
+            "Fama"
+          ],
+          "year": "1980",
+          "source": "Agency problems and the theory of the firm, Journal of Political Economy, 88(2), 288-307"
+        },
+        {
+          "item_idx": 39,
+          "key": "fama_1983",
+          "author1": "Fama",
+          "author2": "Jensen",
+          "authors": [
+            "Fama",
+            "Jensen"
+          ],
+          "year": "1983",
+          "source": "Separation of ownership and control, Journal of Law and Economics, 26(2), 301-325"
+        },
+        {
+          "item_idx": 40,
+          "key": "ferronvilchez_2021",
+          "author1": "lchez",
+          "author2": "Valero-Gil",
+          "authors": [
+            "lchez",
+            "Valero-Gil",
+            "rez-Perales"
+          ],
+          "year": "2021",
+          "source": "How does greenwashing influence managers' decision-making? An experimental approach under stakeholder view, Corporate Social Responsibility and Environmental Management, 28(2), 860-880"
+        },
+        {
+          "item_idx": 41,
+          "key": "hu_2024",
+          "author1": "Hu",
+          "author2": "Li",
+          "authors": [
+            "Hu",
+            "Li",
+            "Wang"
+          ],
+          "year": "2024",
+          "source": "Peeking into Corporate Greenwashing through the Readability of ESG Disclosures, Sustainability, 16(6), 2571"
+        },
+        {
+          "item_idx": 42,
+          "key": "jaworski_1993",
+          "author1": "Jaworski",
+          "author2": "Kohli",
+          "authors": [
+            "Jaworski",
+            "Kohli"
+          ],
+          "year": "1993",
+          "source": "Market Orientation: Antecedents and Consequences, Journal of Marketing, 57(3), 53-70"
+        },
+        {
+          "item_idx": 43,
+          "key": "kesner_1990",
+          "author1": "Kesner",
+          "author2": "Johnson",
+          "authors": [
+            "Kesner",
+            "Johnson"
+          ],
+          "year": "1990",
+          "source": "An Investigation of The Relationship between Board Composition and Stockholder Suits, Strategic Management Journal, 11(4), 327-336"
+        },
+        {
+          "item_idx": 44,
+          "key": "lane_2016",
+          "author1": "Lane",
+          "authors": [
+            "Lane"
+          ],
+          "year": "2016",
+          "source": "Volkswagen and the High-tech Greenwash, European Journal of Risk Regulation, 7(1), 32-34"
+        },
+        {
+          "item_idx": 45,
+          "key": "lee_2023",
+          "author1": "Lee",
+          "author2": "Raschke",
+          "authors": [
+            "Lee",
+            "Raschke"
+          ],
+          "year": "2023",
+          "source": "Stakeholder legitimacy in firm greening and financial performance: What about greenwashing temptations?, Journal of Business Research, Volume 155, Part B"
+        },
+        {
+          "item_idx": 46,
+          "key": "leonidou_2017",
+          "author1": "Leonidou",
+          "author2": "Skarmeas",
+          "authors": [
+            "Leonidou",
+            "Skarmeas"
+          ],
+          "year": "2017",
+          "source": "Gray shades of green: Causes and consequences of green skepticism. Journal of Business Ethics, 144(2), 401- 415"
+        },
+        {
+          "item_idx": 47,
+          "key": "li_2022",
+          "author1": "Li",
+          "author2": "nen",
+          "authors": [
+            "Li",
+            "nen",
+            "ki"
+          ],
+          "year": "2022",
+          "source": "How and when does perceived greenwashing affect employees' job performance? Evidence from China, Corporate Social Responsibility and Environmental Management, 29(5), 17221735"
+        },
+        {
+          "item_idx": 48,
+          "key": "lyon_2015",
+          "author1": "Lyon",
+          "author2": "Montgomery",
+          "authors": [
+            "Lyon",
+            "Montgomery"
+          ],
+          "year": "2015",
+          "source": "The Means and End of Greenwash, Organization & Environment, 28(2), 223-249"
+        },
+        {
+          "item_idx": 49,
+          "key": "lyon_2011",
+          "author1": "Lyon",
+          "author2": "Maxwell",
+          "authors": [
+            "Lyon",
+            "Maxwell"
+          ],
+          "year": "2011",
+          "source": "Greenwash: Corporate Environmental Disclosure under Threat of Audit, Journal of Economics & Management Strategy, 20(1), 3-41"
+        },
+        {
+          "item_idx": 50,
+          "key": "lyon_2013",
+          "author1": "Lu",
+          "author2": "hi",
+          "authors": [
+            "Lu",
+            "hi",
+            "Yin"
+          ],
+          "year": "2013",
+          "source": "How do investors respond to Green Company Awards in China?, Ecological Economics, 94, 1-8"
+        },
+        {
+          "item_idx": 51,
+          "key": "ma_2023",
+          "author1": "Ma",
+          "authors": [
+            "Ma"
+          ],
+          "year": "2023",
+          "source": "From Beans to Cups: A Comprehensive Study of Starbucks Sustainability Marketing and Impact on Brand Loyalty, Advances in Economics Management and Political Sciences, 61(1), 9-16"
+        },
+        {
+          "item_idx": 52,
+          "key": "marquis_2016",
+          "author1": "Marquis",
+          "author2": "Toffel",
+          "authors": [
+            "Marquis",
+            "Toffel",
+            "Zhou"
+          ],
+          "year": "2016",
+          "source": "Scrutiny, norms, and selective disclosure: A global study of greenwashing, Organization Science, 27(2), 483- 504"
+        },
+        {
+          "item_idx": 53,
+          "key": "monteronavarro_2021",
+          "author1": "Montero-Navarro",
+          "author2": "lez-Torres",
+          "authors": [
+            "Montero-Navarro",
+            "lez-Torres",
+            "nchez",
+            "Gallego-Losada"
+          ],
+          "year": "2021",
+          "source": "A bibliometric analysis of greenwashing research: a closer look at agriculture, food industry and food retail, British Food Journal, 123(13), 547560"
+        },
+        {
+          "item_idx": 54,
+          "key": "murphy_1996",
+          "author1": "Murphy",
+          "author2": "Trailer",
+          "authors": [
+            "Murphy",
+            "Trailer",
+            "Hill"
+          ],
+          "year": "1996",
+          "source": "Measuring performance in entrepreneurship research, Journal of Business Research, 36(1), 15-23"
+        },
+        {
+          "item_idx": 55,
+          "key": "oh_2015",
+          "author1": "Oh",
+          "author2": "Park",
+          "authors": [
+            "Oh",
+            "Park"
+          ],
+          "year": "2015",
+          "source": "The relationship between corporate social responsibility and corporate financial performance in Korea, Emerging Markets Finance and Trade, 51(3), 85-94"
+        },
+        {
+          "item_idx": 56,
+          "key": "olatubosun_2021",
+          "author1": "Olatubosun",
+          "author2": "Nyazenga",
+          "authors": [
+            "Olatubosun",
+            "Nyazenga"
+          ],
+          "year": "2021",
+          "source": "Greenwashing and responsible investment practices: empirical evidence from Zimbabwe, Qualitative Research in Financial Markets, 13(1), 16-36"
+        },
+        {
+          "item_idx": 57,
+          "key": "parguel_2011",
+          "author1": "Parguel",
+          "author2": "t-Moreau",
+          "authors": [
+            "Parguel",
+            "t-Moreau",
+            "Larceneux"
+          ],
+          "year": "2011",
+          "source": "How Sustainability Ratings Might Deter 'Greenwashing': A Closer Look at Ethical Corporate Communication, Journal of Business Ethics, 102, 15-28"
+        },
+        {
+          "item_idx": 58,
+          "key": "pearce_1992",
+          "author1": "Zahra",
+          "author2": "Zahra",
+          "authors": [
+            "Zahra"
+          ],
+          "year": "1992",
+          "source": "Board composition from a strategic contingency perspective, Journal of Management Studies, 29, 411-438"
+        },
+        {
+          "item_idx": 59,
+          "key": "pears_2023",
+          "author1": "Pears",
+          "author2": "Baines",
+          "authors": [
+            "Pears",
+            "Baines",
+            "Williams"
+          ],
+          "year": "2023",
+          "source": "Greenwashing: Navigating the Risk, Harvard Law School Forum on Corporate Governance"
+        },
+        {
+          "item_idx": 60,
+          "key": "pinches_1973",
+          "author1": "Pinches",
+          "author2": "Mingo",
+          "authors": [
+            "Pinches",
+            "Mingo",
+            "Caruthers"
+          ],
+          "year": "1973",
+          "source": "The Stability of Financial Patterns in Industrial Organizations, The Journal of Finance, 28(2), 389-396"
+        },
+        {
+          "item_idx": 61,
+          "key": "pizzetti_2021",
+          "author1": "Pizzetti",
+          "author2": "Gatti",
+          "authors": [
+            "Pizzetti",
+            "Gatti",
+            "Seele"
+          ],
+          "year": "2021",
+          "source": "Firms Talk, Suppliers Walk: Analyzing the Locus of Greenwashing in the Blame Game and Introducing 'Vicarious Greenwashing', Journal of Business Ethics, Springer, 170(1), 21-38"
+        },
+        {
+          "item_idx": 62,
+          "key": "rasoava_2019",
+          "author1": "Rasoava",
+          "authors": [
+            "Rasoava"
+          ],
+          "year": "2019",
+          "source": "Executive compensation and firm performance: a non-linear relationship. Problems and Perspectives in Management, 17(2), 1-17"
+        },
+        {
+          "item_idx": 63,
+          "key": "rose_2007",
+          "author1": "Rose",
+          "authors": [
+            "Rose"
+          ],
+          "year": "2007",
+          "source": "Does female board representation influence firm performance? The Danish evidence, Corporate Governance: An International Review, 15 (2), 404413"
+        },
+        {
+          "item_idx": 64,
+          "key": "schneider_2003",
+          "author1": "Schneider",
+          "author2": "Hanges",
+          "authors": [
+            "Schneider",
+            "Hanges",
+            "Smith",
+            "Salvaggio"
+          ],
+          "year": "2003",
+          "source": "Which comes first: Employee attitudes or organizational financial and market performance? , Journal of Applied Psychology, 88(5), 836-851"
+        },
+        {
+          "item_idx": 65,
+          "key": "setopamies_2015",
+          "author1": "Pamies",
+          "authors": [
+            "Pamies"
+          ],
+          "year": "2015",
+          "source": "The Relationship between Women Directors and Corporate Social Responsibility, Corporate Social Responsibility and Environmental Management, Corporate Social Responsibility and Environmental Management, 22(6), 334-345"
+        },
+        {
+          "item_idx": 66,
+          "key": "shocker_1974",
+          "author1": "Shocker",
+          "author2": "Sethi",
+          "authors": [
+            "Shocker",
+            "Sethi"
+          ],
+          "year": "1974",
+          "source": "An Approach to Incorporating Social Preferences in Developing Corporate Action, California Management Review, 15(4"
+        },
+        {
+          "item_idx": 67,
+          "key": "tamimi_2017",
+          "author1": "Tamimi",
+          "author2": "Sebastianelli",
+          "authors": [
+            "Tamimi",
+            "Sebastianelli"
+          ],
+          "year": "2017",
+          "source": "Transparency among S&P 500 companies: an analysis of ESG disclosure scores, Management Decision, 55(8), 1660-1680"
+        },
+        {
+          "item_idx": 68,
+          "key": "tang_2017",
+          "author1": "Tang",
+          "authors": [
+            "Tang"
+          ],
+          "year": "2017",
+          "source": "CEO Duality, Corporate Governance, and Firm Performance - The Role of External Environment, Sun Yat-Sen Management Review, 25(4), 967-1008"
+        },
+        {
+          "item_idx": 69,
+          "key": "terjesen_2015",
+          "author1": "Terjesen",
+          "author2": "Couto",
+          "authors": [
+            "Terjesen",
+            "Couto",
+            "Francisco"
+          ],
+          "year": "2015",
+          "source": "Does the presence of independent and female directors impact firm performance? A multi-country study of board diversity, Journal of Management and Governance, 20, 447-483"
+        },
+        {
+          "item_idx": 70,
+          "key": "testa_2018",
+          "author1": "Testa",
+          "author2": "Boiral",
+          "authors": [
+            "Testa",
+            "Boiral",
+            "Iraldo"
+          ],
+          "year": "2018",
+          "source": "Internalization of Environmental Practices and Institutional Complexity: Can Stakeholders Pressures Encourage Greenwashing?, Journal of Business Ethics, 147(2), 287-307"
+        },
+        {
+          "item_idx": 71,
+          "key": "tho_2021",
+          "author1": "Tho",
+          "author2": "Dung",
+          "authors": [
+            "Tho",
+            "Dung",
+            "Ngo"
+          ],
+          "year": "2021",
+          "source": "Firm Financial Performance: A Review on Accounting & MarketBased Approach, International Journal of Business and Management Invention, 10(6"
+        },
+        {
+          "item_idx": 72,
+          "key": "torchia_2011",
+          "author1": "Torchia",
+          "author2": "Huse",
+          "authors": [
+            "Torchia",
+            "Huse"
+          ],
+          "year": "2011",
+          "source": "Women Directors on Corporate Boards: From Tokenism to Critical Mass, Journal of Business Ethics, 102, 299-317"
+        },
+        {
+          "item_idx": 73,
+          "key": "walker_2012",
+          "author1": "Walker",
+          "author2": "Wan",
+          "authors": [
+            "Walker",
+            "Wan"
+          ],
+          "year": "2012",
+          "source": "The Harm of Symbolic Actions and Green-Washing: Corporate Actions and Communications on Environmental Performance and Their Financial Implications, Journal of Business Ethics, 109, 227-242"
+        },
+        {
+          "item_idx": 74,
+          "key": "wiersma_2008",
+          "author1": "Wiersma",
+          "authors": [
+            "Wiersma"
+          ],
+          "year": "2008",
+          "source": "An exploratory study of relative and incremental information content of two non-financial performance measures: Field study evidence on absence frequency and on-time delivery. Accounting, Organizations and Society, 33(2-3), 249-265"
+        },
+        {
+          "item_idx": 75,
+          "key": "yu_2020",
+          "author1": "Yu",
+          "author2": "Luu",
+          "authors": [
+            "Yu",
+            "Luu",
+            "Chen"
+          ],
+          "year": "2020",
+          "source": "Greenwashing in environmental, social and governance disclosures, Research in International Business and Finance, 52, 101192"
+        },
+        {
+          "item_idx": 76,
+          "key": "xiao_2022",
+          "author1": "Xiao",
+          "author2": "Wang",
+          "authors": [
+            "Xiao",
+            "Wang",
+            "Guo"
+          ],
+          "year": "2022",
+          "source": "Will Greenwashing Result in Brand Avoidance? A Moderated Mediation Model, Sustainability, 14(12), 7204"
+        },
+        {
+          "item_idx": 77,
+          "key": "zahid_2023",
+          "author1": "Zahid",
+          "author2": "Maqsood",
+          "authors": [
+            "Zahid",
+            "Maqsood",
+            "Irshad",
+            "Khan"
+          ],
+          "year": "2023",
+          "source": "The role of women on board in combatting greenwashing: A new perspective on environmental performance, Business Ethics the Environment & Responsibility"
+        }
+      ]
+    },
+    "t004": {
+      "level2_auto_reference_keys": [
+        "alderman_1982",
+        "ashton_1991",
+        "bedard_1991",
+        "bell_1997",
+        "bonner_1990",
+        "dezoort_1997",
+        "emerson_1993",
+        "ferguson_1989",
+        "johnson_1991",
+        "owhoso_2002",
+        "ponemon_1992",
+        "slovic_1971",
+        "smith_1991",
+        "solomon_1992",
+        "taylor_2000",
+        "tversky_1974",
+        "wright_1997"
+      ],
+      "level2_auto_reference_positions": [
+        "Alderman, C. W., and J. W. Deitrick. 1982. Auditors' perceptions of time budget pressure and premature sign-offs: A replication and extension. Auditing: A Journal of Practice & Theory 1 (2): 54-68.",
+        "Ashton, A. H. 1991. Experience and error frequency knowledge as potential determinants of audit expertise. The Accounting Review 66 (2): 218-239.",
+        "Bedard, J. C., and S. F. Biggs. 1991. The effects of domain-specific experience on evaluation of management representations in analytical procedures. Auditing: A Journal of Practice & Theory 10 (Supplement): 77-90.",
+        "Bell, T., F. Marrs, I. Solomon, and H. Thomas. 1997. Auditing Organizations Through a Strategic-Systems Lens. The KPMG Business Measurement Process. New York, NY: KPMG Peat Marwick LLP.",
+        "Bonner, S. E., and B. L. Lewis. 1990. Determinants of auditor expertise. Journal of Accounting Research 28 (Supplement): 1-20.",
+        "DeZoort, F. T., and A. T. Lord. 1997. A review and synthesis of pressure effects research in accounting. Journal of Accounting Literature 16: 28-85.",
+        "Emerson, J. C. 1993. KPMG Peat Marwick: Setting the new practice framework standard. Professional Services Review (June): 1-4.",
+        "Ferguson, G. A., and Y. Takane. 1989. Statistical Analysis in Psychology and Education. Sixth edition. New York, NY: McGraw-Hill.",
+        "Johnson, P. E., K. Jamal, and R. G. Berryman. 1991. Effects of framing on auditor decisions. Organizational Behavior and Human Decision Processes 50: 75-105.",
+        "Owhoso, V. E., W. F. Messier, Jr., and J. G. Lynch, Jr. 2002. Error detection by industry-specialized teams during sequential audit review. Journal of Accounting Research 40 (3): 883-900.",
+        "Ponemon, L. A. 1992. Auditor underreporting of time and moral reasoning: An experimental lab study. Contemporary Accounting Research 9 (1): 171-89.",
+        "Slovic, P., and S. Lichtenstein. 1971. Comparison of Bayesian and regression approaches to the study of information processing in judgment. Organizational Behavior and Human Performance 6: 649-744. The Accounting Review, January 2004 (cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)125.227.18.139 on Sat, 20 Sep 2025 06:42:09 UTC(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0) Effects of Industry Specialization on Audit Risk Assessments and Audit Planning 219",
+        "Smith, J. F., and T. Kida. 1991. Heuristics and biases: Expertise and task realism in auditing. Psychological Bulletin 109 (3): 472-89.",
+        "Solomon, I., and C. Brown. 1992. Auditors' judgments and decisions under time pressure: An illustration and agenda for research. In Auditing Symposium XI: Proceedings of the 1992 Deloitte and Touche-University of Kansas Symposium on Auditing Problems, edited by R. Srivastava, and K. S. Lawrence, 73-91. Lawrence, KS: University of Kansas. , M. D. Shields, and 0. R. Whittington. 1999. What do industry-specialist auditors know? Journal of Accounting Research 37 (1): 191-208.",
+        "Taylor, M. H. 2000. The effects of industry specialization on auditors' inherent risk assessments and confidence judgments. Contemporary Accounting Research 17 (4): 693-712.",
+        "Tversky, A., and D. Kahneman. 1974. Judgment under uncertainty: Heuristics and biases. Science 185:1121-1131.",
+        "Wright, S., and A. W. Wright. 1997. The effect of industry experience on hypothesis generation and audit-planning decisions. Behavioral Research in Accounting 9: 273-294. The Accounting Review, January 2004 (cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)125.227.18.139 on Sat, 20 Sep 2025 06:42:09 UTC(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)(cid:0)"
+      ],
+      "level2_auto_parsed_fields": [
+        {
+          "item_idx": 0,
+          "key": "alderman_1982",
+          "author1": "Alderman",
+          "author2": "J. W. Deitrick.",
+          "authors": [
+            "Alderman"
+          ],
+          "year": "1982",
+          "source": "54-68"
+        },
+        {
+          "item_idx": 1,
+          "key": "ashton_1991",
+          "author1": "Ashton",
+          "authors": [
+            "Ashton"
+          ],
+          "year": "1991",
+          "source": "218-239"
+        },
+        {
+          "item_idx": 2,
+          "key": "bedard_1991",
+          "author1": "Bedard",
+          "author2": "S. F. Biggs.",
+          "authors": [
+            "Bedard"
+          ],
+          "year": "1991",
+          "source": "77-90"
+        },
+        {
+          "item_idx": 3,
+          "key": "bell_1997",
+          "author1": "Bell",
+          "author2": "Marrs",
+          "authors": [
+            "Bell",
+            "Marrs",
+            "Solomon",
+            "York"
+          ],
+          "year": "1997",
+          "source": "Bell, T., F. Marrs, I. Solomon, and H. Thomas. 1997. Auditing Organizations Through a Strategic-Systems Lens. The KPMG Business Measurement Process. New York, NY: KPMG Peat Marwick LLP."
+        },
+        {
+          "item_idx": 4,
+          "key": "bonner_1990",
+          "author1": "Bonner",
+          "author2": "B. L. Lewis.",
+          "authors": [
+            "Bonner"
+          ],
+          "year": "1990",
+          "source": "1-20"
+        },
+        {
+          "item_idx": 5,
+          "key": "dezoort_1997",
+          "author1": "DeZoort",
+          "author2": "A. T. Lord.",
+          "authors": [
+            "DeZoort"
+          ],
+          "year": "1997",
+          "source": "DeZoort, F. T., and A. T. Lord. 1997. A review and synthesis of pressure effects research in accounting. Journal of Accounting Literature 16: 28-85."
+        },
+        {
+          "item_idx": 6,
+          "key": "emerson_1993",
+          "author1": "Emerson",
+          "authors": [
+            "Emerson"
+          ],
+          "year": "1993",
+          "source": "1-4"
+        },
+        {
+          "item_idx": 7,
+          "key": "ferguson_1989",
+          "author1": "Ferguson",
+          "author2": "York",
+          "authors": [
+            "Ferguson",
+            "York"
+          ],
+          "year": "1989",
+          "source": "Ferguson, G. A., and Y. Takane. 1989. Statistical Analysis in Psychology and Education. Sixth edition. New York, NY: McGraw-Hill."
+        },
+        {
+          "item_idx": 8,
+          "key": "johnson_1991",
+          "author1": "Johnson",
+          "author2": "Jamal",
+          "authors": [
+            "Johnson",
+            "Jamal"
+          ],
+          "year": "1991",
+          "source": "Johnson, P. E., K. Jamal, and R. G. Berryman. 1991. Effects of framing on auditor decisions. Organizational Behavior and Human Decision Processes 50: 75-105."
+        },
+        {
+          "item_idx": 9,
+          "key": "owhoso_2002",
+          "author1": "Owhoso",
+          "author2": "Messier",
+          "authors": [
+            "Owhoso",
+            "Messier",
+            "Lynch"
+          ],
+          "year": "2002",
+          "source": "883-900"
+        },
+        {
+          "item_idx": 10,
+          "key": "ponemon_1992",
+          "author1": "Ponemon",
+          "authors": [
+            "Ponemon"
+          ],
+          "year": "1992",
+          "source": "171-89"
+        },
+        {
+          "item_idx": 11,
+          "key": "slovic_1971",
+          "author1": "Slovic",
+          "author2": "Review",
+          "authors": [
+            "Slovic",
+            "Review"
+          ],
+          "year": "1971"
+        },
+        {
+          "item_idx": 12,
+          "key": "smith_1991",
+          "author1": "Smith",
+          "author2": "T. Kida.",
+          "authors": [
+            "Smith"
+          ],
+          "year": "1991",
+          "source": "472-89"
+        },
+        {
+          "item_idx": 13,
+          "key": "solomon_1992",
+          "author1": "Solomon",
+          "author2": "Problems",
+          "authors": [
+            "Solomon",
+            "Problems",
+            "Srivastava",
+            "Lawrence",
+            "Shields"
+          ],
+          "year": "1992",
+          "source": "191-208"
+        },
+        {
+          "item_idx": 14,
+          "key": "taylor_2000",
+          "author1": "Taylor",
+          "authors": [
+            "Taylor"
+          ],
+          "year": "2000",
+          "source": "693-712"
+        },
+        {
+          "item_idx": 15,
+          "key": "tversky_1974",
+          "author1": "Tversky",
+          "author2": "D. Kahneman.",
+          "authors": [
+            "Tversky"
+          ],
+          "year": "1974",
+          "source": "Tversky, A., and D. Kahneman. 1974. Judgment under uncertainty: Heuristics and biases. Science 185:1121-1131."
+        },
+        {
+          "item_idx": 16,
+          "key": "wright_1997",
+          "author1": "Wright",
+          "author2": "Review",
+          "authors": [
+            "Wright",
+            "Review"
+          ],
+          "year": "1997"
+        }
+      ]
+    },
+    "t005": {
+      "level2_auto_reference_keys": [
+        "albuquerque_2019",
+        "alrababa_2023",
+        "altman_1968",
+        "an_2020",
+        "attig_2013",
+        "bae_2018",
+        "bauer_2010",
+        "caragnano_2020",
+        "chava_2009",
+        "chavasudheer_2014",
+        "chen_2022",
+        "cheng_2014",
+        "eichholtz_2019",
+        "francis_2005",
+        "gao_2016",
+        "goss_2011",
+        "hilger_2019",
+        "hombach_2019",
+        "ivanov_2022",
+        "jung_2018",
+        "kaplan_1997",
+        "kleimeier_2018",
+        "lambertrichard_2006",
+        "morrone_2022",
+        "oikonomouioannis_2014",
+        "palea_2020",
+        "plumlee_2015",
+        "seltzer_2022",
+        "sengupta_1998",
+        "sharfman_2008",
+        "turban_1997",
+        "weil_2006",
+        "zhou_2018"
+      ],
+      "level2_auto_reference_positions": [
+        "Al Rabab'a, E.A.-F., Rashid, A., Shams, S (2023), “Corporate carbon performance and cost of debt: Evidence from Asia-Pacific countries,”International Review of Financial Analysis, Vol. 88, 102641.",
+        "Albuquerque, R., Koskinen, Y. and Zhang, C (2019), “Corporate social responsibility and firm risk: Theory and empirical evidence,” Management Science, Vol. 65, No.10, 4451-4469.",
+        "Altman, E.I (1968), “Financial ratios, discriminant analysis and the prediction of corporate bankruptcy,” The Journal of Finance, Vol. 23, No.4, 589-609.",
+        "An, X. and Pivo, G (2020), “Green buildings in commercial mortgage-backed securities: The effects of LEED and energy star certification on default risk and loan terms,” Real Estate Economics, Vol. 48, No.1, 7-42.",
+        "Attig, N., El Ghoul, S., Guedhami, O. and Suh, J (2013), “Corporate social responsibility and credit ratings,” Journal of Business Ethics, Vol. 117, No.4, 679-694.",
+        "Bae, S.C., Chang, K. and Yi, H.C (2018), “Corporate social responsibility, credit rating, and private debt contracting: new evidence from syndicated loan market,” Review of Quantitative Finance and Accounting, Vol. 50, No.1, 261-299.",
+        "Bauer, R. and Hann, D (2010), “Corporate environmental management and credit risk,” Available at SSRN 1660470.",
+        "Caragnano, A., Mariani, M., Pizzutilo, F., Zito, M (2020), “Is it worth reducing GHG emissions? Exploring the effect on the cost of debt financing,” Journal of Environmental Management, Vol. 270, 110860.",
+        "Chava Sudheer (2014), “Environmental Externalities and Cost of Capital,” Management Science, Vol. 60, No.9, 2223-2247.",
+        "Chava, S., Livdan, D., Purnanandam, A (2009), “Do shareholder rights affect the cost of bank loans?” The Review of Financial Studies, Vol. 22, 2973-3004. Does Corporate Environmental Information Disclosure Mitigate the Cost of Bank Loans: Evidence from TWSE-Listed Companies",
+        "Chen, J., Hsieh, P.-F., Hsu, P.-H., Levine, R (2022), “Environmental Liabilities, Borrowing Costs, and Pollution Prevention Activities: The Nationwide Impact of the Apex Oil Ruling,” National Bureau of Economic Research, No. 29740.",
+        "Cheng, B., Ioannou, I. and Serafeim, G (2014), “Corporate social responsibility and access to finance,” Strategic Management Journal, Vol. 35, No.1, 1-23.",
+        "Eichholtz, P., Holtermans, R., Kok, N. and Yönder, E (2019), “Environmental performance and the cost of debt: Evidence from commercial mortgages and REIT bonds,” Journal of Banking & Finance, Vol. 102, 19-32.",
+        "Francis, J.R., Khurana, I.K., Pereira, R (2005), “Disclosure incentives and effects on cost of capital around the world,” The Accounting Review, Vol. 80, 1125-1162.",
+        "Gao, F., Dong, Y., Ni, C. and Fu, R (2016), “Determinants and economic consequences of non-financial disclosure quality,” European Accounting Review, Vol. 25, No.2, 287-317.",
+        "Goss, A. and Roberts, G.S (2011), “The impact of corporate social responsibility on the cost of bank loans,” Journal of Banking & Finance, Vol. 35, No.7, 1794-1810.",
+        "Hilger, J., Hallstein, E., Stevens, A.W. and Villas-Boas, S.B (2019), “Measuring willingness to pay for environmental attributes in seafood,” Environmental and Resource Economics, Vol. 73, N.o1, 307-332.",
+        "Hombach, K. and Sellhorn, T (2019), “Shaping corporate actions through targeted transparency regulation: A framework and review of extant evidence,” Schmalenbach Business Review, Vol. 71, No.2, 137-168.",
+        "Ivanov, I., Kruttli, M.S., Watugala, S.W (2022), “Banking on carbon: Corporate lending and cap-and-trade policy,” Available at SSRN 3650447.",
+        "Jung, J., Herbohn, K., Clarkson, P (2018), “Carbon risk, carbon risk awareness and the cost of debt financing,” Journal of Business Ethics, Vol. 150, 1151-1171.",
+        "Kaplan, S.N. and Zingales, L (1997), “Do investment-cash flow sensitivities provide useful measures of financing constraints?” The Quarterly Journal of Economics, Vol. 112, No.1, 169-215.",
+        "Kleimeier, Stefanie and Viehs, Michael (January 7, 2018), “Carbon Disclosure, Emission Levels, and the Cost of Debt,” Available at SSRN: https://ssrn.com/abstract= 2719665",
+        "Lambert Richard, Leuz Christian, Verrecchia Robert (2006), “Accounting Information, Disclosure, and the Cost of Capital,” Journal of Accounting Research, Vol. 45, No.2, 385-420.",
+        "Morrone, D., Schena, R., Conte, D., Bussoli, C., Russo, A (2022), “Between saying and doing, in the end there is the cost of capital: Evidence from the energy sector,” Business Strategy and the Environment, Vol. 31, 390-402.",
+        "Oikonomou Ioannis, Brooks Chris, Pavelin Stephen (2014), “The effects of corporate social performance on the cost of corporate debt and credit ratings,” The Financial Review, Vol. 49, No.1, 49-75.",
+        "Palea, V., Drogo, F (2020), “Carbon emissions and the cost of debt in the eurozone: The role of public policies, climate-related disclosure and corporate governance,” Business Strategy and the Environment, Vol. 29, 2953-2972.",
+        "Plumlee, M., Brown, D., Hayes, R.M. and Marshall, R.S (2015), “Voluntary environmental disclosure quality and firm value: Further evidence,” Journal of Accounting and Public Policy, Vol. 34, No.4, 336-361.",
+        "Seltzer, L.H., Starks, L., Zhu, Q (2022), “Climate regulatory risk and corporate bonds,” National Bureau of Economic Research. No. 29994.",
+        "Sengupta, P (1998), “Corporate disclosure quality and the cost of debt,” Accounting Review, 459-474.",
+        "Sharfman, M.P. and Fernando, C.S (2008), “Environmental risk management and the cost of capital,” Strategic Management Journal, Vol. 29, No.6, 569-592.",
+        "Turban, D.B. and Greening, D.W (1997), “Corporate social performance and organizational attractiveness to prospective employees,” Academy of Management Journal, Vol. 40, No.3,.658-672.",
+        "Weil, D., Fung, A., Graham, M. and Fagotto, E (2006), “The effectiveness of regulatory Does Corporate Environmental Information Disclosure Mitigate the Cost of Bank Loans: Evidence from TWSE-Listed Companies disclosure policies,” Journal of Policy Analysis and Management: The Journal of the Association for Public Policy Analysis and Management, Vol. 25, No.1, 155181.",
+        "Zhou, Z., Zhang, T., Wen, K., Zeng, H., Chen, X (2018), “Carbon risk, cost of debt financing and the moderation effect of media attention: Evidence from Chinese companies operating in high-carbon industries,” Business Strategy and the Environment, Vol. 27, 1131-1144. 企業環境資訊揭露能否降低銀行貸款成本：來自台灣證券交易所上市公司的證據張哲明 陳堅強 謝佩芳* 銀行貸款機構對環境資訊揭露品質較高(以企業社會責任報告中碳排放揭露情況衡量)的企業收取的利率要低得多.我們發現,與未揭露範疇三排放的企業相比,揭露範疇三排放的企業的銀行貸款利率顯著降低 8.6 個基點.為了解決內生性問題,我們利用了台灣環保署2018年溫室氣體減量推動方案和溫室氣體排放管制行動方案的實施進行DID分析.結果一致表明,揭露範疇三排放的企業的銀行貸款成本較低.我們發現,透過揭露更多環境資訊的公司建立的較低銀行貸款利率可以降低其信用風險並提高 ESG 績效,特別是那些資訊不對稱程度和財務約束較低的公司. 關鍵詞：環境資訊揭露、銀行貸款、碳排放、範疇三排放. * 張哲明,國立清華大學科技管理學院,電子郵件：s109071514@m109.nthu.edu.tw；陳堅強,中國海洋大學經濟學院,電子郵件：chenjianqiang@ouc.edu.cn；謝佩芳(通訊作者),國立清華大學科技管理學院,電子郵件：pfhsieh@mx.nthu.edu.tw.我們衷心感謝兩位匿名審稿專家提出的寶貴修改建議, 大幅改進提高了論文質量."
+      ],
+      "level2_auto_parsed_fields": [
+        {
+          "item_idx": 0,
+          "key": "alrababa_2023",
+          "author1": "Rabab'a",
+          "author2": "Rashid",
+          "authors": [
+            "Rabab'a",
+            "Rashid",
+            "Shams"
+          ],
+          "year": "2023",
+          "source": "“Corporate carbon performance and cost of debt: Evidence from Asia-Pacific countries,”International Review of Financial Analysis, Vol. 88, 102641"
+        },
+        {
+          "item_idx": 1,
+          "key": "albuquerque_2019",
+          "author1": "Albuquerque",
+          "author2": "Koskinen",
+          "authors": [
+            "Albuquerque",
+            "Koskinen",
+            "Zhang"
+          ],
+          "year": "2019",
+          "source": "“Corporate social responsibility and firm risk: Theory and empirical evidence,” Management Science, Vol. 65, No.10, 4451-4469"
+        },
+        {
+          "item_idx": 2,
+          "key": "altman_1968",
+          "author1": "Altman",
+          "authors": [
+            "Altman"
+          ],
+          "year": "1968",
+          "source": "“Financial ratios, discriminant analysis and the prediction of corporate bankruptcy,” The Journal of Finance, Vol. 23, No.4, 589-609"
+        },
+        {
+          "item_idx": 3,
+          "key": "an_2020",
+          "author1": "An",
+          "author2": "Pivo",
+          "authors": [
+            "An",
+            "Pivo"
+          ],
+          "year": "2020",
+          "source": "“Green buildings in commercial mortgage-backed securities: The effects of LEED and energy star certification on default risk and loan terms,” Real Estate Economics, Vol. 48, No.1, 7-42"
+        },
+        {
+          "item_idx": 4,
+          "key": "attig_2013",
+          "author1": "Attig",
+          "author2": "Ghoul",
+          "authors": [
+            "Attig",
+            "Ghoul",
+            "Guedhami",
+            "Suh"
+          ],
+          "year": "2013",
+          "source": "“Corporate social responsibility and credit ratings,” Journal of Business Ethics, Vol. 117, No.4, 679-694"
+        },
+        {
+          "item_idx": 5,
+          "key": "bae_2018",
+          "author1": "Bae",
+          "author2": "Chang",
+          "authors": [
+            "Bae",
+            "Chang",
+            "Yi"
+          ],
+          "year": "2018",
+          "source": "“Corporate social responsibility, credit rating, and private debt contracting: new evidence from syndicated loan market,” Review of Quantitative Finance and Accounting, Vol. 50, No.1, 261-299"
+        },
+        {
+          "item_idx": 6,
+          "key": "bauer_2010",
+          "author1": "Bauer",
+          "author2": "Hann",
+          "authors": [
+            "Bauer",
+            "Hann"
+          ],
+          "year": "2010",
+          "source": "“Corporate environmental management and credit risk,” Available at SSRN 1660470"
+        },
+        {
+          "item_idx": 7,
+          "key": "caragnano_2020",
+          "author1": "Caragnano",
+          "author2": "Mariani",
+          "authors": [
+            "Caragnano",
+            "Mariani",
+            "Pizzutilo",
+            "Zito"
+          ],
+          "year": "2020",
+          "source": "“Is it worth reducing GHG emissions? Exploring the effect on the cost of debt financing,” Journal of Environmental Management, Vol. 270, 110860"
+        },
+        {
+          "item_idx": 8,
+          "key": "chavasudheer_2014",
+          "author1": "ChavaSudheer",
+          "authors": [
+            "ChavaSudheer"
+          ],
+          "year": "2014",
+          "source": "“Environmental Externalities and Cost of Capital,” Management Science, Vol. 60, No.9, 2223-2247"
+        },
+        {
+          "item_idx": 9,
+          "key": "chava_2009",
+          "author1": "Chava",
+          "author2": "Livdan",
+          "authors": [
+            "Chava",
+            "Livdan",
+            "Purnanandam"
+          ],
+          "year": "2009"
+        },
+        {
+          "item_idx": 10,
+          "key": "chen_2022",
+          "author1": "Chen",
+          "author2": "Hsieh",
+          "authors": [
+            "Chen",
+            "Hsieh",
+            "Hsu",
+            "Levine"
+          ],
+          "year": "2022",
+          "source": "“Environmental Liabilities, Borrowing Costs, and Pollution Prevention Activities: The Nationwide Impact of the Apex Oil Ruling,” National Bureau of Economic Research, No. 29740"
+        },
+        {
+          "item_idx": 11,
+          "key": "cheng_2014",
+          "author1": "Cheng",
+          "author2": "Ioannou",
+          "authors": [
+            "Cheng",
+            "Ioannou",
+            "Serafeim"
+          ],
+          "year": "2014",
+          "source": "“Corporate social responsibility and access to finance,” Strategic Management Journal, Vol. 35, No.1, 1-23"
+        },
+        {
+          "item_idx": 12,
+          "key": "eichholtz_2019",
+          "author1": "Eichholtz",
+          "author2": "Holtermans",
+          "authors": [
+            "Eichholtz",
+            "Holtermans",
+            "Kok",
+            "nder"
+          ],
+          "year": "2019",
+          "source": "“Environmental performance and the cost of debt: Evidence from commercial mortgages and REIT bonds,” Journal of Banking & Finance, Vol. 102, 19-32"
+        },
+        {
+          "item_idx": 13,
+          "key": "francis_2005",
+          "author1": "Francis",
+          "author2": "Khurana",
+          "authors": [
+            "Francis",
+            "Khurana",
+            "Pereira"
+          ],
+          "year": "2005",
+          "source": "“Disclosure incentives and effects on cost of capital around the world,” The Accounting Review, Vol. 80, 1125-1162"
+        },
+        {
+          "item_idx": 14,
+          "key": "gao_2016",
+          "author1": "Gao",
+          "author2": "Dong",
+          "authors": [
+            "Gao",
+            "Dong",
+            "Ni",
+            "Fu"
+          ],
+          "year": "2016",
+          "source": "“Determinants and economic consequences of non-financial disclosure quality,” European Accounting Review, Vol. 25, No.2, 287-317"
+        },
+        {
+          "item_idx": 15,
+          "key": "goss_2011",
+          "author1": "Goss",
+          "author2": "Roberts",
+          "authors": [
+            "Goss",
+            "Roberts"
+          ],
+          "year": "2011",
+          "source": "“The impact of corporate social responsibility on the cost of bank loans,” Journal of Banking & Finance, Vol. 35, No.7, 1794-1810"
+        },
+        {
+          "item_idx": 16,
+          "key": "hilger_2019",
+          "author1": "Hilger",
+          "author2": "Hallstein",
+          "authors": [
+            "Hilger",
+            "Hallstein",
+            "Stevens",
+            "Villas-Boas"
+          ],
+          "year": "2019",
+          "source": "“Measuring willingness to pay for environmental attributes in seafood,” Environmental and Resource Economics, Vol. 73, N.o1, 307-332"
+        },
+        {
+          "item_idx": 17,
+          "key": "hombach_2019",
+          "author1": "Hombach",
+          "author2": "Sellhorn",
+          "authors": [
+            "Hombach",
+            "Sellhorn"
+          ],
+          "year": "2019",
+          "source": "“Shaping corporate actions through targeted transparency regulation: A framework and review of extant evidence,” Schmalenbach Business Review, Vol. 71, No.2, 137-168"
+        },
+        {
+          "item_idx": 18,
+          "key": "ivanov_2022",
+          "author1": "Ivanov",
+          "author2": "Kruttli",
+          "authors": [
+            "Ivanov",
+            "Kruttli",
+            "Watugala"
+          ],
+          "year": "2022",
+          "source": "“Banking on carbon: Corporate lending and cap-and-trade policy,” Available at SSRN 3650447"
+        },
+        {
+          "item_idx": 19,
+          "key": "jung_2018",
+          "author1": "Jung",
+          "author2": "Herbohn",
+          "authors": [
+            "Jung",
+            "Herbohn",
+            "Clarkson"
+          ],
+          "year": "2018",
+          "source": "“Carbon risk, carbon risk awareness and the cost of debt financing,” Journal of Business Ethics, Vol. 150, 1151-1171"
+        },
+        {
+          "item_idx": 20,
+          "key": "kaplan_1997",
+          "author1": "Kaplan",
+          "author2": "Zingales",
+          "authors": [
+            "Kaplan",
+            "Zingales"
+          ],
+          "year": "1997",
+          "source": "“Do investment-cash flow sensitivities provide useful measures of financing constraints?” The Quarterly Journal of Economics, Vol. 112, No.1, 169-215"
+        },
+        {
+          "item_idx": 21,
+          "key": "kleimeier_2018",
+          "author1": "Kleimeier",
+          "author2": "Viehs",
+          "authors": [
+            "Kleimeier",
+            "Viehs"
+          ],
+          "year": "2018"
+        },
+        {
+          "item_idx": 22,
+          "key": "lambertrichard_2006",
+          "author1": "Richard",
+          "author2": "Christian",
+          "authors": [
+            "Richard",
+            "Christian"
+          ],
+          "year": "2006",
+          "source": "“Accounting Information, Disclosure, and the Cost of Capital,” Journal of Accounting Research, Vol. 45, No.2, 385-420"
+        },
+        {
+          "item_idx": 23,
+          "key": "morrone_2022",
+          "author1": "Morrone",
+          "author2": "Schena",
+          "authors": [
+            "Morrone",
+            "Schena",
+            "Conte",
+            "Bussoli",
+            "Russo"
+          ],
+          "year": "2022",
+          "source": "“Between saying and doing, in the end there is the cost of capital: Evidence from the energy sector,” Business Strategy and the Environment, Vol. 31, 390-402"
+        },
+        {
+          "item_idx": 24,
+          "key": "oikonomouioannis_2014",
+          "author1": "Ioannis",
+          "author2": "Chris",
+          "authors": [
+            "Ioannis",
+            "Chris"
+          ],
+          "year": "2014",
+          "source": "“The effects of corporate social performance on the cost of corporate debt and credit ratings,” The Financial Review, Vol. 49, No.1, 49-75"
+        },
+        {
+          "item_idx": 25,
+          "key": "palea_2020",
+          "author1": "Palea",
+          "author2": "Drogo",
+          "authors": [
+            "Palea",
+            "Drogo"
+          ],
+          "year": "2020",
+          "source": "“Carbon emissions and the cost of debt in the eurozone: The role of public policies, climate-related disclosure and corporate governance,” Business Strategy and the Environment, Vol. 29, 2953-2972"
+        },
+        {
+          "item_idx": 26,
+          "key": "plumlee_2015",
+          "author1": "Plumlee",
+          "author2": "Brown",
+          "authors": [
+            "Plumlee",
+            "Brown",
+            "Hayes",
+            "Marshall"
+          ],
+          "year": "2015",
+          "source": "“Voluntary environmental disclosure quality and firm value: Further evidence,” Journal of Accounting and Public Policy, Vol. 34, No.4, 336-361"
+        },
+        {
+          "item_idx": 27,
+          "key": "seltzer_2022",
+          "author1": "Seltzer",
+          "author2": "Starks",
+          "authors": [
+            "Seltzer",
+            "Starks",
+            "Zhu"
+          ],
+          "year": "2022",
+          "source": "“Climate regulatory risk and corporate bonds,” National Bureau of Economic Research. No. 29994"
+        },
+        {
+          "item_idx": 28,
+          "key": "sengupta_1998",
+          "author1": "Sengupta",
+          "authors": [
+            "Sengupta"
+          ],
+          "year": "1998",
+          "source": "“Corporate disclosure quality and the cost of debt,” Accounting Review, 459-474"
+        },
+        {
+          "item_idx": 29,
+          "key": "sharfman_2008",
+          "author1": "Sharfman",
+          "author2": "Fernando",
+          "authors": [
+            "Sharfman",
+            "Fernando"
+          ],
+          "year": "2008",
+          "source": "“Environmental risk management and the cost of capital,” Strategic Management Journal, Vol. 29, No.6, 569-592"
+        },
+        {
+          "item_idx": 30,
+          "key": "turban_1997",
+          "author1": "Turban",
+          "author2": "Greening",
+          "authors": [
+            "Turban",
+            "Greening"
+          ],
+          "year": "1997",
+          "source": "“Corporate social performance and organizational attractiveness to prospective employees,” Academy of Management Journal, Vol. 40, No.3,.658-672"
+        },
+        {
+          "item_idx": 31,
+          "key": "weil_2006",
+          "author1": "Weil",
+          "author2": "Fung",
+          "authors": [
+            "Weil",
+            "Fung",
+            "Graham",
+            "Fagotto"
+          ],
+          "year": "2006"
+        },
+        {
+          "item_idx": 32,
+          "key": "zhou_2018",
+          "author1": "Zhou",
+          "author2": "Zhang",
+          "authors": [
+            "Zhou",
+            "Zhang",
+            "Wen",
+            "Zeng",
+            "Chen"
+          ],
+          "year": "2018",
+          "source": "“Carbon risk, cost of debt financing and the moderation effect of media attention: Evidence from Chinese companies operating in high-carbon industries,” Business Strategy and the Environment, Vol. 27, 1131-1144. 企業環境資訊揭露能否降低銀行貸款成本：來自台灣證券交易所上市公司的證據張哲明 陳堅強 謝佩芳* 銀行貸款機構對環境資訊揭露品質較高(以企業社會責任報告中碳排放揭露情況衡量)的企業收取的利率要低得多.我們發現,與未揭露範疇三排放的企業相比,揭露範疇三排放的企業的銀行貸款利率顯著降低 8.6 個基點.為了解決內生性問題,我們利用了台灣環保署2018年溫室氣體減量推動方案和溫室氣體排放管制行動方案的實施進行DID分析.結果一致表明,揭露範疇三排放的企業的銀行貸款成本較低.我們發現,透過揭露更多環境資訊的公司建立的較低銀行貸款利率可以降低其信用風險並提高 ESG 績效,特別是那些資訊不對稱程度和財務約束較低的公司. 關鍵詞：環境資訊揭露、銀行貸款、碳排放、範疇三排放. * 張哲明,國立清華大學科技管理學院,電子郵件：s109071514@m109.nthu.edu.tw；陳堅強,中國海洋大學經濟學院,電子郵件：chenjianqiang@ouc.edu.cn；謝佩芳(通訊作者),國立清華大學科技管理學院,電子郵件：pfhsieh@mx.nthu.edu.tw.我們衷心感謝兩位匿名審稿專家提出的寶貴修改建議, 大幅改進提高了論文質量"
+        }
+      ]
+    }
+  }
+}

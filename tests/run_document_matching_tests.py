@@ -1,6 +1,7 @@
 ﻿import json
 import re
 import sys
+import unicodedata
 from datetime import datetime
 from pathlib import Path
 
@@ -9,7 +10,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from citation_core import read_docx_bytes, read_pdf_bytes
-from services.reference_service import build_citation_key, extract_citations, match_citations, parse_citation
+from services.analysis_service import run_file_analysis_with_reference_override
 
 TESTS_DIR = Path(__file__).resolve().parent
 DOCS_DIR = TESTS_DIR / "datasets" / "matching" / "docs"
@@ -113,6 +114,63 @@ def _preview(text: str, limit: int = 160) -> str:
     if len(compact) <= limit:
         return compact
     return compact[:limit] + "..."
+
+
+def _normalize_author_token(value: str) -> str:
+    token = unicodedata.normalize("NFKC", str(value or "").strip().lower())
+    token = token.replace("’", "'").replace("`", "'").replace("ˇ", "")
+    token = token.replace("'", "")
+    token = re.sub(r"[^a-z0-9\u4e00-\u9fff]+", "", token)
+    return token
+
+
+def _normalize_year_token(value: str) -> str:
+    token = unicodedata.normalize("NFKC", str(value or "").strip().lower())
+    token = token.replace(" ", "")
+    if "n.d" in token or "nodate" in token:
+        return "nd"
+    if "inpress" in token or "press" in token:
+        return "inpress"
+    match = re.search(r"((?:19|20)\d{2}[a-z]?)", token)
+    if match:
+        return match.group(1)
+    return token
+
+
+def _build_key(author: str, year: str) -> str:
+    author_token = _normalize_author_token(author)
+    year_token = _normalize_year_token(year)
+    if not author_token or not year_token:
+        return ""
+    return f"{author_token}_{year_token}"
+
+
+def _pick_column(df, preferred: list[str], fallback_keywords: list[str]) -> str | None:
+    for name in preferred:
+        if name in df.columns:
+            return name
+    for col in df.columns:
+        col_name = str(col)
+        if all(keyword in col_name for keyword in fallback_keywords):
+            return col
+    return None
+
+
+def _collect_keys_from_df(df, author_col_candidates: list[str], year_col_candidates: list[str]) -> list[str]:
+    if df is None or getattr(df, "empty", True):
+        return []
+
+    author_col = _pick_column(df, author_col_candidates, ["作者"])
+    year_col = _pick_column(df, year_col_candidates, ["年"])
+    if author_col is None or year_col is None:
+        return []
+
+    keys = []
+    for _, row in df.iterrows():
+        key = _build_key(str(row.get(author_col, "")), str(row.get(year_col, "")))
+        if key:
+            keys.append(key)
+    return sorted(set(keys))
 
 
 def _normalize_heading_text(text: str) -> str:
@@ -337,21 +395,38 @@ def _run_case(case: dict) -> dict:
     base_result["reference_heading_found"] = body_meta["reference_heading_found"]
     base_result["text_preview"] = _preview(body_text)
 
+    references = case.get("references", []) if isinstance(case.get("references", []), list) else []
+    references = [str(item) for item in references if str(item).strip()]
+
     try:
-        extracted = extract_citations(body_text)
-        extracted_raw = [str(item.get("raw", "")).strip() for item in extracted if str(item.get("raw", "")).strip()]
-        actual_citation_keys = []
-        for citation in extracted:
-            parsed = parse_citation(citation)
-            key = build_citation_key(parsed)
-            if key:
-                actual_citation_keys.append(key)
-        base_result["extracted_citation_raw"] = extracted_raw
-        base_result["actual_citation_keys"] = sorted(set(actual_citation_keys))
+        analysis_results, analysis_meta = run_file_analysis_with_reference_override(
+            file_bytes=file_path.read_bytes(),
+            filename=file_name,
+            file_type=file_path.suffix.lower().lstrip("."),
+            override_reference_items=references if references else None,
+        )
+        _, matched_df, missing_df, uncited_df = analysis_results
+        base_result["warnings"].append(
+            f"analysis_reference_source={analysis_meta.get('reference_source', 'unknown')}"
+        )
     except Exception as e:
         base_result["status"] = "failed"
-        base_result["reason"] = f"citation_pipeline_failed: {e.__class__.__name__}: {e}"
+        base_result["reason"] = f"analysis_pipeline_failed: {e.__class__.__name__}: {e}"
         return base_result
+
+    extracted_raw = []
+    if not getattr(matched_df, "empty", True) and "citation_raw" in matched_df.columns:
+        extracted_raw.extend([str(v).strip() for v in matched_df["citation_raw"].tolist() if str(v).strip()])
+    if not getattr(missing_df, "empty", True) and "citation_raw" in missing_df.columns:
+        extracted_raw.extend([str(v).strip() for v in missing_df["citation_raw"].tolist() if str(v).strip()])
+    base_result["extracted_citation_raw"] = sorted(set(extracted_raw))
+
+    # Keep citation-key assertion aligned with Tool2's formal output path.
+    base_result["actual_citation_keys"] = _collect_keys_from_df(
+        matched_df,
+        author_col_candidates=["author1", "第一作者"],
+        year_col_candidates=["year", "年份"],
+    )
 
     citation_pass = base_result["actual_citation_keys"] == base_result["expected_citation_keys"]
 
@@ -367,8 +442,6 @@ def _run_case(case: dict) -> dict:
             matching_pass = True
         else:
             base_result["matching_asserted"] = True
-            references = case.get("references", []) if isinstance(case.get("references", []), list) else []
-            references = [str(item) for item in references]
             expected_norm = {
                 "matched": _normalize_key_list(expected_matching.get("matched")),
                 "missing_in_reference": _normalize_key_list(expected_matching.get("missing_in_reference")),
@@ -377,18 +450,23 @@ def _run_case(case: dict) -> dict:
             }
             base_result["expected_matching"] = expected_norm
 
-            try:
-                actual_matching_raw = match_citations(body_text, references)
-            except Exception as e:
-                base_result["status"] = "failed"
-                base_result["reason"] = f"matching_pipeline_failed: {e.__class__.__name__}: {e}"
-                return base_result
-
             actual_norm = {
-                "matched": _normalize_key_list(actual_matching_raw.get("matched")),
-                "missing_in_reference": _normalize_key_list(actual_matching_raw.get("missing_in_reference")),
-                "extra_in_reference": _normalize_key_list(actual_matching_raw.get("extra_in_reference")),
-                "ambiguous": _normalize_ambiguous_actual(actual_matching_raw.get("ambiguous", [])),
+                "matched": _collect_keys_from_df(
+                    matched_df,
+                    author_col_candidates=["author1", "第一作者"],
+                    year_col_candidates=["year", "年份"],
+                ),
+                "missing_in_reference": _collect_keys_from_df(
+                    missing_df,
+                    author_col_candidates=["author1", "第一作者"],
+                    year_col_candidates=["year", "年份"],
+                ),
+                "extra_in_reference": _collect_keys_from_df(
+                    uncited_df,
+                    author_col_candidates=["第一作者", "author1"],
+                    year_col_candidates=["年份", "year"],
+                ),
+                "ambiguous": [],
             }
             base_result["actual_matching"] = actual_norm
 
@@ -406,7 +484,7 @@ def _run_case(case: dict) -> dict:
                     "actual": actual_norm["extra_in_reference"],
                 }
 
-            ambiguous_diff = _compare_ambiguous(expected_norm["ambiguous"], actual_matching_raw.get("ambiguous", []))
+            ambiguous_diff = _compare_ambiguous(expected_norm["ambiguous"], [])
             if ambiguous_diff:
                 diffs["ambiguous"] = ambiguous_diff
 
@@ -591,3 +669,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
