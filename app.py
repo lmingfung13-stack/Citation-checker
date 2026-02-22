@@ -23,6 +23,7 @@ from services.analysis_service import (
 )
 from services.export_service import build_excel_report_bytes
 from utils.chinese_sort import load_stroke_map, chinese_stroke_sort_key
+from utils.i18n import LANG_EN, LANG_ZH, localize_df_columns, t
 from services.job_service import (
     JOB_STATUS_CANCELED,
     JOB_STATUS_DONE,
@@ -35,6 +36,15 @@ from services.job_service import (
     submit_docx_to_pdf_job,
 )
 from utils.errors import AppError, ReferenceSectionNotFoundError
+
+REFERENCE_MODE_TOOL1 = "tool1"
+REFERENCE_MODE_AUTO = "auto"
+LEGACY_REFERENCE_MODE_MAP = {
+    "使用工具1整理後文獻列表提高準確度": REFERENCE_MODE_TOOL1,
+    "使用文件自動抽取的文獻列表": REFERENCE_MODE_AUTO,
+    "Use cleaned list from Tool 1 (higher accuracy)": REFERENCE_MODE_TOOL1,
+    "Use auto-extracted references from document": REFERENCE_MODE_AUTO,
+}
 
 
 def _contains_cjk_unified_char(text: str) -> bool:
@@ -53,13 +63,22 @@ def _tool1_reference_sort_key(item: str, stroke_map: dict[str, int]) -> tuple:
         return (1, text.lower())
     return (2, text.lower())
 
+
+def _normalize_reference_mode(value: str | None) -> str:
+    if value in (REFERENCE_MODE_TOOL1, REFERENCE_MODE_AUTO):
+        return str(value)
+    return LEGACY_REFERENCE_MODE_MAP.get(str(value or "").strip(), REFERENCE_MODE_TOOL1)
+
 # Try to import PyMuPDF (fitz)
 try:
     import fitz  # PyMuPDF, need `pip install pymupdf`
 except ImportError:
     fitz = None
 
-st.set_page_config(page_title="論文文獻核對工具", layout="wide")
+_initial_lang = st.session_state.get("ui_language", LANG_ZH)
+if _initial_lang not in (LANG_ZH, LANG_EN):
+    _initial_lang = LANG_ZH
+st.set_page_config(page_title=t(_initial_lang, "page_title"), layout="wide")
 
 # ----------------------------------------------------------------
 # 自定義 CSS 與 JavaScript (優化介面與隱藏不必要的元素)
@@ -130,7 +149,27 @@ st.markdown("""
         padding-bottom: 5rem; /* 底部留白，避免被浮動按鈕擋住 */
     }
 
-    /* === 修正：結束按鈕縮小、加上左側文字，並固定在右下角 === */
+    /* 右下角固定語言切換 */
+    div.st-key-floating_language {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        width: 180px;
+        z-index: 1000;
+        padding: 8px 10px 6px 10px;
+        border: 1px solid #d9d9d9;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    div.st-key-floating_language [data-testid="stWidgetLabel"] {
+        margin-bottom: 0.2rem;
+    }
+
+    div.st-key-floating_language p {
+        font-size: 0.85rem;
+    }
 </style>
 
 <script>
@@ -185,11 +224,10 @@ st.markdown("""
 # ----------------------------------------------------------------
 # 主程式
 # ----------------------------------------------------------------
-st.title("論文文獻核對工具")
-st.warning("⚠️ **免責聲明**：本工具僅供輔助參考，無法取代人工校對。解析結果可能因檔案排版、OCR 品質或格式差異而有誤差，請務必自行確認原始文件。")
-
-if fitz is None:
-    st.error("錯誤：缺少 PDF 處理元件 (PyMuPDF)，預覽功能將無法使用。")
+if "ui_language" not in st.session_state:
+    st.session_state.ui_language = LANG_ZH
+if st.session_state.ui_language not in (LANG_ZH, LANG_EN):
+    st.session_state.ui_language = LANG_ZH
 
 if "file_bytes" not in st.session_state:
     st.session_state.file_bytes = None
@@ -220,17 +258,43 @@ if "ref_tool_sorted_output" not in st.session_state:
 if "use_clean_references_for_analysis" not in st.session_state:
     st.session_state.use_clean_references_for_analysis = True
 if "reference_source_mode_ui" not in st.session_state:
-    st.session_state.reference_source_mode_ui = "使用工具1整理後文獻列表提高準確度"
+    st.session_state.reference_source_mode_ui = REFERENCE_MODE_TOOL1
+st.session_state.reference_source_mode_ui = _normalize_reference_mode(
+    st.session_state.get("reference_source_mode_ui")
+)
 
-tool_page_tool1, tool_page_tool2 = st.tabs(["文獻列表排列", "文獻對比"])
+if "ui_language_widget" not in st.session_state:
+    st.session_state.ui_language_widget = st.session_state.ui_language
+if st.session_state.ui_language_widget not in (LANG_ZH, LANG_EN):
+    st.session_state.ui_language_widget = LANG_ZH
+
+with st.container(key="floating_language"):
+    st.selectbox(
+        "Language / 語言",
+        options=[LANG_ZH, LANG_EN],
+        format_func=lambda code: "中文" if code == LANG_ZH else "English",
+        key="ui_language_widget",
+    )
+
+if st.session_state.ui_language != st.session_state.ui_language_widget:
+    st.session_state.ui_language = st.session_state.ui_language_widget
+lang = st.session_state.ui_language
+
+st.title(t(lang, "app_title"))
+st.warning(t(lang, "disclaimer"))
+
+if fitz is None:
+    st.error(t(lang, "error_missing_pymupdf"))
+
+tool_page_tool1, tool_page_tool2 = st.tabs([t(lang, "tab_tool1"), t(lang, "tab_tool2")])
 
 with tool_page_tool1:
     raw_ref_text = st.text_area(
-        "貼上文獻列表",
+        t(lang, "tool1_input_label"),
         key="ref_tool_raw_text",
         height=180,
     )
-    if st.button("執行整理", key="ref_tool_run"):
+    if st.button(t(lang, "tool1_run_button"), key="ref_tool_run"):
         clean_text = safe_normalize_reference_text(raw_ref_text)
         raw_items = split_reference_items(raw_ref_text)
         clean_items = split_reference_items(clean_text)
@@ -253,58 +317,59 @@ with tool_page_tool1:
     if st.session_state.ref_tool_clean_text is not None:
         report = st.session_state.ref_tool_report or {}
         st.caption(
-            f"整理完成：原始筆數={report.get('raw_items', 0)}, "
-            f"整理後筆數={report.get('clean_items', 0)}"
+            t(
+                lang,
+                "tool1_done_caption",
+                raw_items=report.get("raw_items", 0),
+                clean_items=report.get("clean_items", 0),
+            )
         )
         st.text_area(
-            "結果",
+            t(lang, "tool1_result_label"),
             value=st.session_state.ref_tool_clean_text or "",
             height=260,
         )
         if st.session_state.ref_tool_clean_text:
             st.download_button(
-                "下載結果(.txt)",
+                t(lang, "tool1_download_txt"),
                 data=st.session_state.ref_tool_clean_text,
-                file_name="references_safe_clean_sorted.txt",
+                file_name=t(lang, "tool1_download_filename"),
                 mime="text/plain",
                 key="ref_tool_download_txt",
             )
     else:
-        st.info("尚未產生整理結果。請貼上文獻列表後執行 整理。")
+        st.info(t(lang, "tool1_empty_info"))
 
 
 with tool_page_tool2:
-    uploaded = st.file_uploader("請拖曳檔案至此 (支援 PDF / Word)", type=["docx", "pdf"])
+    uploaded = st.file_uploader(t(lang, "uploader_label"), type=["docx", "pdf"])
     clean_reference_text = (st.session_state.get("ref_tool_clean_text") or "").strip()
-    option_tool1 = "使用工具1整理後文獻列表提高準確度"
-    option_auto = "使用文件自動抽取的文獻列表"
 
     auto_switched_to_auto = (
         uploaded is not None
-        and st.session_state.get("reference_source_mode_ui") == option_tool1
+        and _normalize_reference_mode(st.session_state.get("reference_source_mode_ui")) == REFERENCE_MODE_TOOL1
         and not clean_reference_text
     )
     if auto_switched_to_auto:
-        st.session_state.reference_source_mode_ui = option_auto
+        st.session_state.reference_source_mode_ui = REFERENCE_MODE_AUTO
         st.session_state.use_clean_references_for_analysis = False
 
     reference_source_mode = st.radio(
-        "文獻來源",
-        options=[option_tool1, option_auto],
+        t(lang, "reference_source_label"),
+        options=[REFERENCE_MODE_TOOL1, REFERENCE_MODE_AUTO],
+        format_func=lambda mode: t(lang, f"reference_source_{mode}"),
         horizontal=True,
         key="reference_source_mode_ui",
     )
-    st.session_state.use_clean_references_for_analysis = reference_source_mode == option_tool1
+    selected_reference_source_mode = _normalize_reference_mode(reference_source_mode)
+    st.session_state.use_clean_references_for_analysis = (
+        selected_reference_source_mode == REFERENCE_MODE_TOOL1
+    )
     if auto_switched_to_auto:
-        st.info("偵測到工具1尚無可用整理結果，已自動切換為「使用文件自動抽取的文獻列表」。")
+        st.info(t(lang, "auto_switch_info"))
 
     if not uploaded:
-        st.info("""
-        💡 **操作步驟：**
-        1. 將 Word 或 PDF 檔拖曳到上方框框。
-        2. 等待程式自動分析。
-        3. 點擊下方表格查看詳細結果。
-        """)
+        st.info(t(lang, "steps_info"))
 
     if uploaded:
         raw_bytes = uploaded.getvalue()
@@ -318,21 +383,21 @@ with tool_page_tool2:
         col_left, col_right = st.columns([1.5, 1])
 
         with col_right:
-            st.subheader("📄 預覽視窗")
+            st.subheader(t(lang, "preview_title"))
             if fitz is None:
-                st.error("預覽功能失效 (缺 PyMuPDF)")
+                st.error(t(lang, "preview_disabled_missing_pymupdf"))
             elif raw_type == "docx":
                 if DOCX2PDF_AVAILABLE:
-                    st.info("💡 目前為純文字核對模式。")
-                    use_conversion = st.checkbox("啟用 Word 轉 PDF 視覺化預覽 (需稍候幾秒)", value=False)
+                    st.info(t(lang, "preview_text_mode_info"))
+                    use_conversion = st.checkbox(t(lang, "preview_enable_docx_pdf"), value=False)
                     st.markdown("---")
                 else:
-                    st.caption("目前僅支援 Word 純文字核對 (未偵測到轉檔元件)。")
+                    st.caption(t(lang, "preview_docx_no_converter"))
                     st.markdown("---")
 
         use_reference_override = st.session_state.get("use_clean_references_for_analysis", True)
         if use_reference_override and not clean_reference_text:
-            st.info("目前尚無工具1整理結果，本次將改用文件自動抽取的文獻列表。")
+            st.info(t(lang, "override_fallback_info"))
             use_reference_override = False
 
         override_reference_text = clean_reference_text if (clean_reference_text and use_reference_override) else None
@@ -381,8 +446,8 @@ with tool_page_tool2:
                 if job is None:
                     st.session_state.file_bytes = raw_bytes
                     st.session_state.file_type = "docx"
-                    st.warning("Conversion job expired. Please resubmit.")
-                    if st.button("Resubmit conversion", key=f"retry_docx_pdf_{content_hash}"):
+                    st.warning(t(lang, "conversion_job_expired"))
+                    if st.button(t(lang, "conversion_resubmit"), key=f"retry_docx_pdf_{content_hash}"):
                         st.session_state.docx_pdf_job_id = submit_docx_to_pdf_job(raw_bytes)
                         st.session_state.docx_pdf_job_key = current_key
                         st.session_state.docx_pdf_file_hash = content_hash
@@ -397,18 +462,18 @@ with tool_page_tool2:
                 elif job.status == JOB_STATUS_DONE and job.result_bytes:
                     if st.session_state.file_type != "pdf":
                         st.session_state.check_results = None
-                        st.success("Conversion succeeded. Preview mode enabled.")
+                        st.success(t(lang, "conversion_success"))
                     st.session_state.file_bytes = job.result_bytes
                     st.session_state.file_type = "pdf"
                 elif job.status == JOB_STATUS_FAILED:
                     st.session_state.file_bytes = raw_bytes
                     st.session_state.file_type = "docx"
-                    st.error("Conversion timed out or failed (Word not responding). Switched back to text mode.")
+                    st.error(t(lang, "conversion_failed"))
                 elif job.status == JOB_STATUS_CANCELED:
                     st.session_state.file_bytes = raw_bytes
                     st.session_state.file_type = "docx"
-                    st.warning("Conversion canceled.")
-                    if st.button("Resubmit conversion", key=f"retry_canceled_docx_pdf_{content_hash}"):
+                    st.warning(t(lang, "conversion_canceled"))
+                    if st.button(t(lang, "conversion_resubmit"), key=f"retry_canceled_docx_pdf_{content_hash}"):
                         st.session_state.docx_pdf_job_id = submit_docx_to_pdf_job(raw_bytes)
                         st.session_state.docx_pdf_job_key = current_key
                         st.session_state.docx_pdf_file_hash = content_hash
@@ -423,8 +488,8 @@ with tool_page_tool2:
                 elif job.status == JOB_STATUS_QUEUED:
                     st.session_state.file_bytes = raw_bytes
                     st.session_state.file_type = "docx"
-                    st.info("Word conversion queued...")
-                    if st.button("Cancel conversion", key=f"cancel_docx_pdf_{active_job_id}"):
+                    st.info(t(lang, "conversion_queued"))
+                    if st.button(t(lang, "conversion_cancel"), key=f"cancel_docx_pdf_{active_job_id}"):
                         cancel_job(active_job_id)
                         try:
                             st.rerun()
@@ -438,8 +503,8 @@ with tool_page_tool2:
                 elif job.status == JOB_STATUS_RUNNING:
                     st.session_state.file_bytes = raw_bytes
                     st.session_state.file_type = "docx"
-                    st.info("Word conversion running...")
-                    if st.button("Cancel conversion", key=f"cancel_docx_pdf_{active_job_id}"):
+                    st.info(t(lang, "conversion_running"))
+                    if st.button(t(lang, "conversion_cancel"), key=f"cancel_docx_pdf_{active_job_id}"):
                         cancel_job(active_job_id)
                         try:
                             st.rerun()
@@ -467,7 +532,7 @@ with tool_page_tool2:
 
             if st.session_state.check_results is None:
                 try:
-                    with st.spinner("Analyzing citations..."):
+                    with st.spinner(t(lang, "analyzing")):
                         results, analysis_meta = run_file_analysis_with_reference_override(
                             file_bytes=file_bytes,
                             filename=st.session_state.filename,
@@ -477,43 +542,48 @@ with tool_page_tool2:
                         st.session_state.check_results = results
                         st.session_state.analysis_meta = analysis_meta
                 except ReferenceSectionNotFoundError as e:
-                    st.error(f"{e.message}")
+                    st.error(t(lang, "analysis_error_reference_section"))
+                    st.caption(t(lang, "error_detail_caption", detail=e.message))
                     st.stop()
                 except AppError as e:
-                    st.error(f"{e.message}")
+                    st.error(t(lang, "analysis_error_app", error=e.message))
                     st.stop()
                 except Exception as e:
-                    st.error(f"Analysis error: {e}")
+                    st.error(t(lang, "analysis_error", error=e))
                     st.stop()
 
         summary_df, matched_df, missing_df, uncited_df = st.session_state.check_results
         analysis_meta = st.session_state.get("analysis_meta") or {}
+        display_matched_df = localize_df_columns(matched_df, "matched", lang)
+        display_missing_df = localize_df_columns(missing_df, "missing", lang)
+        display_uncited_df = localize_df_columns(uncited_df, "uncited", lang)
 
         with metrics_container:
             col_m1, col_m2, col_m3 = st.columns(3)
-            col_m1.metric("Matched", len(matched_df))
-            col_m2.metric("Missing In-Text", len(missing_df), delta_color="inverse")
-            col_m3.metric("Uncited References", len(uncited_df), delta_color="inverse")
+            col_m1.metric(t(lang, "metric_matched"), len(matched_df))
+            col_m2.metric(t(lang, "metric_missing"), len(missing_df), delta_color="inverse")
+            col_m3.metric(t(lang, "metric_uncited"), len(uncited_df), delta_color="inverse")
 
             reference_source = analysis_meta.get("reference_source", "auto_extracted")
             reference_count = analysis_meta.get("reference_item_count", 0)
             if reference_source == "user_override":
-                st.caption(f"文獻來源：使用工具1整理後文獻列表（筆數={reference_count}）")
+                st.caption(t(lang, "source_caption_tool1", count=reference_count))
             else:
-                st.caption(f"文獻來源：文件自動抽取文獻列表（筆數={reference_count}）")
+                st.caption(t(lang, "source_caption_auto", count=reference_count))
 
             warning_text = (analysis_meta.get("warning") or "").strip()
             if warning_text:
-                st.warning(warning_text)
+                st.warning(t(lang, "warning_with_detail", detail=warning_text))
 
         preview_img = None
-        preview_caption = "👈 點擊左側表格行可預覽內容"
+        preview_caption = t(lang, "preview_default_hint")
+        waiting_for_selection = True
 
         with col_left:
             tab1, tab2, tab3 = st.tabs([
-                f"❌ 遺漏引用 ({len(missing_df)})",
-                f"⚠️ 未被引用 ({len(uncited_df)})",
-                f"✅ 成功配對 ({len(matched_df)})",
+                t(lang, "tab_missing", count=len(missing_df)),
+                t(lang, "tab_uncited", count=len(uncited_df)),
+                t(lang, "tab_matched", count=len(matched_df)),
             ])
 
             grid_height = 400
@@ -532,75 +602,81 @@ with tool_page_tool2:
                 return event
 
             with tab1:
-                st.caption("正文有引用，但參考文獻列表找不到。")
+                st.caption(t(lang, "missing_caption"))
                 if not missing_df.empty:
-                    evt = show_table(missing_df, "missing")
+                    evt = show_table(display_missing_df, "missing")
                     if evt.selection.rows:
                         row = missing_df.iloc[evt.selection.rows[0]]
                         if file_type == "pdf":
                             page_num = row.get("page", 1)
-                            preview_caption = f"遺漏引用 - Page {page_num}"
+                            preview_caption = t(lang, "missing_preview_caption", page=page_num)
                             preview_img = get_pdf_page_image(file_bytes, page_num, row.get("citation_raw", ""))
+                            waiting_for_selection = False
                 else:
-                    st.success("太棒了！沒有發現遺漏的引用。")
+                    st.success(t(lang, "missing_empty_success"))
 
             with tab2:
-                st.caption("出現在文獻列表，但正文未引用。")
+                st.caption(t(lang, "uncited_caption"))
                 if not uncited_df.empty:
-                    evt = show_table(uncited_df, "uncited")
+                    evt = show_table(display_uncited_df, "uncited")
                     if evt.selection.rows:
                         row = uncited_df.iloc[evt.selection.rows[0]]
                         if file_type == "pdf":
                             page_num = row.get("page", 1)
-                            preview_caption = f"未被引用 - Page {page_num}"
+                            preview_caption = t(lang, "uncited_preview_caption", page=page_num)
                             preview_img = get_pdf_page_image(file_bytes, page_num, row.get("參考文獻原文", ""))
+                            waiting_for_selection = False
                 else:
-                    st.success("完美！所有參考文獻都有被使用。")
+                    st.success(t(lang, "uncited_empty_success"))
 
             with tab3:
-                st.caption("配對成功的項目。")
+                st.caption(t(lang, "matched_caption"))
                 if not matched_df.empty:
-                    evt = show_table(matched_df, "matched")
+                    evt = show_table(display_matched_df, "matched")
                     if evt.selection.rows:
                         row = matched_df.iloc[evt.selection.rows[0]]
-                        view_mode = st.radio("預覽位置", ["正文引用", "參考文獻"], horizontal=True, label_visibility="collapsed")
+                        view_mode = st.radio(
+                            t(lang, "preview_mode_label"),
+                            options=["citation", "reference"],
+                            format_func=lambda value: t(lang, f"preview_mode_{value}"),
+                            horizontal=True,
+                            label_visibility="collapsed",
+                            key="preview_mode_selection",
+                        )
                         
                         if file_type == "pdf":
-                            if view_mode == "正文引用":
+                            if view_mode == "citation":
                                 page_num = row.get("page", 1)
                                 hl = row.get("citation_raw", "")
-                                preview_caption = f"正文 - Page {page_num}"
+                                preview_caption = t(lang, "preview_body_caption", page=page_num)
                             else:
                                 page_num = row.get("ref_page", 1)
                                 hl = row.get("ref_raw", "")
-                                preview_caption = f"文獻列表 - Page {page_num}"
+                                preview_caption = t(lang, "preview_reference_caption", page=page_num)
                             preview_img = get_pdf_page_image(file_bytes, page_num, hl)
+                            waiting_for_selection = False
                 else:
-                    st.info("尚未有配對結果。")
+                    st.info(t(lang, "matched_empty_info"))
 
         with col_right:
             if fitz is not None:
                 if file_type == "docx":
-                    st.warning("⚠️ Word 純文字模式不支援圖片預覽。請勾選上方選項啟用。")
-                    st.info("""
-                    💡 **關於轉檔模式的取捨：**
-                    * **優點 (Pros)**：可啟用視覺化預覽，程式會用紅框自動標示出引用的位置，人工核對更直覺。
-                    * **缺點 (Cons)**：需等待轉檔時間，且 PDF 的解析精準度通常略低於 Word 純文字模式（文字可能因排版而破碎或誤判）。
-                    """)
+                    st.warning(t(lang, "docx_preview_warning"))
+                    st.info(t(lang, "docx_preview_tradeoff"))
                 else:
                     st.info(preview_caption)
                     if preview_img:
                         st.image(preview_img, use_container_width=True)
-                    elif file_type == "pdf" and "點擊" in preview_caption:
-                        st.write("等待選取...")
+                    elif file_type == "pdf" and waiting_for_selection:
+                        st.write(t(lang, "preview_waiting"))
                     else:
-                        st.write("...")
+                        st.write(t(lang, "preview_placeholder"))
 
         st.markdown("---")
 
         st.download_button(
-            "📥 下載 Excel 完整報告",
-            build_excel_report_bytes(summary_df, matched_df, missing_df, uncited_df),
-            "citation_report.xlsx",
+            t(lang, "download_excel"),
+            build_excel_report_bytes(summary_df, matched_df, missing_df, uncited_df, language=lang),
+            t(lang, "excel_filename"),
             type="primary"
         )
