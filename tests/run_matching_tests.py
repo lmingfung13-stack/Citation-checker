@@ -72,6 +72,18 @@ def _safe_ratio(num: int, den: int) -> float:
     return num / den
 
 
+def _mean_or_none(values: list[float]) -> float | None:
+    if not values:
+        return None
+    return sum(values) / len(values)
+
+
+def _fmt_score(value: float | None, asserted: bool = True) -> str:
+    if not asserted or value is None:
+        return "n/a"
+    return f"{value:.4f}"
+
+
 def _compute_similarity(expected_keys: list[str], actual_keys: list[str]) -> dict:
     expected_set = set(expected_keys or [])
     actual_set = set(actual_keys or [])
@@ -1366,6 +1378,14 @@ def _write_report(results: list[dict], report_path: Path, version):
     passed = sum(1 for r in results if r["status"] == "passed")
     failed = sum(1 for r in results if r["status"] == "failed")
     skipped = sum(1 for r in results if r["status"] == "skipped")
+    active_total = sum(1 for r in results if r["status"] != "skipped")
+    level1_asserted_count = sum(1 for r in results if r["status"] != "skipped" and r["level1"].get("asserted", False))
+    level2_auto_asserted_count = sum(
+        1 for r in results if r["status"] != "skipped" and r["level2_auto"].get("asserted", False)
+    )
+    level2_manual_asserted_count = sum(
+        1 for r in results if r["status"] != "skipped" and r["level2_manual"].get("asserted", False)
+    )
 
     level1_fail_count = sum(1 for r in results if r["status"] != "skipped" and r["level1"]["status"] == "failed")
     level1_pass_count = sum(1 for r in results if r["status"] != "skipped" and r["level1"]["status"] == "passed")
@@ -1424,6 +1444,10 @@ def _write_report(results: list[dict], report_path: Path, version):
     lines.append(f"- passed: {passed}")
     lines.append(f"- failed: {failed}")
     lines.append(f"- skipped: {skipped}")
+    lines.append(f"- active_cases: {active_total}")
+    lines.append(f"- level1_asserted_cases: {level1_asserted_count}/{active_total}")
+    lines.append(f"- level2_auto_asserted_cases: {level2_auto_asserted_count}/{active_total}")
+    lines.append(f"- level2_manual_asserted_cases: {level2_manual_asserted_count}/{active_total}")
     lines.append(f"- level1_pass_count: {level1_pass_count}")
     lines.append(f"- level1_fail_count: {level1_fail_count}")
     lines.append(f"- level1_avg_f1: {_avg_metric('level1', 'f1')}")
@@ -1448,14 +1472,21 @@ def _write_report(results: list[dict], report_path: Path, version):
         if case["status"] == "skipped":
             lines.append(f"- {case['id']} {case['name']}: skipped ({case['reason']})")
             continue
+        l1 = case["level1"]
+        l2_auto = case["level2_auto"]
+        l2_manual = case["level2_manual"]
+        l1_sim = _fmt_score(l1.get("f1"), bool(l1.get("asserted", False)))
+        l1_count_sim = _fmt_score(l1.get("count_f1"), bool(l1.get("count_asserted", False)))
+        l2_auto_sim = _fmt_score(l2_auto.get("f1"), bool(l2_auto.get("asserted", False)))
+        l2_manual_sim = _fmt_score(l2_manual.get("f1"), bool(l2_manual.get("asserted", False)))
         lines.append(
             f"- {case['id']} {case['name']} | overall={case['status']} | "
-            f"L1={case['level1']['status']} (e={case['level1']['expected_count']}, a={case['level1']['actual_count']}, "
-            f"sim={case['level1']['f1']:.4f}, count={case['level1'].get('count_status', 'not_asserted')}:{case['level1'].get('count_f1', 1.0):.4f}) | "
-            f"L2-auto={case['level2_auto']['status']} (e={case['level2_auto']['expected_count']}, a={case['level2_auto']['actual_count']}, "
-            f"sim={case['level2_auto']['f1']:.4f}) | "
-            f"L2-manual={case['level2_manual']['status']} (e={case['level2_manual']['expected_count']}, a={case['level2_manual']['actual_count']}, "
-            f"sim={case['level2_manual']['f1']:.4f})"
+            f"L1={l1['status']} (e={l1['expected_count']}, a={l1['actual_count']}, "
+            f"sim={l1_sim}, count={l1.get('count_status', 'not_asserted')}:{l1_count_sim}) | "
+            f"L2-auto={l2_auto['status']} (e={l2_auto['expected_count']}, a={l2_auto['actual_count']}, "
+            f"sim={l2_auto_sim}) | "
+            f"L2-manual={l2_manual['status']} (e={l2_manual['expected_count']}, a={l2_manual['actual_count']}, "
+            f"sim={l2_manual_sim})"
         )
     lines.append("")
 
@@ -1556,6 +1587,7 @@ def _write_level1_report(results: list[dict], report_path: Path, version):
     now = datetime.now().astimezone().isoformat(timespec="seconds")
     total = len(results)
     skipped = sum(1 for r in results if r["status"] == "skipped")
+    active_total = sum(1 for r in results if r["status"] != "skipped")
     asserted = [r for r in results if r["status"] != "skipped" and r["level1"].get("asserted", False)]
     passed = sum(1 for r in asserted if r["level1"]["status"] == "passed")
     failed = sum(1 for r in asserted if r["level1"]["status"] == "failed")
@@ -1575,6 +1607,7 @@ def _write_level1_report(results: list[dict], report_path: Path, version):
     lines.append("")
     lines.append(f"- total_cases: {total}")
     lines.append(f"- asserted_cases: {len(asserted)}")
+    lines.append(f"- asserted_coverage: {len(asserted)}/{active_total}")
     lines.append(f"- passed: {passed}")
     lines.append(f"- failed: {failed}")
     lines.append(f"- skipped: {skipped}")
@@ -1591,13 +1624,15 @@ def _write_level1_report(results: list[dict], report_path: Path, version):
             lines.append(f"- {case['id']} {case['name']}: skipped ({case['reason']})")
             continue
         l1 = case["level1"]
+        l1_f1 = _fmt_score(l1.get("f1"), bool(l1.get("asserted", False)))
+        l1_count_f1 = _fmt_score(l1.get("count_f1"), bool(l1.get("count_asserted", False)))
         lines.append(
             f"- {case['id']} {case['name']}: {l1['status']} | "
             f"count(e/a/o)={l1['expected_count']}/{l1['actual_count']}/{l1['overlap_count']} | "
-            f"sim(p/r/f1/j)={l1['precision']:.4f}/{l1['recall']:.4f}/{l1['f1']:.4f}/{l1['jaccard']:.4f} | "
+            f"sim(p/r/f1/j)={l1['precision']:.4f}/{l1['recall']:.4f}/{l1_f1}/{l1['jaccard']:.4f} | "
             f"count_assert={l1.get('count_asserted', False)} "
             f"count(e/a/o)={l1.get('count_expected_total', 0)}/{l1.get('count_actual_total', 0)}/{l1.get('count_overlap_total', 0)} "
-            f"count_sim(p/r/f1)={l1.get('count_precision', 1.0):.4f}/{l1.get('count_recall', 1.0):.4f}/{l1.get('count_f1', 1.0):.4f}"
+            f"count_sim(p/r/f1)={l1.get('count_precision', 1.0):.4f}/{l1.get('count_recall', 1.0):.4f}/{l1_count_f1}"
         )
     lines.append("")
     lines.append("## Failures")
@@ -1651,16 +1686,17 @@ def _write_level2_report(results: list[dict], report_path: Path, version):
     def _avg_from_asserted(cases: list[dict], value_getter):
         vals = [value_getter(c) for c in cases]
         if not vals:
-            return 0.0
+            return None
         return sum(vals) / len(vals)
 
     now = datetime.now().astimezone().isoformat(timespec="seconds")
     total = len(results)
     skipped = sum(1 for r in results if r["status"] == "skipped")
+    active_total = sum(1 for r in results if r["status"] != "skipped")
     auto_asserted = [r for r in results if r["status"] != "skipped" and r["level2_auto"].get("asserted", False)]
     manual_asserted = [r for r in results if r["status"] != "skipped" and r["level2_manual"].get("asserted", False)]
-    auto_avg_f1 = (sum(r["level2_auto"]["f1"] for r in auto_asserted) / len(auto_asserted)) if auto_asserted else 0.0
-    manual_avg_f1 = (sum(r["level2_manual"]["f1"] for r in manual_asserted) / len(manual_asserted)) if manual_asserted else 0.0
+    auto_avg_f1 = _mean_or_none([r["level2_auto"]["f1"] for r in auto_asserted])
+    manual_avg_f1 = _mean_or_none([r["level2_manual"]["f1"] for r in manual_asserted])
 
     lines = []
     lines.append("# Tool2 Matching Level2 Report")
@@ -1672,33 +1708,36 @@ def _write_level2_report(results: list[dict], report_path: Path, version):
     lines.append("")
     lines.append(f"- total_cases: {total}")
     lines.append(f"- skipped: {skipped}")
+    lines.append(f"- active_cases: {active_total}")
     lines.append(f"- auto_asserted_cases: {len(auto_asserted)}")
+    lines.append(f"- auto_asserted_coverage: {len(auto_asserted)}/{active_total}")
     lines.append(f"- auto_passed: {sum(1 for r in auto_asserted if r['level2_auto']['status'] == 'passed')}")
     lines.append(f"- auto_failed: {sum(1 for r in auto_asserted if r['level2_auto']['status'] == 'failed')}")
-    lines.append(f"- auto_avg_f1: {auto_avg_f1:.4f}")
+    lines.append(f"- auto_avg_f1: {_fmt_score(auto_avg_f1)}")
     lines.append(f"- manual_asserted_cases: {len(manual_asserted)}")
+    lines.append(f"- manual_asserted_coverage: {len(manual_asserted)}/{active_total}")
     lines.append(f"- manual_passed: {sum(1 for r in manual_asserted if r['level2_manual']['status'] == 'passed')}")
     lines.append(f"- manual_failed: {sum(1 for r in manual_asserted if r['level2_manual']['status'] == 'failed')}")
-    lines.append(f"- manual_avg_f1: {manual_avg_f1:.4f}")
+    lines.append(f"- manual_avg_f1: {_fmt_score(manual_avg_f1)}")
     auto_pos_asserted = [r for r in auto_asserted if r["level2_auto"]["position"]["asserted"]]
     manual_pos_asserted = [r for r in manual_asserted if r["level2_manual"]["position"]["asserted"]]
     auto_parse_asserted = [r for r in auto_asserted if r["level2_auto"]["parsed_fields"]["asserted"]]
     manual_parse_asserted = [r for r in manual_asserted if r["level2_manual"]["parsed_fields"]["asserted"]]
     lines.append(f"- auto_position_asserted_cases: {len(auto_pos_asserted)}")
     lines.append(
-        f"- auto_position_avg_f1: {_avg_from_asserted(auto_pos_asserted, lambda x: x['level2_auto']['position']['f1']):.4f}"
+        f"- auto_position_avg_f1: {_fmt_score(_avg_from_asserted(auto_pos_asserted, lambda x: x['level2_auto']['position']['f1']))}"
     )
     lines.append(f"- auto_parsed_asserted_cases: {len(auto_parse_asserted)}")
     lines.append(
-        f"- auto_parsed_avg_field_accuracy: {_avg_from_asserted(auto_parse_asserted, lambda x: x['level2_auto']['parsed_fields']['field_accuracy']):.4f}"
+        f"- auto_parsed_avg_field_accuracy: {_fmt_score(_avg_from_asserted(auto_parse_asserted, lambda x: x['level2_auto']['parsed_fields']['field_accuracy']))}"
     )
     lines.append(f"- manual_position_asserted_cases: {len(manual_pos_asserted)}")
     lines.append(
-        f"- manual_position_avg_f1: {_avg_from_asserted(manual_pos_asserted, lambda x: x['level2_manual']['position']['f1']):.4f}"
+        f"- manual_position_avg_f1: {_fmt_score(_avg_from_asserted(manual_pos_asserted, lambda x: x['level2_manual']['position']['f1']))}"
     )
     lines.append(f"- manual_parsed_asserted_cases: {len(manual_parse_asserted)}")
     lines.append(
-        f"- manual_parsed_avg_field_accuracy: {_avg_from_asserted(manual_parse_asserted, lambda x: x['level2_manual']['parsed_fields']['field_accuracy']):.4f}"
+        f"- manual_parsed_avg_field_accuracy: {_fmt_score(_avg_from_asserted(manual_parse_asserted, lambda x: x['level2_manual']['parsed_fields']['field_accuracy']))}"
     )
     lines.append("")
     lines.append("## Case Results")
@@ -1709,15 +1748,25 @@ def _write_level2_report(results: list[dict], report_path: Path, version):
             continue
         a = case["level2_auto"]
         m = case["level2_manual"]
+        a_key_p = _fmt_score(a.get("precision"), bool(a.get("asserted", False)))
+        a_key_r = _fmt_score(a.get("recall"), bool(a.get("asserted", False)))
+        a_key = _fmt_score(a.get("f1"), bool(a.get("asserted", False)))
+        a_pos = _fmt_score(a["position"].get("f1"), bool(a["position"].get("asserted", False)))
+        a_parse = _fmt_score(a["parsed_fields"].get("field_accuracy"), bool(a["parsed_fields"].get("asserted", False)))
+        m_key_p = _fmt_score(m.get("precision"), bool(m.get("asserted", False)))
+        m_key_r = _fmt_score(m.get("recall"), bool(m.get("asserted", False)))
+        m_key = _fmt_score(m.get("f1"), bool(m.get("asserted", False)))
+        m_pos = _fmt_score(m["position"].get("f1"), bool(m["position"].get("asserted", False)))
+        m_parse = _fmt_score(m["parsed_fields"].get("field_accuracy"), bool(m["parsed_fields"].get("asserted", False)))
         lines.append(
             f"- {case['id']} {case['name']} | "
-            f"auto={a['status']} key(p/r/f1)={a['precision']:.4f}/{a['recall']:.4f}/{a['f1']:.4f} "
-            f"pos={a['position']['status']}({a['position']['matched_count']}/{a['position']['expected_count']},f1={a['position']['f1']:.4f}) "
-            f"parse={a['parsed_fields']['status']}(fields={a['parsed_fields']['matched_fields']}/{a['parsed_fields']['expected_fields']},acc={a['parsed_fields']['field_accuracy']:.4f}) "
+            f"auto={a['status']} key(p/r/f1)={a_key_p}/{a_key_r}/{a_key} "
+            f"pos={a['position']['status']}({a['position']['matched_count']}/{a['position']['expected_count']},f1={a_pos}) "
+            f"parse={a['parsed_fields']['status']}(fields={a['parsed_fields']['matched_fields']}/{a['parsed_fields']['expected_fields']},acc={a_parse}) "
             f"coverage(source)={a['parse_coverage'].get('source_detected_count', 0)}/{a['parse_coverage']['total_items']} | "
-            f"manual={m['status']} key(p/r/f1)={m['precision']:.4f}/{m['recall']:.4f}/{m['f1']:.4f} "
-            f"pos={m['position']['status']}({m['position']['matched_count']}/{m['position']['expected_count']},f1={m['position']['f1']:.4f}) "
-            f"parse={m['parsed_fields']['status']}(fields={m['parsed_fields']['matched_fields']}/{m['parsed_fields']['expected_fields']},acc={m['parsed_fields']['field_accuracy']:.4f}) "
+            f"manual={m['status']} key(p/r/f1)={m_key_p}/{m_key_r}/{m_key} "
+            f"pos={m['position']['status']}({m['position']['matched_count']}/{m['position']['expected_count']},f1={m_pos}) "
+            f"parse={m['parsed_fields']['status']}(fields={m['parsed_fields']['matched_fields']}/{m['parsed_fields']['expected_fields']},acc={m_parse}) "
             f"coverage(source)={m['parse_coverage'].get('source_detected_count', 0)}/{m['parse_coverage']['total_items']}"
         )
     lines.append("")
@@ -1789,7 +1838,7 @@ def _write_level3_report(results: list[dict], report_path: Path, version):
     report_path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
-def _load_layer_expected(path: Path, label: str) -> tuple[dict, list[str]]:
+def _load_layer_expected(path: Path, label: str, expected_version: int | None = None) -> tuple[dict, list[str]]:
     warnings = []
     if not path.exists():
         warnings.append(f"{label}: expected file not found ({path})")
@@ -1804,6 +1853,9 @@ def _load_layer_expected(path: Path, label: str) -> tuple[dict, list[str]]:
     if not isinstance(payload, dict):
         warnings.append(f"{label}: invalid expected format (must be object)")
         return {}, warnings
+    payload_version = payload.get("version")
+    if expected_version is not None and payload_version != expected_version:
+        warnings.append(f"{label}: expected file version={expected_version}, got {payload_version}")
 
     cases_obj = payload.get("cases", {})
     out = {}
@@ -1901,9 +1953,9 @@ def main() -> int:
         print("Invalid cases format: 'cases' must be a list")
         return 1
 
-    level1_map, level1_warnings = _load_layer_expected(LEVEL1_EXPECTED_PATH, "level1")
-    level2_map, level2_warnings = _load_layer_expected(LEVEL2_EXPECTED_PATH, "level2")
-    level3_map, level3_warnings = _load_layer_expected(LEVEL3_EXPECTED_PATH, "level3")
+    level1_map, level1_warnings = _load_layer_expected(LEVEL1_EXPECTED_PATH, "level1", expected_version=2)
+    level2_map, level2_warnings = _load_layer_expected(LEVEL2_EXPECTED_PATH, "level2", expected_version=2)
+    level3_map, level3_warnings = _load_layer_expected(LEVEL3_EXPECTED_PATH, "level3", expected_version=2)
     for warn in [*level1_warnings, *level2_warnings, *level3_warnings]:
         print(f"[WARN] {warn}")
 

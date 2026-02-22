@@ -534,6 +534,77 @@ def is_valid_english_author(name: str) -> bool:
     if len(name.split()) > 5: return False
     return any(c.isupper() for c in name)
 
+
+def is_obvious_non_author_parenthetical_en(text: str) -> bool:
+    t = normalize_text(text or "")
+    if not t:
+        return True
+
+    low = t.lower()
+    if any(sym in t for sym in ["=", "%", "/", "\\"]):
+        return True
+
+    non_author_prefixes = (
+        "table ",
+        "figure ",
+        "fig. ",
+        "fig ",
+        "model ",
+        "equation ",
+        "eq. ",
+        "eq ",
+        "chapter ",
+        "section ",
+        "appendix ",
+        "panel ",
+        "column ",
+        "row ",
+        "using ",
+    )
+    if low.startswith(non_author_prefixes):
+        return True
+
+    # Numeric-heavy analytical phrases are usually not author names.
+    if any(ch.isdigit() for ch in t):
+        hint_words = ("table", "figure", "fig", "model", "equation", "eq", "chapter", "section", "using", "after", "before", "than")
+        if any(hw in low for hw in hint_words):
+            return True
+
+    return False
+
+
+def is_plausible_citation_year_token(year_token: str) -> bool:
+    y = normalize_text(year_token or "").lower()
+    if not y:
+        return False
+    if any(tok in y for tok in ["n.d", "no date", "in press", "印刷中", "未刊"]):
+        return True
+    m = re.search(r"([12]\d{3})", y)
+    if not m:
+        return False
+    year_int = int(m.group(1))
+    return 1800 <= year_int <= 2100
+
+
+def is_obvious_non_author_numeric_fragment(text: str) -> bool:
+    t = normalize_text(text or "")
+    if not t:
+        return True
+
+    if any(sym in t for sym in ["=", "<", ">", "%", "±"]):
+        return True
+
+    if re.fullmatch(r"[-+]?\d+(?:\.\d+)?", t):
+        return True
+    if re.fullmatch(r"[-+]?\d+\.", t):
+        return True
+
+    has_name_chars = bool(re.search(r"[A-Za-z\u4e00-\u9fff]", t))
+    if not has_name_chars and any(ch.isdigit() for ch in t):
+        return True
+
+    return False
+
 def fix_sticky_year_spacing(text: str) -> str:
     return re.sub(r"([a-zA-Z,，\.])([12]\d{3})", r"\1 \2", text)
 
@@ -608,6 +679,7 @@ def extract_intext_citations(paragraphs: List[DocParagraph], known_refs: List[Re
         for m in en_outside_author_year_re.finditer(p_norm):
             raw_a1 = m.group(1).strip()
             a1 = clean_english_author_prefix(raw_a1)
+            if is_obvious_non_author_parenthetical_en(a1): continue
             if not is_valid_english_author(a1): continue
             found_ranges.add((i, m.start(), m.end()))
             a2 = m.group(2).strip() if m.group(2) else None
@@ -647,9 +719,12 @@ def extract_intext_citations(paragraphs: List[DocParagraph], known_refs: List[Re
                 m = seg_year_re.match(seg)
                 if not m: continue
                 auth_part, year = m.group(1).strip(), m.group(2)
+                if not is_plausible_citation_year_token(year): continue
+                if is_obvious_non_author_numeric_fragment(auth_part): continue
                 
                 if is_english_author_token(auth_part):
                     auth_part = clean_english_author_prefix(auth_part)
+                    if is_obvious_non_author_parenthetical_en(auth_part): continue
                     if not is_valid_english_author(auth_part): continue
                     found_ranges.add((i, m_group.start(), m_group.end()))
                     

@@ -17,7 +17,10 @@ from services.reference_service import (
     safe_normalize_reference_text,
     split_reference_items,
 )
-from services.analysis_service import run_file_analysis_with_reference_override
+from services.analysis_service import (
+    ANALYSIS_ENGINE_VERSION,
+    run_file_analysis_with_reference_override,
+)
 from services.export_service import build_excel_report_bytes
 from utils.chinese_sort import load_stroke_map, chinese_stroke_sort_key
 from services.job_service import (
@@ -340,7 +343,7 @@ with tool_page_tool2:
         )
 
         content_hash = hashlib.sha256(raw_bytes).hexdigest()
-        current_key = f"{uploaded.name}_{use_conversion}_{content_hash}_{override_signature}"
+        current_key = f"{uploaded.name}_{use_conversion}_{content_hash}_{override_signature}_{ANALYSIS_ENGINE_VERSION}"
 
         with status_container:
             conversion_pending = False

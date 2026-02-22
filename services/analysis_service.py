@@ -23,6 +23,7 @@ _ANALYSIS_CACHE_CAP = 3
 _ANALYSIS_CACHE = OrderedDict()
 _ANALYSIS_CACHE_LOCK = Lock()
 _LOGGER = get_logger("analysis_service")
+ANALYSIS_ENGINE_VERSION = "2026-02-22-citation-filter-v1"
 
 SUMMARY_COL_BODY_PARAGRAPHS = "正文段落數"
 SUMMARY_COL_REFERENCE_ITEMS = "參考文獻項目數"
@@ -40,7 +41,7 @@ def _build_analysis_cache_key(
 ):
     file_hash = hashlib.sha256(file_bytes).hexdigest()
     filename_key = (filename or "").strip()
-    return file_hash, resolved_file_type, filename_key, override_signature
+    return file_hash, resolved_file_type, filename_key, override_signature, ANALYSIS_ENGINE_VERSION
 
 
 def _get_cached_analysis(key):
